@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -13,6 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * @author lemmh
  *
  */
+@Configuration
 public class DbConfig {
 	@Autowired Environment env;
 
@@ -26,3 +28,10 @@ public class DbConfig {
 	    return dataSource;
 	}
 }
+/*
+@Configuration
+@Profile("sqlite")
+@PropertySource("classpath:application.properties")
+class SqliteConfig {
+}
+*/
