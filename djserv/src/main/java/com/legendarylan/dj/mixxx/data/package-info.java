@@ -5,4 +5,4 @@
  * @author lemmh
  *
  */
-package com.legendarylan.mixxx.data;
+package com.legendarylan.dj.mixxx.data;

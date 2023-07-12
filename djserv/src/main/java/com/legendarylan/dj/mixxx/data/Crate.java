@@ -1,27 +1,21 @@
 /**
  * 
  */
-package com.legendarylan.mixxx.data;
+package com.legendarylan.dj.mixxx.data;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * @author lemmh
  *
  */
-/*
 @Entity
-public record Crate(int id, String name, int count, int show, int locked, int autodj_source) {
-
-}
-*/
-
-@Entity
+@Table(name = "crates")
 public class Crate {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

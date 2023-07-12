@@ -1,13 +1,12 @@
-package com.legendarylan.dj;
+package com.legendarylan.dj.mixxx.data;
 
 import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.legendarylan.mixxx.data.Crate;
-
-//@RepositoryRestResource(collectionResourceRel="crates", path="crates")
+@RepositoryRestResource(collectionResourceRel="crates", path="crates")
 public interface CrateRepository extends PagingAndSortingRepository<Crate, Long> {
 	List<Crate> findByName(@Param("name") String name);
 }
