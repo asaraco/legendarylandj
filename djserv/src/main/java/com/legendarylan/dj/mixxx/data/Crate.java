@@ -30,56 +30,29 @@ public class Crate {
 	
 	private int autodj_source;
 	
-	/**
-	 * Auto-generated Getters & Setters
-	 * @return
-	 */
+	/* Auto-generated Getters	 */
 
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public int getCount() {
 		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	public int getShow() {
 		return show;
 	}
 
-	public void setShow(int show) {
-		this.show = show;
-	}
-
 	public int getLocked() {
 		return locked;
 	}
 
-	public void setLocked(int locked) {
-		this.locked = locked;
-	}
-
 	public int getAutodj_source() {
 		return autodj_source;
-	}
-
-	public void setAutodj_source(int autodj_source) {
-		this.autodj_source = autodj_source;
 	}
 }
