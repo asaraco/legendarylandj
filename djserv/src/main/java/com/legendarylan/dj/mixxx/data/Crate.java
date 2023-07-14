@@ -30,7 +30,8 @@ public class Crate {
 	
 	private int autodj_source;
 	
-	/* Auto-generated Getters	 */
+	/* Auto-generated Getters	 
+	 * (Setters omitted because this will be read-only)	*/
 
 	public int getId() {
 		return id;

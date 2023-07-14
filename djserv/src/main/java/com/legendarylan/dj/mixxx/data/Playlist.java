@@ -28,7 +28,8 @@ public class Playlist {
 	
 	private int locked;
 	
-	/* Auto-generated Getters */
+	/* Auto-generated Getters	 
+	 * (Setters omitted because this will be read-only)	*/
 
 	public int getId() {
 		return id;
