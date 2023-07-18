@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -26,7 +28,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "library")
-public class LibraryTrack {
+public class Track {
 	
 	/* Omitted:
 	 * bitrate				(integer)
@@ -106,6 +108,10 @@ public class LibraryTrack {
 	private String album_artist;
 	
 	private LocalDateTime last_played_at;
+	
+	/* Relationship mappings */
+	@ManyToMany(mappedBy = "tracks")
+	private List<Playlist> playlists;
 	
 	/* Auto-generated Getters & Setters
 	 * (some Setters removed for read-only)	*/

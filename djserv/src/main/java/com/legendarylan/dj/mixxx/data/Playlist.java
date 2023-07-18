@@ -1,11 +1,16 @@
 package com.legendarylan.dj.mixxx.data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +32,14 @@ public class Playlist {
 	private LocalDateTime date_modified;
 	
 	private int locked;
+	
+	/* Relationship mappings */
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "PlaylistTracks",
+	  joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
+	  inverseJoinColumns = @JoinColumn(name = "track_id", referencedColumnName = "id"))
+	private List<Track> tracks;
 	
 	/* Auto-generated Getters	 
 	 * (Setters omitted because this will be read-only)	*/
