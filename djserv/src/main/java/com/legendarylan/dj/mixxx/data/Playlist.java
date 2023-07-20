@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 public class Playlist {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	
 	private String name;
@@ -70,5 +70,9 @@ public class Playlist {
 
 	public int getLocked() {
 		return locked;
+	}
+
+	public List<Track> getTracks() {
+		return tracks;
 	}
 }

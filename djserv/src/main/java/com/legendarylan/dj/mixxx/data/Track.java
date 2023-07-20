@@ -1,14 +1,7 @@
 package com.legendarylan.dj.mixxx.data;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,7 +57,7 @@ public class Track {
 	 */
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	
 	private String artist;
@@ -112,6 +105,9 @@ public class Track {
 	/* Relationship mappings */
 	@ManyToMany(mappedBy = "tracks")
 	private List<Playlist> playlists;
+	
+	@ManyToMany(mappedBy = "tracks")
+	private List<Crate> crates;
 	
 	/* Auto-generated Getters & Setters
 	 * (some Setters removed for read-only)	*/
