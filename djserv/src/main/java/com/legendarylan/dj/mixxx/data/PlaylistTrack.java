@@ -10,8 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "PlaylistTracks")
-public class PlaylistTrack {
-	
+public class PlaylistTrack {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -23,6 +22,26 @@ public class PlaylistTrack {
 	private int position;
 	
 	private LocalDateTime pl_datetime_added;
+	
+	/**
+	 * Required default no-arg constructor
+	 */
+	public PlaylistTrack() {
+		
+	}
+	
+	/**
+	 * Custom constructor
+	 * @param pid
+	 * @param tid
+	 * @param pos
+	 */
+	public PlaylistTrack(int pid, int tid, int pos) {
+		this.playlist_id = pid;
+		this.track_id = tid;
+		this.position = pos;
+		this.pl_datetime_added = LocalDateTime.now();
+	}
 	
 	/* Auto-generated Getters & Setters */
 
