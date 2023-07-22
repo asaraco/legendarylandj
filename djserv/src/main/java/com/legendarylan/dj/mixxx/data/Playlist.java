@@ -27,9 +27,9 @@ public class Playlist {
 	
 	private int hidden;
 	
-	private LocalDateTime date_created;
+	private LocalDateTime dateCreated;
 	
-	private LocalDateTime date_modified;
+	private LocalDateTime dateModified;
 	
 	private int locked;
 	
@@ -37,8 +37,8 @@ public class Playlist {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PlaylistTracks",
-	  joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
-	  inverseJoinColumns = @JoinColumn(name = "track_id", referencedColumnName = "id"))
+	  joinColumns = @JoinColumn(name = "playlistId", referencedColumnName = "id"),
+	  inverseJoinColumns = @JoinColumn(name = "trackId", referencedColumnName = "id"))
 	private List<Track> tracks;
 	
 	/* Auto-generated Getters	 
@@ -60,12 +60,12 @@ public class Playlist {
 		return hidden;
 	}
 
-	public LocalDateTime getDate_created() {
-		return date_created;
+	public LocalDateTime getDateCreated() {
+		return dateCreated;
 	}
 
-	public LocalDateTime getDate_modified() {
-		return date_modified;
+	public LocalDateTime getDateModified() {
+		return dateModified;
 	}
 
 	public int getLocked() {

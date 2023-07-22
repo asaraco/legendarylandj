@@ -10,4 +10,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel="playlists", path="playlists")
 public interface PlaylistRepository extends CrudRepository<Playlist, Long> {
 	List<Playlist> findByName(@Param("name") String name);
+	Playlist findTopByOrderByIdDesc();	// determine maximum playlist ID #
 }

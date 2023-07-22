@@ -1,6 +1,7 @@
 package com.legendarylan.dj.mixxx.data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,20 +9,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// NOTE: This is the only table in the Mixxx database that uses CamelCase instead of snake_case,
+// 		 as it is actually named "PlaylistTracks", but fortunately the @Table annotation is not case-sensitive,
+//		 so I was able to just not capitalize the second "T" and it works.
+//		 Another option is to set this application property: spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+//		 but that messes with some other Spring stuff that automatically assumes snake_case.
 @Entity
-@Table(name = "PlaylistTracks")
+@Table(name = "Playlisttracks")
 public class PlaylistTrack {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int playlist_id;
+	private int playlistId;
 	
-	private int track_id;
+	private int trackId;
 	
 	private int position;
 	
-	private LocalDateTime pl_datetime_added;
+	private String plDatetimeAdded;
 	
 	/**
 	 * Required default no-arg constructor
@@ -37,28 +43,28 @@ public class PlaylistTrack {
 	 * @param pos
 	 */
 	public PlaylistTrack(int pid, int tid, int pos) {
-		this.playlist_id = pid;
-		this.track_id = tid;
+		this.playlistId = pid;
+		this.trackId = tid;
 		this.position = pos;
-		this.pl_datetime_added = LocalDateTime.now();
+		this.plDatetimeAdded = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 	
 	/* Auto-generated Getters & Setters */
 
-	public int getPlaylist_id() {
-		return playlist_id;
+	public int getPlaylistId() {
+		return playlistId;
 	}
 
-	public void setPlaylist_id(int playlist_id) {
-		this.playlist_id = playlist_id;
+	public void setPlaylistd(int playlistId) {
+		this.playlistId = playlistId;
 	}
 
-	public int getTrack_id() {
-		return track_id;
+	public int getTrackId() {
+		return trackId;
 	}
 
-	public void setTrack_id(int track_id) {
-		this.track_id = track_id;
+	public void setTrackId(int trackId) {
+		this.trackId = trackId;
 	}
 
 	public int getPosition() {
@@ -69,12 +75,12 @@ public class PlaylistTrack {
 		this.position = position;
 	}
 
-	public LocalDateTime getPl_datetime_added() {
-		return pl_datetime_added;
+	public String getPlDatetimeAdded() {
+		return plDatetimeAdded;
 	}
 
-	public void setPl_datetime_added(LocalDateTime pl_datetime_added) {
-		this.pl_datetime_added = pl_datetime_added;
+	public void setPlDatetimeAdded(String plDatetimeAdded) {
+		this.plDatetimeAdded = plDatetimeAdded;
 	}
 
 	public int getId() {

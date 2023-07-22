@@ -34,14 +34,14 @@ public class Crate {
 	
 	private int locked;
 	
-	private int autodj_source;
+	private int autodjSource;
 	
 	/* Relationship mappings */
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "crate_tracks",
-	  joinColumns = @JoinColumn(name = "crate_id", referencedColumnName = "id"),
-	  inverseJoinColumns = @JoinColumn(name = "track_id", referencedColumnName = "id"))
+	@JoinTable(name = "crateTracks",
+	  joinColumns = @JoinColumn(name = "crateId", referencedColumnName = "id"),
+	  inverseJoinColumns = @JoinColumn(name = "trackId", referencedColumnName = "id"))
 	private List<Track> tracks;
 	
 	/* Auto-generated Getters & Setters
@@ -67,11 +67,11 @@ public class Crate {
 		return locked;
 	}
 
-	public int getAutodj_source() {
-		return autodj_source;
+	public int getAutodjSource() {
+		return autodjSource;
 	}
 	
-	public void setAutodj_source(int i) {
-		this.autodj_source = i;
+	public void setAutodjSource(int i) {
+		this.autodjSource = i;
 	}
 }

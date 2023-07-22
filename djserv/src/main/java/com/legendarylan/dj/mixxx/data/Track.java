@@ -83,12 +83,12 @@ public class Track {
 	private float bpm;
 	
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.nnn'Z'")
-	//private OffsetDateTime datetime_added;
+	//private OffsetDateTime datetimeAdded;
 	/**
 	 * AMS 7/14/2023 - It seems SQLite has some issues with date formats. I'm leaving this as a String for now.
 	 * If there's a need to handle it as an actual OffsetDateTime, just do some conversion, I suppose.
 	 */
-	private String datetime_added;
+	private String datetimeAdded;
 	
 	private int played;
 	
@@ -98,9 +98,9 @@ public class Track {
 	
 	private String composer;
 	
-	private String album_artist;
+	private String albumArtist;
 	
-	private LocalDateTime last_played_at;
+	private LocalDateTime lastPlayedAt;
 	
 	/* Relationship mappings */
 	@ManyToMany(mappedBy = "tracks")
@@ -204,15 +204,15 @@ public class Track {
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.nnn'Z'")
 	/*
 	public OffsetDateTime getDatetime_added() {
-		return datetime_added;
+		return datetimeAdded;
 	}
 	*/
 	
-	public String getDateTime_added() {
-		return datetime_added;
+	public String getDateTimeAdded() {
+		return datetimeAdded;
 	}
 
-	//public void setDatetime_added(OffsetDateTime datetime_added) {		this.datetime_added = datetime_added;	}
+	//public void setDatetime_added(OffsetDateTime datetimeAdded) {		this.datetime_added = datetimeAdded;	}
 
 	public int getPlayed() {
 		return played;
@@ -246,20 +246,20 @@ public class Track {
 		this.composer = composer;
 	}
 
-	public String getAlbum_artist() {
-		return album_artist;
+	public String getAlbumArtist() {
+		return albumArtist;
 	}
 
-	public void setAlbum_artist(String album_artist) {
-		this.album_artist = album_artist;
+	public void setAlbumArtist(String album_artist) {
+		this.albumArtist = album_artist;
 	}
 
-	public LocalDateTime getLast_played_at() {
-		return last_played_at;
+	public LocalDateTime getLastPlayedAt() {
+		return lastPlayedAt;
 	}
 
-	public void setLast_played_at(LocalDateTime last_played_at) {
-		this.last_played_at = last_played_at;
+	public void setLastPlayedAt(LocalDateTime last_played_at) {
+		this.lastPlayedAt = last_played_at;
 	}
 
 }
