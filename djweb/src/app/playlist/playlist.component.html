@@ -1,6 +1,6 @@
 <p>playlist works!</p>
-<p>Playlist: {{playlist.name}}</p>
+<p>Playlist #{{playlist.id}}: {{playlist.name}}</p>
 <p>Tracks:</p>
 <ol>
-    <li *ngFor="let track of playlist.tracks">{{track.artist}} - {{track.title}}</li>
+    <li *ngFor="let track of playlist.tracks; index as i; first as isFirst">{{track.artist}} - {{track.title}}</li>
 </ol>
