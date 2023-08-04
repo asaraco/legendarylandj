@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TrackComponent } from './track/track.component';
+import { PlaylistTrackComponent } from './playlist-track/playlist-track.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlaylistComponent,
-    TrackComponent
+    TrackComponent,
+    PlaylistTrackComponent
   ],
   imports: [
     BrowserModule,

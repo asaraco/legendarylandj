@@ -14,7 +14,11 @@ export class PlaylistDataService {
     private http: HttpClient 
     ) { }
 
-  retrievePlaylist(id: number): Observable<Playlist> {
-    return this.http.get<Playlist>(`${API_URL}/playlists/${id}?projection=playlistSimple`);
+  /* AMS - I don't like using "any" as the type instead of "Playlist", but due to using JPA/HAL
+  the JSON response is not just a Playlist, it also has an "_embedded" wrapper
+  for the playlistTracks array, and other generated stuff. So a bit more manual handling is needed. */
+  retrievePlaylist(id: number): Observable<any> {
+    //return this.http.get<Playlist>(`${API_URL}/playlists/${id}?projection=playlistSimple`);
+    return this.http.get<Playlist>(`${API_URL}/playlists/${id}`);
   }
 }
