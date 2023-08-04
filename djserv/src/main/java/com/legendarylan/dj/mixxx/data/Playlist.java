@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,11 +36,16 @@ public class Playlist {
 	
 	/* Relationship mappings */
 	
+	/*
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PlaylistTracks",
 	  joinColumns = @JoinColumn(name = "playlistId", referencedColumnName = "id"),
 	  inverseJoinColumns = @JoinColumn(name = "trackId", referencedColumnName = "id"))
 	private List<Track> tracks;
+	*/
+	
+	@OneToMany(mappedBy = "playlist")
+	private List<PlaylistTrack> playlistTracks;
 	
 	/* Auto-generated Getters	 
 	 * (Setters omitted because this will be read-only)	*/
@@ -72,7 +78,14 @@ public class Playlist {
 		return locked;
 	}
 
+	/*
 	public List<Track> getTracks() {
 		return tracks;
 	}
+	*/
+	/*
+	public List<PlaylistTrack> getPlaylistTracks() {
+		return tracks;
+	}
+	*/
 }

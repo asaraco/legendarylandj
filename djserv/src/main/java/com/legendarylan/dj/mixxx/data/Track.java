@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -103,8 +104,12 @@ public class Track {
 	private LocalDateTime lastPlayedAt;
 	
 	/* Relationship mappings */
+	/*
 	@ManyToMany(mappedBy = "tracks")
 	private List<Playlist> playlists;
+	*/
+	@OneToMany(mappedBy = "track")
+	private List<PlaylistTrack> playlistTracks;
 	
 	@ManyToMany(mappedBy = "tracks")
 	private List<Crate> crates;

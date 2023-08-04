@@ -3,10 +3,13 @@ package com.legendarylan.dj.mixxx.data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 // NOTE: This is the only table in the Mixxx database that uses CamelCase instead of snake_case,
@@ -21,13 +24,23 @@ public class PlaylistTrack {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int playlistId;
+	//private int playlistId;
 	
-	private int trackId;
+	//private int trackId;
 	
 	private int position;
 	
 	private String plDatetimeAdded;
+	
+	/* Relationship mappings */
+	
+	@ManyToOne
+	@JoinColumn(name = "playlistId")
+	private Playlist playlist;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "trackId")
+	private Track track;
 	
 	/**
 	 * Required default no-arg constructor
@@ -43,14 +56,14 @@ public class PlaylistTrack {
 	 * @param pos
 	 */
 	public PlaylistTrack(int pid, int tid, int pos) {
-		this.playlistId = pid;
-		this.trackId = tid;
+		//this.playlistId = pid;
+		//this.trackId = tid;
 		this.position = pos;
 		this.plDatetimeAdded = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 	
 	/* Auto-generated Getters & Setters */
-
+	/*
 	public int getPlaylistId() {
 		return playlistId;
 	}
@@ -66,7 +79,7 @@ public class PlaylistTrack {
 	public void setTrackId(int trackId) {
 		this.trackId = trackId;
 	}
-
+	*/
 	public int getPosition() {
 		return position;
 	}
@@ -85,6 +98,14 @@ public class PlaylistTrack {
 
 	public int getId() {
 		return id;
+	}
+	
+	public Track getTrack() {
+		return track;
+	}
+	
+	public Playlist getPlaylist() {
+		return playlist;
 	}
 	
 }
