@@ -1,2 +1,20 @@
-<p>app works!</p>
-<router-outlet></router-outlet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+<section id="headerSection">
+    <div id="headerBar"><h1>Legendary Radio</h1></div>
+</section>
+
+<section id="mainSection">
+    <section class="subSection">
+        <app-playlist [playlist]="autoDjPlaylist"></app-playlist>
+    </section>
+    <section class="subSection">
+        <router-outlet></router-outlet>
+    </section>
+    <section class="subSection" id="recentlyPlayed">
+        <app-playlist [playlist]="mostRecentPlaylist"></app-playlist>
+    </section>
+</section> 

@@ -21,4 +21,12 @@ export class PlaylistDataService {
     //return this.http.get<Playlist>(`${API_URL}/playlists/${id}?projection=playlistSimple`);
     return this.http.get<Playlist>(`${API_URL}/playlists/${id}`);
   }
+
+  retrieveMostRecentPlaylist(): Observable<any> {
+    return this.http.get<Playlist>(`${API_URL}/playlists/search/findTopByOrderByIdDesc`);
+  }
+
+  retrieveHighestPlaylistTrack(id: number): Observable<Track> {
+    return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
+  }
 }
