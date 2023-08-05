@@ -1,6 +1,6 @@
 <p>playlist works!</p>
 <p>Playlist #{{id}}: {{playlist.name}}</p>
 <p>Tracks:</p>
-<ul>
-    <li *ngFor="let pt of playlist.playlistTracks; index as i; first as isFirst">{{pt.position}}. {{pt.track.artist}} - {{pt.track.title}}</li>
-</ul>
+<div *ngFor="let pt of playlist.playlistTracks.slice().reverse()">
+    <app-playlist-track [playlistTrack]="pt"></app-playlist-track>
+</div>
