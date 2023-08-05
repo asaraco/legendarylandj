@@ -11,4 +11,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface PlaylistTrackRepository extends CrudRepository<PlaylistTrack, Long> {
 	PlaylistTrack findFirstByPlaylistIdOrderByPositionDesc(int playlistId);	// determines highest "position" value in specified playlist
 	List<PlaylistTrack> findByPlaylistId(int playlistId);
+	List<PlaylistTrack> findAllByPlaylistIdOrderByPositionAsc(int playlistId);
 }
