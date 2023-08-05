@@ -45,8 +45,11 @@ public class Playlist {
 	private List<Track> tracks;
 	*/
 	
+	// AMS 8/5/2023 - I pretty much always want playlists in descending order,
+	//				  i.e. start with most recent song played, scroll down if you want to see more.
+	//				  Reversing playlists on the fly in Angular is possible, but can be expensive & unreliable.
 	@OneToMany(mappedBy = "playlist")
-	@OrderBy("position ASC")
+	@OrderBy("position DESC")
 	private List<PlaylistTrack> playlistTracks;
 	
 	/* Auto-generated Getters	 
