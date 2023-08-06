@@ -9,12 +9,15 @@
 
 <section id="mainSection">
     <section class="subSection">
-        <app-playlist [playlist]="autoDjPlaylist"></app-playlist>
+        <div>
+            Placeholder stuff
+        </div>
     </section>
     <section class="subSection">
         <router-outlet></router-outlet>
     </section>
-    <section class="subSection" id="recentlyPlayed">
-        <app-playlist [playlist]="mostRecentPlaylist"></app-playlist>
+    <section class="subSection" id="playHistory">
+        <app-playlist [playlist]="autoDjPlaylist"></app-playlist>
+        <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
     </section>
 </section> 

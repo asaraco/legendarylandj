@@ -6,3 +6,13 @@ body {
     font-size: 62.5%;
     font-family: Roboto, 'Open Sans', Arial;
 }
+
+#pRecent {
+    color: #888;
+    .playlistDiv {
+        div:first-child {
+            color: black;
+            font-weight: bold;
+        }
+    }
+}

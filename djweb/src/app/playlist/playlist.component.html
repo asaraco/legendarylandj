@@ -1,7 +1,5 @@
 <div class="playlistDiv">
-    <h2>{{playlist.name}}</h2>
-    <p>Tracks:</p>
-    <div *ngFor="let pt of playlist.playlistTracks">
+    <div *ngFor="let pt of playlist.playlistTracks; first as isFirst">
         <app-playlist-track [playlistTrack]="pt"></app-playlist-track>
     </div>
 </div>
