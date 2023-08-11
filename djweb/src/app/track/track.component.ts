@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 export class Track {
   artist: string = "";
   title: string = "";
   album: string = "";
+  duration: number = 0;
   constructor() {}
   sanitizeArtist() {
     if (!this.artist) return "------";
@@ -19,15 +19,8 @@ export class Track {
 })
 export class TrackComponent implements OnInit {
   id: number = 0;
-  @Input() track: any;
-  //track!: Track;
-  constructor(private playlistDataService: PlaylistDataService){}
+  track!: Track;
+  constructor(){}
   ngOnInit(): void {
-    if (this.track==null) {
-      this.track = new Track();
-      this.track.artist = "------";
-      this.track.title = "------";
-      this.track.album = "------";
-    }
   }
 }

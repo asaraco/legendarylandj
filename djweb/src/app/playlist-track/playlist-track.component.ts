@@ -18,4 +18,12 @@ export class PlaylistTrackComponent {
   @Input() playlistTrack: any;
   //playlistTrack!: PlaylistTrack;
   constructor(private playlistDataService: PlaylistDataService){}
+  ngOnInit(): void {
+    if (this.playlistTrack.track==null) {
+      this.playlistTrack.track = new Track();
+      this.playlistTrack.track.artist = "------";
+      this.playlistTrack.track.title = "------";
+      this.playlistTrack.track.album = "------";
+    }
+  }
 }

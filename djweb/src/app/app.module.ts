@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { TrackComponent } from './track/track.component';
 import { PlaylistTrackComponent } from './playlist-track/playlist-track.component';
+import { CrateComponent } from './crate/crate.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlaylistComponent,
     TrackComponent,
-    PlaylistTrackComponent
+    PlaylistTrackComponent,
+    CrateComponent
   ],
   imports: [
     BrowserModule,

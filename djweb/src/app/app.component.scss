@@ -3,10 +3,20 @@ section#headerSection {
         font-family: 'Roboto Condensed', 'Roboto', Arial;
     text-transform: uppercase;
     }
+    background-color: #aaf;
 }
 section#mainSection {
     display: flex;
+    background-color: #aaa;
 }
+
+section#browseData {
+    background-color: #faf;
+    min-width: 30%; /* Probably will get rid of this later */
+}
+
 section#playHistory {
     padding: 1em;
+    background-color: #ffa;
+    min-width: 30%; /* Probably will get rid of this later */
 }

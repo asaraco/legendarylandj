@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlaylistComponent } from './playlist/playlist.component';
+import { CrateComponent } from './crate/crate.component';
 
 const routes: Routes = [
-  //{ path: 'viewPlaylist/:id', component: PlaylistComponent }
+  { path: 'browseCrate/:id', component: CrateComponent }
 ];
 
 @NgModule({
