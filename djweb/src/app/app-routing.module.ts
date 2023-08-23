@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrateComponent } from './crate/crate.component';
+import { LibraryComponent } from './library/library.component';
 
 const routes: Routes = [
-  { path: 'browseCrate/:id', component: CrateComponent }
+  { path: 'browseCrate/:id', component: CrateComponent },
+  { path: 'artistsBy/:ch', component: LibraryComponent }
 ];
 
 @NgModule({

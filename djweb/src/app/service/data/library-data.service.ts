@@ -1,0 +1,21 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { API_URL } from 'src/app/app.constants';
+import { Track } from 'src/app/track/track.component';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LibraryDataService {
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  /* AMS - I don't like using "any" as the type instead of "Track[]", but due to using JPA/HAL
+  the JSON response has an "_embedded" wrapper for the tracks array */
+  retrieveTracksByArtistStartingWith(ch: string): Observable<any> {
+    return this.http.get<Track[]>(`${API_URL}/tracks/search/findByArtistStartingWith?ch=${ch}`)
+  }
+}

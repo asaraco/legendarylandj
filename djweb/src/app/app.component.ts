@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistDataService } from './service/data/playlist-data.service';
 import { Playlist } from './playlist/playlist.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   autoDjPlaylist: Playlist = new Playlist();
 
   constructor(
+    private router: Router,
     private playlistDataService: PlaylistDataService
     ){}
 
@@ -31,5 +33,9 @@ export class AppComponent implements OnInit {
       this.autoDjPlaylist.name = data.name;
       this.autoDjPlaylist.playlistTracks = data._embedded.playlistTracks;
     });
+  }
+  
+  artistsBy(ch: string) {
+    this.router.navigate(['artistsBy/', ch]);
   }
 }

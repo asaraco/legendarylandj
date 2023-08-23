@@ -1,4 +1,7 @@
 <h2>{{crate.name}}</h2>
 <div *ngFor="let t of crate.tracks; first as isFirst">
-    {{t.artist}} - {{t.title}}
+    <span class="track">
+        <span class="tMain">{{t.artist}} - {{t.title}}</span>
+        <span class="tDuration">({{t.duration * 1000 | date:'mm:ss'}})</span>
+    </span>
 </div>

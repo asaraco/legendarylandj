@@ -7,6 +7,8 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { TrackComponent } from './track/track.component';
 import { PlaylistTrackComponent } from './playlist-track/playlist-track.component';
 import { CrateComponent } from './crate/crate.component';
+import { LibraryComponent } from './library/library.component';
+import { GroupByPipe } from './group-by.pipe';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { CrateComponent } from './crate/crate.component';
     PlaylistComponent,
     TrackComponent,
     PlaylistTrackComponent,
-    CrateComponent
+    CrateComponent,
+    LibraryComponent,
+    GroupByPipe
   ],
   imports: [
     BrowserModule,
