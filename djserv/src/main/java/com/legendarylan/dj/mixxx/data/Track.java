@@ -1,6 +1,7 @@
 package com.legendarylan.dj.mixxx.data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -265,6 +266,14 @@ public class Track {
 
 	public void setLastPlayedAt(LocalDateTime last_played_at) {
 		this.lastPlayedAt = last_played_at;
+	}
+	
+	public ArrayList<Integer> getCrateIds() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		for (Crate c : crates) {
+			ids.add((Integer)(c.getId()));
+		}		
+		return ids;
 	}
 
 }
