@@ -7,6 +7,20 @@ body {
     font-family: Roboto, 'Open Sans', Arial;
 }
 
+table {
+    width: 100%;
+    tr:nth-child(odd) {
+        background-color: rgba(1, 1, 1, 0.1);
+    }
+    td {
+        padding: 0.2em;
+    }
+    td.tdHeading {
+        font-size: 1.25em;
+        font-weight: bold;
+    }
+}
+
 #pRecent {
     color: #888;
     .playlistDiv {

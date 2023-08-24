@@ -12,11 +12,33 @@ section#mainSection {
 
 section#browseData {
     background-color: #faf;
-    min-width: 30%; /* Probably will get rid of this later */
+    min-width: 75%; /* Probably will get rid of this later */
 }
 
 section#playHistory {
     padding: 1em;
     background-color: #ffa;
-    min-width: 30%; /* Probably will get rid of this later */
+}
+
+#artistLetters {
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: bold;
+    background-color: black;
+    button {
+        border: none;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        color: #777;
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+    button:hover {
+        color: #ff7;
+    }
+    button:hover + button {
+        color: #aa7;
+    }
+    button:has(+ button:hover) {
+        color: #aa7;
+    }
 }

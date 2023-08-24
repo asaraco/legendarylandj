@@ -5,6 +5,7 @@ export class Track {
   title: string = "";
   album: string = "";
   duration: number = 0;
+  crateIds!: number[];
   constructor() {}
   sanitizeArtist() {
     if (!this.artist) return "------";

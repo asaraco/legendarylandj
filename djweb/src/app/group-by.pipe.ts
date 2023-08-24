@@ -1,4 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { CRATES_HIDDEN } from './app.constants';
+import { Track } from './track/track.component';
 
 /**
  * Custom "group by" pipe transform to emulate Angular 1 behavior
@@ -12,11 +14,25 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GroupByPipe implements PipeTransform {
 
-  transform(data: any, groupField: string): any {
+  //transform(data: any, groupField: string): any {
+  transform(data: Track[], groupField: string): any {
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
     if (data) {
-      var groupedData = data.reduce((result: any, cur: any) => {
+      var filteredTracks: Track[] = new Array<Track>();
+      data.forEach(t => {
+        var hide = false;
+        CRATES_HIDDEN.forEach(x => {
+          if(t.crateIds.includes(x)) {
+            hide = true;
+          }
+        });
+        if (!hide) {
+          filteredTracks.push(t);
+        }
+      });
+      //var groupedData = data.reduce((result: any, cur: any) => {
+      var groupedData = filteredTracks.reduce((result: any, cur: any) => {
         (result[cur[groupField]] = result[cur[groupField]] || []).push(cur);
         return result;
       }, {});

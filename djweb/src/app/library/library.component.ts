@@ -2,17 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-
-/** Classes used to organize retrieved data */
-
-export class TrackGroup {
-  groupName!: string;
-  tracks!: Track[];
-
-  constructor(name: string) {
-    this.groupName = name;
-  }
-}
+import { CRATES_HIDDEN } from '../app.constants';
 
 /** Main component code */
 
@@ -23,8 +13,8 @@ export class TrackGroup {
 })
 export class LibraryComponent implements OnInit {
   tracks!: Track[];
+  filteredTracks!: Track[];
   startsWith: string = "";
-  trackGroups!: TrackGroup[];
 
   constructor(
     private libraryDataService: LibraryDataService,
@@ -44,6 +34,16 @@ export class LibraryComponent implements OnInit {
         }
       })
       */
-    })
+     if(this.tracks) {
+        this.tracks.forEach(t => {
+          CRATES_HIDDEN.forEach(x => {
+            if(!t.crateIds.includes(x)) {
+              this.filteredTracks.push(t);
+            }
+          })
+        });
+     }
+    });
+    
   }
 }

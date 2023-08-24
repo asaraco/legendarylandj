@@ -1,10 +1,13 @@
 <h2>Artists starting with {{startsWith}}</h2>
-<div *ngFor="let artistGroup of tracks | groupBy: 'artist' ">
-    <h2>{{artistGroup.group}}</h2>
-    <div *ngFor="let t of artistGroup.items">
-        <span class="track">
-            <span class="tMain">{{t.artist}} - {{t.title}}</span>
-            <span class="tDuration">({{t.duration * 1000 | date:'mm:ss'}})</span>
-        </span>
-    </div>
-</div>
+<table class="libraryTable">
+    <ng-container *ngFor="let artistGroup of tracks | groupBy: 'artist' ">
+        <tr>
+            <td class="tdHeading" colspan="3">{{artistGroup.group}}</td>
+        </tr>
+        <tr *ngFor="let t of artistGroup.items">
+            <td class="title">{{t.title}}</td>
+            <td class="album">{{t.album}}</td>
+            <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
+        </tr>
+    </ng-container>
+</table>

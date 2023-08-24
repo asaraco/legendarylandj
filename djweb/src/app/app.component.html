@@ -1,20 +1,15 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
 <section id="headerSection">
     <div id="headerBar"><h1>Legendary Radio</h1></div>
 </section>
 
 <section id="mainSection">
-    <section class="subSection">
-        <div>
-            <button type="button" (click)="artistsBy('a')">A</button>
+    <section class="subSection" id="browseWrapper">
+        <div id="artistLetters">
+            <button *ngFor="let x of alphabet" type="button" (click)="artistsBy(x)">{{x}}</button>
         </div>
-    </section>
-    <section class="subSection" id="browseData">
-        <router-outlet></router-outlet>
+        <div id="browseData">
+            <router-outlet></router-outlet>
+        </div>
     </section>
     <section class="subSection" id="playHistory">
         <app-playlist [playlist]="autoDjPlaylist"></app-playlist>
