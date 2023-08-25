@@ -1,0 +1,18 @@
+package com.legendarylan.dj.mixxx.data;
+
+import java.util.ArrayList;
+
+import org.springframework.data.rest.core.config.Projection;
+
+@Projection(name = "trackSimple",
+			types = {Track.class}	)
+public interface TrackSimple {
+	int getId();
+	String getArtist();
+	String getTitle();
+	String getAlbum();
+	String getYear();
+	float getDuration();
+	String getAlbumArtist();
+	ArrayList<Integer> getCrateIds();
+}
