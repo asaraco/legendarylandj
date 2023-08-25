@@ -18,4 +18,7 @@ export class LibraryDataService {
   retrieveTracksByArtistStartingWith(ch: string): Observable<any> {
     return this.http.get<Track[]>(`${API_URL}/tracks/search/findByArtistStartingWith?ch=${ch}`)
   }
+  retrieveAllTracks(): Observable<any> {
+    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByOrderByArtistAsc`)
+  }
 }

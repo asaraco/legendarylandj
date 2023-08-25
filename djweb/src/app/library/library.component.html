@@ -1,6 +1,6 @@
 <h2>Artists starting with {{startsWith}}</h2>
 <table class="libraryTable">
-    <ng-container *ngFor="let artistGroup of tracks | groupBy: 'artist' ">
+    <ng-container *ngFor="let artistGroup of tracks | hideCrates | groupBy: 'artist' ">
         <tr>
             <td class="tdHeading" colspan="3">{{artistGroup.group}}</td>
         </tr>

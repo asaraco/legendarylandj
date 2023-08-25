@@ -4,6 +4,9 @@
 
 <section id="mainSection">
     <section class="subSection" id="browseWrapper">
+        <div>
+            <button type="button" (click)="browseAll()">All Tracks</button>
+        </div>
         <div id="artistLetters">
             <button *ngFor="let x of alphabet" type="button" (click)="artistsBy(x)">{{x}}</button>
         </div>

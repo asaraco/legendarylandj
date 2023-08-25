@@ -5,7 +5,8 @@ import { LibraryComponent } from './library/library.component';
 
 const routes: Routes = [
   { path: 'browseCrate/:id', component: CrateComponent },
-  { path: 'artistsBy/:ch', component: LibraryComponent }
+  { path: 'artistsBy/:ch', component: LibraryComponent },
+  { path: 'browseAll', component: LibraryComponent }
 ];
 
 @NgModule({

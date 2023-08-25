@@ -39,4 +39,8 @@ export class AppComponent implements OnInit {
   artistsBy(ch: string) {
     this.router.navigate(['artistsBy/', ch]);
   }
+
+  browseAll() {
+    this.router.navigate(['browseAll']);
+  }
 }

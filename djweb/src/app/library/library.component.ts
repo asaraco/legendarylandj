@@ -13,7 +13,6 @@ import { CRATES_HIDDEN } from '../app.constants';
 })
 export class LibraryComponent implements OnInit {
   tracks!: Track[];
-  filteredTracks!: Track[];
   startsWith: string = "";
 
   constructor(
@@ -25,24 +24,13 @@ export class LibraryComponent implements OnInit {
     var tempName: string = "";
 
     this.route.params.subscribe( (data) => {
-      this.startsWith = data['ch'];
-      this.libraryDataService.retrieveTracksByArtistStartingWith(this.startsWith).subscribe(data => this.tracks = data._embedded.tracks);
-      /*
-      this.tracks.forEach(function(track) {
-        if (track.artist != tempName) {
-          this.trackGroups.add(new TrackGroup(tempName));
-        }
-      })
-      */
-     if(this.tracks) {
-        this.tracks.forEach(t => {
-          CRATES_HIDDEN.forEach(x => {
-            if(!t.crateIds.includes(x)) {
-              this.filteredTracks.push(t);
-            }
-          })
-        });
-     }
+      if (data['ch']) {
+        this.startsWith = data['ch'];
+        this.libraryDataService.retrieveTracksByArtistStartingWith(this.startsWith).subscribe(data => this.tracks = data._embedded.tracks);
+      } else {
+        this.libraryDataService.retrieveAllTracks().subscribe(data => this.tracks = data._embedded.tracks);
+      }
+      
     });
     
   }
