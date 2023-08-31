@@ -10,6 +10,7 @@ import { CrateComponent } from './crate/crate.component';
 import { LibraryComponent } from './library/library.component';
 import { GroupByPipe } from './group-by.pipe';
 import { HideCratesPipe } from './hide-crates.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { HideCratesPipe } from './hide-crates.pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

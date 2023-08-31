@@ -4,6 +4,7 @@ export class Track {
   artist: string = "";
   title: string = "";
   album: string = "";
+  albumArtist: string = "";
   duration: number = 0;
   crateIds!: number[];
   constructor() {}
