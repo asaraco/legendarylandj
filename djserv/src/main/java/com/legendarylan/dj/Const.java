@@ -8,5 +8,7 @@ package com.legendarylan.dj;
 public class Const {
 
 	public static final int PLAYLIST_AUTO_DJ = 1;
+	
+	public static final String LOCALHOST_IP = "192.168.0.182";
 
 }

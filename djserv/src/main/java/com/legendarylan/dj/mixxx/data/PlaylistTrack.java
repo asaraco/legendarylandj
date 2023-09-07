@@ -3,7 +3,8 @@ package com.legendarylan.dj.mixxx.data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,21 +25,19 @@ public class PlaylistTrack {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	//private int playlistId;
-	
-	//private int trackId;
-	
 	private int position;
 	
 	private String plDatetimeAdded;
 	
 	/* Relationship mappings */
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "playlistId")
 	private Playlist playlist;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne
 	@JoinColumn(name = "trackId")
 	private Track track;
 	
@@ -51,13 +50,13 @@ public class PlaylistTrack {
 	
 	/**
 	 * Custom constructor
-	 * @param pid
-	 * @param tid
+	 * @param playlist
+	 * @param track
 	 * @param pos
 	 */
-	public PlaylistTrack(int pid, int tid, int pos) {
-		//this.playlistId = pid;
-		//this.trackId = tid;
+	public PlaylistTrack(Playlist playlist, Track track, int pos) {
+		this.playlist = playlist;
+		this.track = track;
 		this.position = pos;
 		this.plDatetimeAdded = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
@@ -100,10 +99,12 @@ public class PlaylistTrack {
 		return id;
 	}
 	
+	@JsonIgnore
 	public Track getTrack() {
 		return track;
 	}
 	
+	@JsonIgnore
 	public Playlist getPlaylist() {
 		return playlist;
 	}

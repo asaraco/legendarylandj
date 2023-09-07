@@ -5,8 +5,13 @@ package com.legendarylan.dj.mixxx.data;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,10 +43,12 @@ public class Crate {
 	
 	/* Relationship mappings */
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "crateTracks",
 	  joinColumns = @JoinColumn(name = "crateId", referencedColumnName = "id"),
 	  inverseJoinColumns = @JoinColumn(name = "trackId", referencedColumnName = "id"))
+	//@JsonIgnoreProperties("crates")
 	private List<Track> tracks;
 	
 	/* Auto-generated Getters & Setters

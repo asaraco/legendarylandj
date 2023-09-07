@@ -3,8 +3,13 @@ package com.legendarylan.dj.mixxx.data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,8 +53,11 @@ public class Playlist {
 	// AMS 8/5/2023 - I pretty much always want playlists in descending order,
 	//				  i.e. start with most recent song played, scroll down if you want to see more.
 	//				  Reversing playlists on the fly in Angular is possible, but can be expensive & unreliable.
-	@OneToMany(mappedBy = "playlist")
+	@JsonIgnore
+	@OneToMany(	mappedBy = "playlist",
+				fetch = FetchType.LAZY)
 	@OrderBy("position DESC")
+	//@JsonIgnoreProperties("track")
 	private List<PlaylistTrack> playlistTracks;
 	
 	/* Auto-generated Getters	 
@@ -88,9 +96,9 @@ public class Playlist {
 		return tracks;
 	}
 	*/
-	/*
+	@JsonIgnore
 	public List<PlaylistTrack> getPlaylistTracks() {
-		return tracks;
+		return playlistTracks;
 	}
-	*/
+	
 }

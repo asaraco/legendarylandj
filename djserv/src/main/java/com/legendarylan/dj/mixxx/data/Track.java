@@ -4,7 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +28,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "library")
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"playlistTracks"})
 public class Track {
 	
 	/* Omitted:
@@ -105,14 +111,15 @@ public class Track {
 	private LocalDateTime lastPlayedAt;
 	
 	/* Relationship mappings */
-	/*
-	@ManyToMany(mappedBy = "tracks")
-	private List<Playlist> playlists;
-	*/
-	@OneToMany(mappedBy = "track")
+	
+	@JsonIgnoreProperties("track")
+	@OneToMany(	mappedBy = "track",
+				fetch = FetchType.LAZY)
 	private List<PlaylistTrack> playlistTracks;
 	
-	@ManyToMany(mappedBy = "tracks")
+	@JsonIgnoreProperties("tracks")
+	@ManyToMany(mappedBy = "tracks",
+				fetch = FetchType.LAZY)
 	private List<Crate> crates;
 	
 	/* Auto-generated Getters & Setters
@@ -156,6 +163,7 @@ public class Track {
 		this.year = year;
 	}
 
+	@JsonIgnore
 	public String getGenre() {
 		return genre;
 	}
@@ -178,6 +186,7 @@ public class Track {
 
 	//public void setLocation(int location) {		this.location = location;	}
 
+	@JsonIgnore
 	public String getComment() {
 		return comment;
 	}
@@ -187,6 +196,7 @@ public class Track {
 	}
 
 	//NOTE: Not actually sure what this does. Might be legacy.
+	@JsonIgnore
 	public String getUrl() {
 		return url;
 	}
