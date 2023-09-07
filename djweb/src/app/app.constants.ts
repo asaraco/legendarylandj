@@ -1,4 +1,5 @@
-export const API_URL = "http://localhost:8080";
+//export const API_URL = "http://localhost:8080";
+export const API_URL = "http://192.168.0.182:8080";
 
 /* Crate IDs */
 export const CRATE_INSTRUMENTALS = 2;

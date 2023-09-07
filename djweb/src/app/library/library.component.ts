@@ -5,6 +5,7 @@ import { LibraryDataService } from '../service/data/library-data.service';
 import { CRATES_HIDDEN } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 /** Main component code */
 
@@ -22,6 +23,7 @@ export class LibraryComponent implements OnInit {
 
   constructor(
     private libraryDataService: LibraryDataService,
+    private playlistDataService: PlaylistDataService,
     private route: ActivatedRoute
   ){}
 
@@ -76,5 +78,10 @@ export class LibraryComponent implements OnInit {
     }
 
     return friendlyText;
+  }
+
+  requestSong(id: number) {
+    console.log("Request song #" + id);
+    this.playlistDataService.requestTrack(id);
   }
 }

@@ -29,4 +29,13 @@ export class PlaylistDataService {
   retrieveHighestPlaylistTrack(id: number): Observable<Track> {
     return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
   }
+
+  requestTrack(id: number) {
+    console.log("I'm doing a POST with id " +id);
+    var responseMsg: String;
+    this.http.post<String>(`${API_URL}/requestSong?id=${id}`, null).subscribe(data => { 
+      responseMsg = data;
+      console.log(responseMsg);
+    });
+  }
 }
