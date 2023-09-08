@@ -30,12 +30,10 @@ export class PlaylistDataService {
     return this.http.get<Track>(`${API_URL}playlistTracks/search/findFirstByPlaylistIdOrderByPositionDesc?playlistId=${id}`);
   }
 
-  requestTrack(id: number) {
-    console.log("I'm doing a POST with id " +id);
-    var responseMsg: String;
-    this.http.post<String>(`${API_URL}/requestSong?id=${id}`, null).subscribe(data => { 
-      responseMsg = data;
-      console.log(responseMsg);
-    });
+  requestTrack(id: number): Observable<string> {
+    //console.log("I'm doing a POST with id " +id);
+    var responseMsg: string;
+    //this.http.post<String>(`${API_URL}/requestSong?id=${id}`, null).subscribe(data => { 
+    return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);
   }
 }

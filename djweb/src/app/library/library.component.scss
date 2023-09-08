@@ -5,3 +5,22 @@ table.libraryTable {
     background-color: #555;
     color: #999;
 }
+td.request {
+    span {
+        display: none;
+        color: red;
+    }
+}
+td.request.requested {
+    button {
+        display: none;
+    }
+    span {
+        display: block;
+    }
+}
+td.request.unRequestable {
+    button {
+        display: none;
+    }
+}

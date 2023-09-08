@@ -20,6 +20,7 @@ export class LibraryComponent implements OnInit {
   startsWith: string = "";
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
+  justRequested: number = -1;
 
   constructor(
     private libraryDataService: LibraryDataService,
@@ -81,7 +82,12 @@ export class LibraryComponent implements OnInit {
   }
 
   requestSong(id: number) {
-    console.log("Request song #" + id);
-    this.playlistDataService.requestTrack(id);
+    //console.log("Request song #" + id);
+    var resultMsg: string;
+    this.playlistDataService.requestTrack(id).subscribe(data => {
+      resultMsg = data;
+      //console.log(resultMsg);
+      this.justRequested = id;
+    });
   }
 }
