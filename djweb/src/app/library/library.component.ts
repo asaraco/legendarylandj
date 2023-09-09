@@ -21,6 +21,7 @@ export class LibraryComponent implements OnInit {
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
   justRequested: number = -1;
+  requestInterval: any;
 
   constructor(
     private libraryDataService: LibraryDataService,
@@ -81,13 +82,19 @@ export class LibraryComponent implements OnInit {
     return friendlyText;
   }
 
-  requestSong(id: number) {
+  requestSong(id: number, duration: number) {
     //console.log("Request song #" + id);
     var resultMsg: string;
     this.playlistDataService.requestTrack(id).subscribe(data => {
       resultMsg = data;
       //console.log(resultMsg);
       this.justRequested = id;
+      this.requestInterval = setInterval(() => this.reqTimeout(), duration * 100);
     });
+  }
+
+  reqTimeout() {
+    this.justRequested = -1;
+    clearInterval(this.requestInterval);
   }
 }
