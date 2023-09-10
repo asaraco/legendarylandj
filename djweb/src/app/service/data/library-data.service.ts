@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_URL } from 'src/app/app.constants';
+import { API_URL, CRATES_HIDDEN } from 'src/app/app.constants';
 import { Track } from 'src/app/track/track.component';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class LibraryDataService {
     return this.http.get<Track[]>(`${API_URL}/tracks/search/findByArtistStartingWith?ch=${ch}`)
   }
   retrieveAllTracks(): Observable<any> {
-    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByOrderByArtistAsc`)
+    //return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByOrderByArtistAsc`)
+    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIdNotIn?crateids=${CRATES_HIDDEN}`)
   }
 }

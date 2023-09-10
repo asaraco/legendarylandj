@@ -46,6 +46,7 @@ export class LibraryComponent implements OnInit {
           data => { 
                     this.tracks = data._embedded.tracks;
                     this.filteredTracks = this.searchControl.valueChanges.pipe(startWith(''), map(value => this._filter(value)));
+                    console.log("Results: " + this.tracks.length);
                   }
         );
       }
