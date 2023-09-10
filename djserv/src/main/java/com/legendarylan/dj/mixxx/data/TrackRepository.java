@@ -18,4 +18,5 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 	List<Track> findByArtist(@Param("artist") String artist);
 	List<Track> findByArtistStartingWith(@Param("ch") String character);
 	List<Track> findAllByOrderByArtistAsc();
+	List<Track> findAllByCratesIdNotIn(@Param("crateids") int[] crateids);
 }
