@@ -20,6 +20,6 @@ export class LibraryDataService {
   }
   retrieveAllTracks(): Observable<any> {
     //return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByOrderByArtistAsc`)
-    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIdNotIn?crateids=${CRATES_HIDDEN}`)
+    return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderByArtistAsc?crateids=${CRATES_HIDDEN}`)
   }
 }
