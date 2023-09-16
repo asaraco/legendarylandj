@@ -14,13 +14,34 @@ import { Track } from './track/track.component';
 })
 export class GroupByPipe implements PipeTransform {
 
-  transform(data: any, groupField: string): any {
+  transform(data: any, groupByField: string): any {
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
     if (data) {
-      var groupedData = data.reduce((result: any, cur: any) => {
-        (result[cur[groupField]] = result[cur[groupField]] || []).push(cur);
-        return result;
+      // Acting on input "data" (JSON), traverse each "current item"
+      // and store it in "existing group" if comparison checks out
+      var groupedData = data.reduce((existingGroups: any, currentItem: any) => {
+        //(existingGroup[currentItem[groupByField]] = existingGroup[currentItem[groupByField]] || []).push(currentItem);
+        //console.log("-------------------------------------------------------------------");
+        //console.log("currentItem = " + JSON.stringify(currentItem) + "\n - " + currentItem[groupByField]);
+        if (currentItem[groupByField] == null) {
+          currentItem[groupByField] = "no artist";
+        }
+        //console.log("currentItem now = " + JSON.stringify(currentItem) + "\n - " + currentItem[groupByField]);
+        
+        if (existingGroups[currentItem[groupByField].toUpperCase()]) { // "If the existing groups contain a group label that matches current item's value for the 'groupBy' field..."
+          //console.log("if existingGroup[currentItem[groupByField]]");
+          //existingField = existingGroups[currentItem[groupByField].toLowerCase()];
+          existingGroups[currentItem[groupByField].toUpperCase()].push(currentItem);
+        } else if (existingGroups[currentItem['albumArtist']] && existingGroups[currentItem['albumArtist'].toUpperCase()]) {
+          existingGroups[currentItem['albumArtist'].toUpperCase()].push(currentItem);
+        } else {
+          //console.log("else");
+          //existingField = currentItem[groupByField].toLowerCase();
+          existingGroups[currentItem[groupByField].toUpperCase()] = [currentItem];
+        }
+        
+        return existingGroups;
       }, {});
       return Object.keys(groupedData).map(group => ({ group, items: groupedData[group]}));
     }    
