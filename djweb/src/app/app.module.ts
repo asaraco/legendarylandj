@@ -8,7 +8,7 @@ import { TrackComponent } from './track/track.component';
 import { PlaylistTrackComponent } from './playlist-track/playlist-track.component';
 import { CrateComponent } from './crate/crate.component';
 import { LibraryComponent } from './library/library.component';
-import { GroupByPipe } from './group-by.pipe';
+import { GroupByArtistPipe } from './group-by-artist.pipe';
 import { HideCratesPipe } from './hide-crates.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PlaylistTrackComponent,
     CrateComponent,
     LibraryComponent,
-    GroupByPipe,
+    GroupByArtistPipe,
     HideCratesPipe
   ],
   imports: [

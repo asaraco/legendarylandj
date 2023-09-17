@@ -10,11 +10,12 @@ import { Track } from './track/track.component';
  */
 
 @Pipe({
-  name: 'groupBy'
+  name: 'groupByArtist'
 })
-export class GroupByPipe implements PipeTransform {
+export class GroupByArtistPipe implements PipeTransform {
 
-  transform(data: any, groupByField: string): any {
+  transform(data: any): any {
+    let groupByField = 'artist';
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
     if (data) {
