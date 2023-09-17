@@ -21,23 +21,18 @@ export class GroupByPipe implements PipeTransform {
       // Acting on input "data" (JSON), traverse each "current item"
       // and store it in "existing group" if comparison checks out
       var groupedData = data.reduce((existingGroups: any, currentItem: any) => {
-        //(existingGroup[currentItem[groupByField]] = existingGroup[currentItem[groupByField]] || []).push(currentItem);
-        //console.log("-------------------------------------------------------------------");
-        //console.log("currentItem = " + JSON.stringify(currentItem) + "\n - " + currentItem[groupByField]);
         if (currentItem[groupByField] == null) {
           currentItem[groupByField] = "no artist";
-        }
-        //console.log("currentItem now = " + JSON.stringify(currentItem) + "\n - " + currentItem[groupByField]);
-        
-        if (existingGroups[currentItem[groupByField].toUpperCase()]) { // "If the existing groups contain a group label that matches current item's value for the 'groupBy' field..."
-          //console.log("if existingGroup[currentItem[groupByField]]");
-          //existingField = existingGroups[currentItem[groupByField].toLowerCase()];
-          existingGroups[currentItem[groupByField].toUpperCase()].push(currentItem);
-        } else if (existingGroups[currentItem['albumArtist']] && existingGroups[currentItem['albumArtist'].toUpperCase()]) {
+        } 
+
+        // Check if current item has an "album artist" field value, and if so, store in temp field (with case conversion)
+        let currentAlbumArtist = currentItem['albumArtist'] ? currentItem['albumArtist'].toUpperCase() : null;
+        // "If the existing groups contain a group label that matches current item's value for the 'groupBy' field..."
+        if (currentAlbumArtist && existingGroups[currentAlbumArtist]) {
           existingGroups[currentItem['albumArtist'].toUpperCase()].push(currentItem);
+        } else if (existingGroups[currentItem[groupByField].toUpperCase()]) {
+          existingGroups[currentItem[groupByField].toUpperCase()].push(currentItem);          
         } else {
-          //console.log("else");
-          //existingField = currentItem[groupByField].toLowerCase();
           existingGroups[currentItem[groupByField].toUpperCase()] = [currentItem];
         }
         
