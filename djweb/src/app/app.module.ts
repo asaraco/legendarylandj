@@ -11,6 +11,7 @@ import { LibraryComponent } from './library/library.component';
 import { GroupByArtistPipe } from './group-by-artist.pipe';
 import { HideCratesPipe } from './hide-crates.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CrateComponent,
     LibraryComponent,
     GroupByArtistPipe,
-    HideCratesPipe
+    HideCratesPipe,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

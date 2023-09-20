@@ -1,0 +1,7 @@
+<input type="file" class="nativeFileUploader" (change)="onFileSelected($event)" #fileUpload>
+<div class="fileUploader">
+    {{ fileName || "No file uploaded yet."}}
+    <button class="fileUploadBtn" (click)="fileUpload.click()">
+        UPLOAD
+    </button>
+</div>
