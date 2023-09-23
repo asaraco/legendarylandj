@@ -126,10 +126,11 @@ public class Track {
 	/* Values generated at runtime (not in database) */
 	
 	@Formula("CASE "
-			+ "	WHEN album_artist NOT NULL AND album_artist LIKE 'The %' THEN UPPER(SUBSTR(album_artist, 5))"
-			+ "	WHEN album_artist NOT NULL THEN UPPER(album_artist)"
-			+ "	WHEN artist LIKE 'The %' THEN UPPER(SUBSTR(artist, 5))"
-			+ " WHEN artist IS NULL OR artist='' THEN '00000 (no artist)'"
+			+ "	WHEN album_artist NOT NULL AND album_artist LIKE 'The %' THEN LOWER(SUBSTR(album_artist, 5))"
+			+ "	WHEN album_artist NOT NULL THEN LOWER(album_artist)"
+			+ "	WHEN artist LIKE 'The %' THEN LOWER(SUBSTR(artist, 5))"
+			+ " WHEN artist NOT NULL THEN LOWER(artist)"
+			+ " WHEN artist IS NULL OR artist='' THEN '(no artist)'"
 			+ "	ELSE artist"
 			+ "	END ")
 	private String sortArtist;
