@@ -8,7 +8,6 @@ import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,7 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 /**
  * 
@@ -128,14 +126,11 @@ public class Track {
 	/* Values generated at runtime (not in database) */
 	
 	@Formula("CASE "
-			+ "	WHEN album_artist NOT NULL AND album_artist LIKE 'The %' THEN"
-			+ "		SUBSTR(album_artist, 5)"
-			+ "	WHEN album_artist NOT NULL THEN"
-			+ "		album_artist"
-			+ "	WHEN artist LIKE 'The %' THEN"
-			+ "		SUBSTR(artist, 5)"
-			+ "	ELSE "
-			+ "		artist\r\n"
+			+ "	WHEN album_artist NOT NULL AND album_artist LIKE 'The %' THEN SUBSTR(album_artist, 5)"
+			+ "	WHEN album_artist NOT NULL THEN album_artist"
+			+ "	WHEN artist LIKE 'The %' THEN SUBSTR(artist, 5)"
+			+ " WHEN artist IS NULL OR artist='' THEN '00000 (no artist)'"
+			+ "	ELSE artist"
 			+ "	END ")
 	private String sortArtist;
 	
