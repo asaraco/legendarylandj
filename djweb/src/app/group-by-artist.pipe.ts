@@ -15,7 +15,8 @@ import { Track } from './track/track.component';
 export class GroupByArtistPipe implements PipeTransform {
 
   transform(data: any): any {
-    let groupByField = 'artist';
+    //let groupByField = 'artist';
+    let groupByField = 'sortArtist';
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
     if (data) {
@@ -27,18 +28,20 @@ export class GroupByArtistPipe implements PipeTransform {
         } 
 
         // Check if current item has an "album artist" field value, and if so, store in temp field (with case conversion)
-        let currentAlbumArtist = currentItem['albumArtist'] ? currentItem['albumArtist'].toUpperCase() : null;
+        //let currentAlbumArtist = currentItem['albumArtist'] ? currentItem['albumArtist'].toUpperCase() : null;
         // "If the existing groups contain a group label that matches current item's value for the 'groupBy' field..."
-        if (currentAlbumArtist && existingGroups[currentAlbumArtist]) {
-          existingGroups[currentItem['albumArtist'].toUpperCase()].push(currentItem);
-        } else if (existingGroups[currentItem[groupByField].toUpperCase()]) {
-          existingGroups[currentItem[groupByField].toUpperCase()].push(currentItem);          
+        if (existingGroups[currentItem[groupByField]]) {
+          existingGroups[currentItem[groupByField]].push(currentItem);
         } else {
-          existingGroups[currentItem[groupByField].toUpperCase()] = [currentItem];
+          let groupHeader = {"groupName": currentItem['artist']};
+          existingGroups[currentItem[groupByField]] = [groupHeader];
+          existingGroups[currentItem[groupByField]].push(currentItem);
+          //existingGroups[currentItem[groupByField]] = [currentItem];
         }
         
         return existingGroups;
       }, {});
+      //console.log(JSON.stringify(groupedData));
       return Object.keys(groupedData).map(group => ({ group, items: groupedData[group]}));
     }    
   }

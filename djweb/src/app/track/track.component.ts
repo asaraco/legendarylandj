@@ -5,13 +5,10 @@ export class Track {
   title: string = "";
   album: string = "";
   albumArtist: string = "";
+  sortArtist: string = "";
   duration: number = 0;
   crateIds!: number[];
   constructor() {}
-  sanitizeArtist() {
-    if (!this.artist) return "------";
-    else return this.artist;
-  }
 }
 
 @Component({
