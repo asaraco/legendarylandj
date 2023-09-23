@@ -14,5 +14,6 @@ public interface TrackSimple {
 	String getYear();
 	float getDuration();
 	String getAlbumArtist();
+	String getSortArtist();
 	ArrayList<Integer> getCrateIds();
 }

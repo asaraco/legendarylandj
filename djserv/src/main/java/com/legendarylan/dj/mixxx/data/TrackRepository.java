@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.legendarylan.dj.Const;
 
+import jakarta.annotation.PostConstruct;
+
 @RepositoryRestResource(collectionResourceRel="tracks", path="tracks", excerptProjection = TrackSimple.class)
 @CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
 @Cacheable("library")
@@ -20,5 +22,8 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 	List<Track> findAllByOrderByArtistAsc();
 	List<Track> findAllByCratesIdNotIn(@Param("crateids") int[] crateids);
 	List<Track> findByCratesIdNotInOrderByArtistAscAlbumAsc(@Param("crateids") int[] crateids);
-	List<Track> findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc(@Param("crateids") int[] crateids);
+	@PostConstruct
+	List<Track> findByCratesIdNotInOrderBySortArtistAscAlbumAsc(@Param("crateids") int[] crateids);
+	//List<Track> findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc(@Param("crateids") int[] crateids);
+	
 }

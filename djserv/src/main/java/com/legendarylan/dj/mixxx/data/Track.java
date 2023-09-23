@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -16,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * 
@@ -121,6 +124,52 @@ public class Track {
 	@ManyToMany(mappedBy = "tracks",
 				fetch = FetchType.LAZY)
 	private List<Crate> crates;
+	
+	/* Values generated at runtime (not in database) */
+	
+	@Formula("CASE "
+			+ "	WHEN album_artist NOT NULL AND album_artist LIKE 'The %' THEN"
+			+ "		SUBSTR(album_artist, 5)"
+			+ "	WHEN album_artist NOT NULL THEN"
+			+ "		album_artist"
+			+ "	WHEN artist LIKE 'The %' THEN"
+			+ "		SUBSTR(artist, 5)"
+			+ "	ELSE "
+			+ "		artist\r\n"
+			+ "	END ")
+	private String sortArtist;
+	
+	public void setSortArtist(String sortArtist) {
+		this.sortArtist = sortArtist;
+	}
+	
+	public String getSortArtist() {
+		return this.sortArtist;
+	}
+	
+	public String generateSortArtist() {
+		String tempArtist = "";
+		if (this.albumArtist!=null && !this.albumArtist.isBlank()) {
+			tempArtist = this.albumArtist.toUpperCase();
+		} else if (this.artist!=null) {
+			tempArtist = this.artist.toUpperCase();
+		}
+		if (tempArtist.startsWith("THE ")) tempArtist = tempArtist.substring(3).trim();
+		if (tempArtist.startsWith("A ")) tempArtist = tempArtist.substring(1).trim();
+		return tempArtist;
+	}
+	
+	/**
+	 * Utility method to get all IDs of crates associated with this entity
+	 * @return
+	 */
+	public ArrayList<Integer> getCrateIds() {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		for (Crate c : crates) {
+			ids.add((Integer)(c.getId()));
+		}		
+		return ids;
+	}
 	
 	/* Auto-generated Getters & Setters
 	 * (some Setters removed for read-only)	*/
@@ -276,14 +325,6 @@ public class Track {
 
 	public void setLastPlayedAt(LocalDateTime last_played_at) {
 		this.lastPlayedAt = last_played_at;
-	}
-	
-	public ArrayList<Integer> getCrateIds() {
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for (Crate c : crates) {
-			ids.add((Integer)(c.getId()));
-		}		
-		return ids;
 	}
 
 }
