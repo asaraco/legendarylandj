@@ -21,17 +21,29 @@ export class GroupByArtistPipe implements PipeTransform {
       // Acting on input "data" (JSON), traverse each "current item"
       // and store it in "existing group" if comparison checks out
       var groupedData = data.reduce((existingGroups: any, currentItem: any) => {
-        if (currentItem['sortArtist'] == "00000 (no artist)") {
+        let tSortArt = currentItem['sortArtist'];
+        let tArt = currentItem['artist'];
+        let tAlbumArt = currentItem['albumArtist'];
+        
+        if (tSortArt == "(no artist)") {
           currentItem['artist'] = "(no artist)";
         } 
 
         // "If the existing groups contain a group label that matches current item's value for the 'sortArtist' field..."
-        if (existingGroups[currentItem['sortArtist']]) {
-          existingGroups[currentItem['sortArtist']].push(currentItem);
+        if (existingGroups[tSortArt]) {
+          existingGroups[tSortArt].push(currentItem);
         } else {
-          let groupHeader = {"groupName": currentItem['artist']};
-          existingGroups[currentItem['sortArtist']] = [groupHeader];
-          existingGroups[currentItem['sortArtist']].push(currentItem);
+          //let groupHeader = {"groupName": currentItem['artist']};
+          // Choose and store the best "display artist"
+          let groupHeader = {"groupName": tSortArt}; // I expect this to get overwritten
+          if (tAlbumArt && tAlbumArt.toLowerCase().includes(tSortArt)) {
+            groupHeader = {"groupName": tAlbumArt};
+          } else if (tArt && tArt.toLowerCase().includes(tSortArt)) {
+            groupHeader = {"groupName": tArt};
+          }
+          // Initialize the group
+          existingGroups[tSortArt] = [groupHeader];
+          existingGroups[tSortArt].push(currentItem);
         }
         
         return existingGroups;
