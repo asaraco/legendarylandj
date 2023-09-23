@@ -15,28 +15,23 @@ import { Track } from './track/track.component';
 export class GroupByArtistPipe implements PipeTransform {
 
   transform(data: any): any {
-    //let groupByField = 'artist';
-    let groupByField = 'sortArtist';
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
     if (data) {
       // Acting on input "data" (JSON), traverse each "current item"
       // and store it in "existing group" if comparison checks out
       var groupedData = data.reduce((existingGroups: any, currentItem: any) => {
-        if (currentItem[groupByField] == null) {
-          currentItem[groupByField] = "no artist";
+        if (currentItem['sortArtist'] == "00000 (no artist)") {
+          currentItem['artist'] = "(no artist)";
         } 
 
-        // Check if current item has an "album artist" field value, and if so, store in temp field (with case conversion)
-        //let currentAlbumArtist = currentItem['albumArtist'] ? currentItem['albumArtist'].toUpperCase() : null;
-        // "If the existing groups contain a group label that matches current item's value for the 'groupBy' field..."
-        if (existingGroups[currentItem[groupByField]]) {
-          existingGroups[currentItem[groupByField]].push(currentItem);
+        // "If the existing groups contain a group label that matches current item's value for the 'sortArtist' field..."
+        if (existingGroups[currentItem['sortArtist']]) {
+          existingGroups[currentItem['sortArtist']].push(currentItem);
         } else {
           let groupHeader = {"groupName": currentItem['artist']};
-          existingGroups[currentItem[groupByField]] = [groupHeader];
-          existingGroups[currentItem[groupByField]].push(currentItem);
-          //existingGroups[currentItem[groupByField]] = [currentItem];
+          existingGroups[currentItem['sortArtist']] = [groupHeader];
+          existingGroups[currentItem['sortArtist']].push(currentItem);
         }
         
         return existingGroups;

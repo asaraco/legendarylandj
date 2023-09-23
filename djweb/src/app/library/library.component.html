@@ -2,7 +2,7 @@
     <input type="text" placeholder="Search" [formControl]="searchControl">
 </form>
 
-<h2>Artists starting with {{startsWith}}</h2>
+<!--h2>Artists starting with {{startsWith}}</h2-->
 <table class="libraryTable">
     <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
     <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
