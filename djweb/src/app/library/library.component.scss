@@ -1,11 +1,70 @@
+table {
+    width: 100%;
+    table-layout: fixed;
+    tr:nth-child(odd) {
+        background-color: rgba(50,100,50,0.05);
+    }
+    td {
+        padding: 0.5em;
+    }
+    th {
+        padding-top: 0.5em;
+    }
+    background: linear-gradient(0deg, rgba(20,20,20,1.0), rgba(25,25,30,1.0));
+}
+
 table.libraryTable {
-    color: black;
-}
-.libraryTable .tdHeading {
-    background-color: #555;
+    /*background:#595959;*/
+    background-color: rgba(0,0,0,0);
     color: #999;
+    border-collapse: collapse;
 }
-td.request {
+.libraryTable th {
+    text-align: left;
+    font-size: 2em;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    background: linear-gradient(0deg, rgba(255,255,255,0.15), rgba(0,0,0,0.0) 25%);
+}
+
+tr {
+    font-size: 1.25em;
+}
+
+col.title {
+    width: 30%;
+}
+.title{
+    color: rgba(32,255,32,1.0);
+}
+col.album {
+    width: 40%;
+}
+.album {
+    font-style: italic;
+}
+col.artist {
+    width: 20%;
+}
+.artist {
+    color: rgba(255,255,255,0.15);
+}
+col.duration {
+    width: 5%;
+}
+col.request {
+    width: 5%;
+}
+
+.request {
+    button {
+        background: none;
+        color: #afa;
+        border: none;
+    }
+    button:hover {
+        cursor: pointer;
+    }
     span {
         display: none;
         color: red;
@@ -19,8 +78,6 @@ td.request.requested {
         display: block;
     }
 }
-td.request.unRequestable {
-    button {
-        display: none;
-    }
+td.request button:disabled {
+    display: none;
 }

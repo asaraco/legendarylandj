@@ -4,12 +4,17 @@
 
 <!--h2>Artists starting with {{startsWith}}</h2-->
 <table class="libraryTable">
+    <col class="title">
+    <col class="album">
+    <col class="artist">
+    <col class="duration">
+    <col class="request">
     <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
     <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
-        <tr>
+        <thead>
             <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
-            <td class="tdHeading" colspan="5">{{artistGroup.items[0]['groupName']}}</td>
-        </tr>
+            <th colspan="5">{{artistGroup.items[0]['groupName']}}</th>
+        </thead>
         <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
             <tr *ngIf="!isFirst">
                 <td class="title">{{t.title}}</td>

@@ -5,28 +5,30 @@ html {
 body {
     font-size: 62.5%;
     font-family: Roboto, 'Open Sans', Arial;
+    background-color: rgba(25,25,30,1);
+    /*background: linear-gradient(0deg, rgba(20,20,20,1.0), rgba(25,25,30,1.0));*/
 }
 
-table {
-    width: 100%;
-    tr:nth-child(odd) {
-        background-color: rgba(1, 1, 1, 0.1);
-    }
-    td {
-        padding: 0.2em;
-    }
-    td.tdHeading {
-        font-size: 1.25em;
-        font-weight: bold;
-    }
+input {
+    color: #0adb00;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+}
+input::placeholder {
+    color: #327832;
+}
+
+#pAutoDj {
+    color: rgba(188,188,255,0.75);
 }
 
 #pRecent {
-    color: #888;
+    color: rgba(128,128,255,0.5);
     .playlistDiv {
         div:first-child {
-            color: black;
+            color: rgba(158,158,255,1);
             font-weight: bold;
+            text-shadow: rgba(155,155,255,0.75) 1px 0 4px;
         }
     }
 }

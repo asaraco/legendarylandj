@@ -1,5 +1,5 @@
 <section id="headerSection">
-    <div id="headerBar"><h1>Legendary Radio</h1></div>
+    <div id="headerBar"><h1>Legendary<span class="h1Secondary">Radio</span></h1></div>
 </section>
 
 <section id="mainSection">
@@ -18,7 +18,7 @@
         </div>
     </section>
     <section class="subSection" id="playHistory">
-        <app-playlist [playlist]="autoDjPlaylist"></app-playlist>
+        <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
         <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
     </section>
 </section> 

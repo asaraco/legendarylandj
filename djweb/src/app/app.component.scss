@@ -1,13 +1,26 @@
 section#headerSection {
     h1 {
         font-family: 'Roboto Condensed', 'Roboto', Arial;
-    text-transform: uppercase;
+        text-transform: uppercase;
+        text-shadow: rgba(255,255,255,0.5) 1px 0px 3px;
+        color: rgba(14,14,34,0.75);
+        .h1Secondary {
+            color: rgba(32,255,32,0.75);
+        }
     }
-    background-color: #aaf;
+    /*background-color: rgba(0,0,25,0.5);*/
+    background-color:#323238;
+    background: linear-gradient(0deg, #323238 25%, #525278 90%, #9292f8 110%);
+    font-size: 5em;
+    text-align: center;
 }
 section#mainSection {
     display: flex;
-    background-color: #aaa;
+    /*background-color: #aaa;*/
+}
+
+section#fileUploadWrapper {
+    background-color: rgba(0,0,0,0);
 }
 
 section#browseData {
@@ -17,7 +30,9 @@ section#browseData {
 
 section#playHistory {
     padding: 1em;
-    background-color: #ffa;
+    background-color: #141632;
+    background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));
+    min-width: 15%;
 }
 
 #artistLetters {
