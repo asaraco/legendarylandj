@@ -20,8 +20,6 @@ export class Playlist {
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  //@Input() id: number = 0;
-  //playlist!: Playlist;
   @Input() playlist!: Playlist;
 
   constructor(

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { CRATES_HIDDEN } from '../app.constants';
+import { CRATES_HIDDEN, CRATE_ACAPELLAS, CRATE_MEMES } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
@@ -14,9 +14,10 @@ import { PlaylistDataService } from '../service/data/playlist-data.service';
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
-export class LibraryComponent implements OnInit {
+export class LibraryComponent implements OnInit, OnChanges {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
+  @Input() filterCrate: number = 0;
   startsWith: string = "";
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
@@ -28,6 +29,10 @@ export class LibraryComponent implements OnInit {
     private playlistDataService: PlaylistDataService,
     private route: ActivatedRoute
   ){}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(`crate: ${this.filterCrate}`);
+    this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
+  }
 
   ngOnInit(): void {
     var tempName: string = "";
@@ -60,9 +65,15 @@ export class LibraryComponent implements OnInit {
    * @returns 
    */
   private _filter(value: string): Track[] {
-    const filterValue = value.toLowerCase();
-    //return this.tracks.filter(track => track.friendlyString().toLowerCase().includes(filterValue));
-    return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
+    const filterValue = value ? value.toLowerCase(): "";
+    //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
+    if (this.filterCrate > 0) {
+      console.log(`filterCrate>0 (${this.filterCrate})`);
+      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.filterCrate));
+    } else {
+      console.log(`filterCrate=${this.filterCrate}`);
+      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
+    }
   }
 
   private friendlyTrackString(t: Track): string {
@@ -82,6 +93,13 @@ export class LibraryComponent implements OnInit {
 
     return friendlyText;
   }
+
+  /*
+  matchCrates(trackCrates: number[]): boolean {
+    let matches = trackCrates.filter(cid => this.filterByCrates.includes(cid));
+    return !(matches.length==0);
+  }
+  */
 
   requestSong(id: number, duration: number) {
     //console.log("Request song #" + id);

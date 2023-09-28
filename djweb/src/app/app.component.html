@@ -6,6 +6,9 @@
     <section class="subSection" id="fileUploadWrapper">
         <app-file-upload></app-file-upload>
     </section>
+    <section class="subSection" id="crateSelector">
+        <button (click)="selectCrate(15)">EPICS</button>
+    </section>
     <section class="subSection" id="browseWrapper">
         <div>
             <button type="button" (click)="browseAll()">All Tracks</button>
@@ -14,7 +17,8 @@
             <button *ngFor="let x of alphabet" type="button" (click)="artistsBy(x)">{{x}}</button>
         </div>
         <div id="browseData">
-            <router-outlet></router-outlet>
+            <!--router-outlet></router-outlet-->
+            <app-library [filterCrate]="selectedCrate"></app-library>
         </div>
     </section>
     <section class="subSection" id="playHistory">
