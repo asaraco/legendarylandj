@@ -6,20 +6,12 @@
     <section class="subSection" id="fileUploadWrapper">
         <app-file-upload></app-file-upload>
     </section>
-    <section class="subSection" id="crateSelector">
+    <!--section class="subSection" id="crateSelector">
         <button (click)="selectCrate(15)">EPICS</button>
-    </section>
+    </section-->
     <section class="subSection" id="browseWrapper">
-        <div>
-            <button type="button" (click)="browseAll()">All Tracks</button>
-        </div>
-        <div id="artistLetters">
-            <button *ngFor="let x of alphabet" type="button" (click)="artistsBy(x)">{{x}}</button>
-        </div>
-        <div id="browseData">
-            <!--router-outlet></router-outlet-->
-            <app-library [filterCrate]="selectedCrate"></app-library>
-        </div>
+        <!--router-outlet></router-outlet-->
+        <app-library></app-library>
     </section>
     <section class="subSection" id="playHistory">
         <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>

@@ -1,31 +1,53 @@
-<form>
-    <input type="text" placeholder="Search" [formControl]="searchControl">
-</form>
+<section id="libraryForm">
+    <form>
+        <div id="searchField">
+            <input type="text" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
+        </div>
+        <div id="categoryFilter">
+            <button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
+                All
+            </button>
+            <button class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
+                    title="{{crate.desc}}"
+                    [ngClass]="{'crateSelected': filterCrate===crate.id}"
+                    (click)="selectCrate(crate.id)">
+                {{crate.name}}
+            </button>
+        </div>            
+    </form>
+</section>
 
-<!--h2>Artists starting with {{startsWith}}</h2-->
-<table class="libraryTable">
-    <col class="title">
-    <col class="album">
-    <col class="artist">
-    <col class="duration">
-    <col class="request">
-    <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
-    <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
-        <thead>
-            <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
-            <th colspan="5">{{artistGroup.items[0]['groupName']}}</th>
-        </thead>
-        <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
-            <tr *ngIf="!isFirst">
-                <td class="title">{{t.title}}</td>
-                <td class="album">{{t.album}}</td>
-                <td class="artist">{{t.artist}}</td>
-                <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
-                <td class="request" [ngClass]="{'requested': justRequested === t.id}">
-                    <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)">+</button>
-                    <span>added</span>
-                </td>
-            </tr>
-        </ng-container>
-    </ng-container>
-</table>
+<section id="libraryBrowse">
+    <div id="alphaScroll">
+        <a *ngFor="let x of alphabet" href="#firstStartingWith{{x}}">{{x}}</a>
+    </div>
+    <div>        
+        <!--h2>Artists starting with {{startsWith}}</h2-->
+        <table class="libraryTable">
+            <col class="title">
+            <col class="album">
+            <col class="artist">
+            <col class="duration">
+            <col class="request">
+            <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
+            <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
+                <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">
+                    <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
+                    <th colspan="5">{{artistGroup.items[0]['groupName']}}</th>
+                </thead>
+                <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
+                    <tr *ngIf="!isFirst">
+                        <td class="title">{{t.title}}</td>
+                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">{{t.album}}</td>
+                        <td class="artist">{{t.artist}}</td>
+                        <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
+                        <td class="request" [ngClass]="{'requested': justRequested === t.id}">
+                            <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)">+</button>
+                            <span>added</span>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </table>
+    </div>
+</section>

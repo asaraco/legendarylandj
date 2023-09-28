@@ -1,5 +1,6 @@
 section#headerSection {
     h1 {
+        margin: 0;
         font-family: 'Roboto Condensed', 'Roboto', Arial;
         text-transform: uppercase;
         text-shadow: rgba(255,255,255,0.5) 1px 0px 3px;
@@ -23,9 +24,8 @@ section#fileUploadWrapper {
     background-color: rgba(0,0,0,0);
 }
 
-section#browseData {
-    background-color: #faf;
-    min-width: 75%; /* Probably will get rid of this later */
+section#browseWrapper {
+    max-height: 95dvh;
 }
 
 section#playHistory {
@@ -33,27 +33,4 @@ section#playHistory {
     background-color: #141632;
     background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));
     min-width: 15%;
-}
-
-#artistLetters {
-    display: flex;
-    justify-content: space-evenly;
-    font-weight: bold;
-    background-color: black;
-    button {
-        border: none;
-        transition-duration: 0.4s;
-        cursor: pointer;
-        color: #777;
-        background-color: rgba(0, 0, 0, 0.0);
-    }
-    button:hover {
-        color: #ff7;
-    }
-    button:hover + button {
-        color: #aa7;
-    }
-    button:has(+ button:hover) {
-        color: #aa7;
-    }
 }

@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 html {
+    scroll-behavior: smooth;
     font-size: 16px;
+    @media screen and (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
 }
 body {
     font-size: 62.5%;
@@ -11,11 +15,12 @@ body {
 
 input {
     color: #0adb00;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,1);
     border: 0;
 }
 input::placeholder {
     color: #327832;
+    font-style: italic;
 }
 
 #pAutoDj {

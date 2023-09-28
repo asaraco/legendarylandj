@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { CRATES_HIDDEN, CRATE_ACAPELLAS, CRATE_MEMES } from '../app.constants';
+import { CRATES_HIDDEN, UI_SEARCH_TEXT, CRATE_HITS, CrateMeta, CRATE_PSYCHED, CRATE_OLD, CRATE_SOUNDTRACKS, CRATE_GAME_OSV, CRATE_GAME_OTHER, CRATE_MASHUP, CRATE_MEMES, CRATES_SELECTABLE, CRATES_SIMPLEVIEW } from '../app.constants';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 /** Main component code */
@@ -14,26 +14,33 @@ import { PlaylistDataService } from '../service/data/playlist-data.service';
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
-export class LibraryComponent implements OnInit, OnChanges {
+export class LibraryComponent implements OnInit {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
-  @Input() filterCrate: number = 0;
+  //@Input() filterCrate: number = 0;
+  filterCrate: number = 0;
   startsWith: string = "";
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
   justRequested: number = -1;
   requestInterval: any;
+  alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  /* imported constants */
+  UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
+  CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
+  CRATES_SIMPLEVIEW: number[] = CRATES_SIMPLEVIEW;
 
   constructor(
     private libraryDataService: LibraryDataService,
     private playlistDataService: PlaylistDataService,
     private route: ActivatedRoute
   ){}
+  /*
   ngOnChanges(changes: SimpleChanges): void {
     console.log(`crate: ${this.filterCrate}`);
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
   }
-
+  */
   ngOnInit(): void {
     var tempName: string = "";
 
@@ -43,14 +50,14 @@ export class LibraryComponent implements OnInit, OnChanges {
         this.libraryDataService.retrieveTracksByArtistStartingWith(this.startsWith).subscribe(
            data => { 
                     this.tracks = data._embedded.tracks;
-                    this.filteredTracks = this.searchControl.valueChanges.pipe(startWith(''), map(value => this._filter(value)));
+                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
                    }
           );
       } else {
         this.libraryDataService.retrieveAllTracks().subscribe(
           data => { 
                     this.tracks = data._embedded.tracks;
-                    this.filteredTracks = this.searchControl.valueChanges.pipe(startWith(''), map(value => this._filter(value)));
+                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
                     console.log("Results: " + this.tracks.length);
                   }
         );
@@ -68,10 +75,10 @@ export class LibraryComponent implements OnInit, OnChanges {
     const filterValue = value ? value.toLowerCase(): "";
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     if (this.filterCrate > 0) {
-      console.log(`filterCrate>0 (${this.filterCrate})`);
+      //console.log(`filterCrate>0 (${this.filterCrate})`);
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.filterCrate));
     } else {
-      console.log(`filterCrate=${this.filterCrate}`);
+      //console.log(`filterCrate=${this.filterCrate}`);
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     }
   }
@@ -100,6 +107,19 @@ export class LibraryComponent implements OnInit, OnChanges {
     return !(matches.length==0);
   }
   */
+
+  selectCrate(id: number) {
+    /*
+    if (this.filterCrate!=id) {
+      this.filterCrate = id;
+    } else {
+      this.filterCrate = 0;
+    }
+    */
+    this.filterCrate = id;
+    //console.log(`selectedCrate = ${this.filterCrate}`);
+    this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
+  }
 
   requestSong(id: number, duration: number) {
     //console.log("Request song #" + id);
