@@ -34,10 +34,10 @@ section#libraryForm {
     
 
 section#libraryBrowse {
+    display: flex;
     height: 95dvh;
-    overflow: scroll;
     div#alphaScroll {
-        position: fixed;
+        padding: 0.5em;
         height: -webkit-fill-available;
         display: flex;
         flex-direction: column;
@@ -60,6 +60,10 @@ section#libraryBrowse {
         a:has(+ a:hover) {
             color: #aa7;
         }
+    }
+    div#libraryScroll {
+        height: 95dvh;
+        overflow: scroll;
     }
     table.libraryTable {
         width: 100%;

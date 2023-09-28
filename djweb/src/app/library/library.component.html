@@ -21,14 +21,14 @@
     <div id="alphaScroll">
         <a *ngFor="let x of alphabet" href="#firstStartingWith{{x}}">{{x}}</a>
     </div>
-    <div>        
+    <div id="libraryScroll">
         <!--h2>Artists starting with {{startsWith}}</h2-->
         <table class="libraryTable">
+            <col class="request">
             <col class="title">
-            <col class="album">
+            <col class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">
             <col class="artist">
             <col class="duration">
-            <col class="request">
             <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
             <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
                 <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">
@@ -37,14 +37,14 @@
                 </thead>
                 <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
                     <tr *ngIf="!isFirst">
-                        <td class="title">{{t.title}}</td>
-                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">{{t.album}}</td>
-                        <td class="artist">{{t.artist}}</td>
-                        <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                         <td class="request" [ngClass]="{'requested': justRequested === t.id}">
                             <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)">+</button>
                             <span>added</span>
                         </td>
+                        <td class="title">{{t.title}}</td>
+                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">{{t.album}}</td>
+                        <td class="artist">{{t.artist}}</td>
+                        <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                     </tr>
                 </ng-container>
             </ng-container>

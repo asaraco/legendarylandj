@@ -18,6 +18,7 @@ export class LibraryComponent implements OnInit {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
   //@Input() filterCrate: number = 0;
+  selectedCrate: number = 0;
   filterCrate: number = 0;
   startsWith: string = "";
   searchTerm: string = "";
@@ -42,8 +43,7 @@ export class LibraryComponent implements OnInit {
   }
   */
   ngOnInit(): void {
-    var tempName: string = "";
-
+    /*
     this.route.params.subscribe( (data) => {
       if (data['ch']) {
         this.startsWith = data['ch'];
@@ -62,7 +62,15 @@ export class LibraryComponent implements OnInit {
                   }
         );
       }
-    });    
+    });*/
+
+    this.libraryDataService.retrieveAllTracks().subscribe(
+      data => { 
+                this.tracks = data._embedded.tracks;
+                this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+                console.log("Results: " + this.tracks.length);
+              }
+    );
   }
 
   /**
@@ -74,11 +82,11 @@ export class LibraryComponent implements OnInit {
   private _filter(value: string): Track[] {
     const filterValue = value ? value.toLowerCase(): "";
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
-    if (this.filterCrate > 0) {
-      //console.log(`filterCrate>0 (${this.filterCrate})`);
-      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.filterCrate));
-    } else {
-      //console.log(`filterCrate=${this.filterCrate}`);
+    if (this.selectedCrate > 0) { // some track category selected
+      this.filterCrate = this.selectedCrate;  // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
+      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrate));
+    } else {                      // "All tracks"
+      this.filterCrate = this.selectedCrate;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     }
   }
@@ -109,14 +117,8 @@ export class LibraryComponent implements OnInit {
   */
 
   selectCrate(id: number) {
-    /*
-    if (this.filterCrate!=id) {
-      this.filterCrate = id;
-    } else {
-      this.filterCrate = 0;
-    }
-    */
-    this.filterCrate = id;
+    //this.filterCrate = id;
+    this.selectedCrate = id;
     //console.log(`selectedCrate = ${this.filterCrate}`);
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
   }
