@@ -11,7 +11,8 @@
                     title="{{crate.desc}}"
                     [ngClass]="{'crateSelected': filterCrate===crate.id}"
                     (click)="selectCrate(crate.id)">
-                {{crate.name}}
+                <img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
+                <ng-container *ngIf="crate.imageFileName == ''">{{crate.name}}</ng-container>
             </button>
         </div>            
     </form>
