@@ -1,3 +1,5 @@
+import { Crate } from "./crate/crate.component";
+
 /* App Configuration */
 export const API_URL = "http://localhost:8080";
 //export const API_URL = "http://192.168.0.182:8080";
@@ -12,9 +14,10 @@ export class CrateMeta {
         public name: string,
         public imageFileName: string,
         public desc: string
-    ){}    
+    ){}
 }
 
+export const CRATE_ALL              = new CrateMeta(0, "All",           "", "All Songs");   // Not really a crate, just useful for making the selectable options iterable
 export const CRATE_INSTRUMENTALS    = new CrateMeta(2, "Instrumentals", "",   "Instrumental versions of songs, and other non-vocal music");
 export const CRATE_ACAPELLAS        = new CrateMeta(3, "Acapellas",     "", "* HIDDEN * | Acapella versions of songs");
 export const CRATE_MAIN             = new CrateMeta(4, "Main Rotation", "", "Songs that will play automatically.");
@@ -38,7 +41,8 @@ export const CRATES_HIDDEN = [  CRATE_SAMPLES.id,
 export const CRATES_SIMPLEVIEW = [  CRATE_MEMES.id,
                                     CRATE_MASHUP.id     ]
 
-export const CRATES_SELECTABLE = [  CRATE_HITS,
+export const CRATES_SELECTABLE = [  CRATE_ALL,
+                                    CRATE_HITS,
                                     CRATE_PSYCHED,
                                     CRATE_OLD,
                                     CRATE_SOUNDTRACKS,

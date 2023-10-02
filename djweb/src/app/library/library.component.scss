@@ -1,38 +1,79 @@
 section#libraryForm {
     form {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        color:#afa;
+        font-size:2em;
         div {
             display: flex;
         }
         div#searchField {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
             input {
-                font-size: 2em;
+                /*font-size: 2em;*/
                 width: 100%;
                 margin: 0.25em 0;
                 padding: 0.5em 0;
             }
         }
         div#categoryFilter {
-            justify-content: space-between;
-            button.crateBtn {
-                flex: 1;
-                border-radius: 0.25em;
-                background-color: rgba(64, 32, 32, 1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position: relative;
+            button.crateBtn {                
+                /*border-radius: 0.25em;*/
+                background-color: rgba(0, 0, 0, 1);
                 color: #fff;
-                margin-left: 0.1em;
-                height: 5em;
+                height: 4em;
                 border: none;
                 cursor: pointer;
-                img {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                span.crateLogo {
+                    flex: 1;
+                    height: 100%;
+                }
+                img {                    
                     height: 0;
                     min-height: 100%;
                 }
+                span.crateDesc {
+                    flex: 3;
+                }
+                :hover {
+                    background-color: rgba(128,64,64,1);
+                }
             }
-            button.crateSelected {
-                background-color: rgba(16, 16, 32, 1);
+            button#crateActive {
+                justify-content: flex-end;
+                margin-bottom: 0;
+                span.crateDropIcon {
+                    z-index: 10;
+                }
             }
-        }
+            div#crateDropDown {
+                position: absolute;
+                margin-top: 3.9em;
+                width: 100%;
+                z-index: 1;
+                justify-content: space-between;
+                flex-direction: column;
+                justify-content: flex-end;
+                button {
+                    background-color: rgba(0, 0, 0, 0.75);
+                }
+                /*
+                button.crateSelected {
+                    background-color: rgba(16, 16, 32, 1);
+                }
+                */
+            }
+        }        
     }
 }
     

@@ -1,20 +1,34 @@
 <section id="libraryForm">
     <form>
         <div id="searchField">
+            <span>Search Term:</span>
             <input type="text" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
         </div>
         <div id="categoryFilter">
-            <button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
-                All
+            <span>Category:</span>
+            <button id="crateActive" class="crateBtn"
+                    title="{{filterCrate.desc}}"
+                    (click)="toggleCrateDropDown()">
+                <ng-container *ngIf="filterCrate.imageFileName == ''">{{filterCrate.name}}</ng-container>
+                <img *ngIf="!(filterCrate.imageFileName == '')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
+                <span class="crateDropIcon">▼</span>
             </button>
-            <button class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
-                    title="{{crate.desc}}"
-                    [ngClass]="{'crateSelected': filterCrate===crate.id}"
-                    (click)="selectCrate(crate.id)">
-                <img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
-                <ng-container *ngIf="crate.imageFileName == ''">{{crate.name}}</ng-container>
-            </button>
-        </div>            
+            <div id="crateDropDown" *ngIf="showCrateDropDown">
+                <!--button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
+                    All
+                </button-->
+                <button class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
+                        title="{{crate.name}}"
+                        [ngClass]="{'crateSelected': filterCrate.id===crate.id}"
+                        (click)="selectCrate(crate.id)">
+                    <span class="crateLogo">
+                        <img *ngIf="!(crate.imageFileName == '')" src="assets/images/{{crate.imageFileName}}" alt="{{crate.name}}"/>
+                        <ng-container *ngIf="crate.imageFileName=='' ">{{crate.name}}</ng-container>
+                    </span>                    
+                    <span class="crateDesc">{{crate.desc}}</span>
+                </button>
+            </div>
+        </div>
     </form>
 </section>
 
@@ -27,12 +41,12 @@
         <table class="libraryTable">
             <col class="request">
             <col class="title">
-            <col class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">
+            <col class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
             <col class="artist">
             <col class="duration">
             <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
             <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
-                <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">
+                <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
                     <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
                     <th colspan="5">{{artistGroup.items[0]['groupName']}}</th>
                 </thead>
@@ -43,7 +57,7 @@
                             <span>added</span>
                         </td>
                         <td class="title">{{t.title}}</td>
-                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate)">{{t.album}}</td>
+                        <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">{{t.album}}</td>
                         <td class="artist">{{t.artist}}</td>
                         <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                     </tr>

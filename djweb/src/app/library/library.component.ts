@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { CRATES_HIDDEN, UI_SEARCH_TEXT, CRATE_HITS, CrateMeta, CRATE_PSYCHED, CRATE_OLD, CRATE_SOUNDTRACKS, CRATE_GAME_OSV, CRATE_GAME_OTHER, CRATE_MASHUP, CRATE_MEMES, CRATES_SELECTABLE, CRATES_SIMPLEVIEW } from '../app.constants';
+import { CRATES_HIDDEN, UI_SEARCH_TEXT, CRATE_HITS, CrateMeta, CRATE_PSYCHED, CRATE_OLD, CRATE_SOUNDTRACKS, CRATE_GAME_OSV, CRATE_GAME_OTHER, CRATE_MASHUP, CRATE_MEMES, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
@@ -18,14 +18,15 @@ export class LibraryComponent implements OnInit {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
   //@Input() filterCrate: number = 0;
-  selectedCrate: number = 0;
-  filterCrate: number = 0;
+  selectedCrateId: number = 0;
+  filterCrate: CrateMeta = CRATE_ALL;
   startsWith: string = "";
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
   justRequested: number = -1;
   requestInterval: any;
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  showCrateDropDown: boolean = false;
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
@@ -82,11 +83,15 @@ export class LibraryComponent implements OnInit {
   private _filter(value: string): Track[] {
     const filterValue = value ? value.toLowerCase(): "";
     //return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
-    if (this.selectedCrate > 0) { // some track category selected
-      this.filterCrate = this.selectedCrate;  // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
-      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrate));
+    if (this.selectedCrateId > 0) { // some track category selected
+      // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
+      //this.filterCrate = this.selectedCrateId;
+      CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
+      return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrateId));
     } else {                      // "All tracks"
-      this.filterCrate = this.selectedCrate;
+      // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
+      //this.filterCrate = this.selectedCrateId;
+      CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     }
   }
@@ -117,10 +122,13 @@ export class LibraryComponent implements OnInit {
   */
 
   selectCrate(id: number) {
-    //this.filterCrate = id;
-    this.selectedCrate = id;
-    //console.log(`selectedCrate = ${this.filterCrate}`);
+    this.selectedCrateId = id;
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
+    this.toggleCrateDropDown();
+  }
+
+  toggleCrateDropDown() {
+    this.showCrateDropDown = !this.showCrateDropDown;
   }
 
   requestSong(id: number, duration: number) {
@@ -137,5 +145,5 @@ export class LibraryComponent implements OnInit {
   reqTimeout() {
     this.justRequested = -1;
     clearInterval(this.requestInterval);
-  }
+  }  
 }
