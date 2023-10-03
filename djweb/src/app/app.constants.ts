@@ -6,6 +6,7 @@ export const API_URL = "http://localhost:8080";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";
+export const UI_CATS_TEXT   = "Filter by category..."
 
 /* Crates */
 export class CrateMeta {
@@ -17,7 +18,7 @@ export class CrateMeta {
     ){}
 }
 
-export const CRATE_ALL              = new CrateMeta(0, "All",           "", "All Songs");   // Not really a crate, just useful for making the selectable options iterable
+export const CRATE_ALL              = new CrateMeta(0, "",           "", "(all songs)");   // Not really a crate, just useful for making the selectable options iterable
 export const CRATE_INSTRUMENTALS    = new CrateMeta(2, "Instrumentals", "",   "Instrumental versions of songs, and other non-vocal music");
 export const CRATE_ACAPELLAS        = new CrateMeta(3, "Acapellas",     "", "* HIDDEN * | Acapella versions of songs");
 export const CRATE_MAIN             = new CrateMeta(4, "Main Rotation", "", "Songs that will play automatically.");

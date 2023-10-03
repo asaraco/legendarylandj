@@ -7,6 +7,15 @@ section#libraryForm {
         div {
             display: flex;
         }
+        input {
+            color: #0adb00;
+            background-color: rgba(0,0,0,1);
+            border: 0;
+        }
+        input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
+            color: #327832;
+            font-style: italic;
+        }
         div#searchField {
             flex: 2;
             display: flex;
@@ -24,11 +33,11 @@ section#libraryForm {
             flex-direction: column;
             align-items: flex-end;
             position: relative;
-            button.crateBtn {                
+            .crateBtn {                
                 /*border-radius: 0.25em;*/
                 background-color: rgba(0, 0, 0, 1);
                 color: #fff;
-                height: 4em;
+                height: 2em;
                 border: none;
                 cursor: pointer;
                 display: flex;
@@ -44,12 +53,12 @@ section#libraryForm {
                 }
                 span.crateDesc {
                     flex: 3;
-                }
-                :hover {
-                    background-color: rgba(128,64,64,1);
-                }
+                }                
             }
-            button#crateActive {
+            .crateBtn:hover {
+                background-color: rgba(128,64,64,1);
+            }
+            #crateActive {
                 justify-content: flex-end;
                 margin-bottom: 0;
                 span.crateDropIcon {
@@ -58,14 +67,17 @@ section#libraryForm {
             }
             div#crateDropDown {
                 position: absolute;
-                margin-top: 3.9em;
+                margin-top: 2em;
                 width: 100%;
                 z-index: 1;
                 justify-content: space-between;
                 flex-direction: column;
                 justify-content: flex-end;
-                button {
-                    background-color: rgba(0, 0, 0, 0.75);
+                .crateBtn {
+                    height: 2em;
+                    font-size: 0.5em;
+                    padding: 1em 0.25em;
+                    border-bottom: 1px solid #555;
                 }
                 /*
                 button.crateSelected {
@@ -73,10 +85,9 @@ section#libraryForm {
                 }
                 */
             }
-        }        
+        }
     }
-}
-    
+}    
 
 section#libraryBrowse {
     display: flex;

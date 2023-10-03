@@ -1,23 +1,22 @@
 <section id="libraryForm">
     <form>
         <div id="searchField">
-            <span>Search Term:</span>
-            <input type="text" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
+            <input type="search" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
         </div>
         <div id="categoryFilter">
-            <span>Category:</span>
-            <button id="crateActive" class="crateBtn"
+            <div id="crateActive" class="crateBtn"
                     title="{{filterCrate.desc}}"
                     (click)="toggleCrateDropDown()">
-                <ng-container *ngIf="filterCrate.imageFileName == ''">{{filterCrate.name}}</ng-container>
-                <img *ngIf="!(filterCrate.imageFileName == '')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
+                <span *ngIf="filterCrate.id===0" class="crateDropPlaceholder">{{UI_CATS_TEXT}}</span>
+                <ng-container *ngIf="!(filterCrate.id==0) && (filterCrate.imageFileName=='')">{{filterCrate.name}}</ng-container>
+                <img *ngIf="!(filterCrate.id==0) && !(filterCrate.imageFileName=='')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
                 <span class="crateDropIcon">▼</span>
-            </button>
+            </div>
             <div id="crateDropDown" *ngIf="showCrateDropDown">
                 <!--button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
                     All
                 </button-->
-                <button class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
+                <div class="crateBtn" *ngFor="let crate of CRATES_SELECTABLE" 
                         title="{{crate.name}}"
                         [ngClass]="{'crateSelected': filterCrate.id===crate.id}"
                         (click)="selectCrate(crate.id)">
@@ -26,7 +25,7 @@
                         <ng-container *ngIf="crate.imageFileName=='' ">{{crate.name}}</ng-container>
                     </span>                    
                     <span class="crateDesc">{{crate.desc}}</span>
-                </button>
+                </div>
             </div>
         </div>
     </form>
