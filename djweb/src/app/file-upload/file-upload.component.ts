@@ -9,6 +9,7 @@ import { API_URL } from '../app.constants';
 })
 export class FileUploadComponent {
   fileName: string = "";
+  fileMessage: any;
   
   constructor(private http: HttpClient) {}
 
@@ -18,8 +19,8 @@ export class FileUploadComponent {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("song", file);
-      const upload$ = this.http.post(`${API_URL}/upload`, formData);
-      upload$.subscribe();
+      const upload$: any = this.http.post(`${API_URL}/upload`, formData);
+      upload$.subscribe((data: any) => this.fileMessage = data.message);
     }
   }
 }

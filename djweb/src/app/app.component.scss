@@ -9,6 +9,10 @@ section#headerSection {
             color: rgba(32,255,32,0.75);
         }
     }
+    div#toolBar {
+        display: flex;
+        justify-content: space-between;
+    }
     /*background-color: rgba(0,0,25,0.5);*/
     background-color:#323238;
     background: linear-gradient(0deg, #323238 25%, #525278 90%, #9292f8 110%);
@@ -33,4 +37,34 @@ section#playHistory {
     background-color: #141632;
     background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));
     min-width: 15%;
+}
+
+#headerQueueButton {
+    display: none;
+}
+
+@media screen and (max-width: 960px) {
+    section#headerSection {
+        h1 {
+            font-family: 'Roboto', 'Roboto', Arial;
+            font-size: 0.5em;
+        }
+    }
+    section#mainSection {
+        flex-direction: column;
+    }
+    section#playHistory {
+        display: none;
+    }
+    #headerQueueButton {
+        display: inline-block;
+    }
+    section#playHistory.mobileQueue {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        z-index: 500;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
 }

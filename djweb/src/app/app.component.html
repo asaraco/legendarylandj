@@ -1,11 +1,15 @@
 <section id="headerSection">
     <div id="headerBar"><h1>Legendary<span class="h1Secondary">Radio</span></h1></div>
+    <div id="toolBar">
+        <app-file-upload></app-file-upload>
+        <button id="headerQueueButton" (click)="togglePlayHistory()">Show Queue</button>
+    </div>
 </section>
 
 <section id="mainSection">
-    <section class="subSection" id="fileUploadWrapper">
+    <!--section class="subSection" id="fileUploadWrapper">
         <app-file-upload></app-file-upload>
-    </section>
+    </section-->
     <!--section class="subSection" id="crateSelector">
         <button (click)="selectCrate(15)">EPICS</button>
     </section-->
@@ -13,7 +17,7 @@
         <!--router-outlet></router-outlet-->
         <app-library></app-library>
     </section>
-    <section class="subSection" id="playHistory">
+    <section class="subSection" id="playHistory" [ngClass]="{mobileQueue: showPlayHistory}">
         <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
         <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
     </section>

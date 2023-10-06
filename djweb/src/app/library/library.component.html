@@ -44,6 +44,7 @@
             <col class="artist">
             <col class="duration">
             <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
+            <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="5">Loading...</th></thead>
             <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
                 <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
                     <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
