@@ -28,7 +28,7 @@ public class Controllers {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		return ResponseEntity.ok("File uploaded successfully - " + fileName);
+		return ResponseEntity.ok("{\"message\": \"File uploaded successfully - " + fileName + "\"}");
 	}
 
 }
