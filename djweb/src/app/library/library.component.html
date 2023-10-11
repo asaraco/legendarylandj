@@ -33,7 +33,7 @@
 
 <section id="libraryBrowse">
     <div id="alphaScroll">
-        <a *ngFor="let x of alphabet" href="#firstStartingWith{{x}}">{{x}}</a>
+        <a *ngFor="let x of alphabet index as ind" (click)="alphaJump(ind)">{{x}}</a>
     </div>
     <div id="libraryScroll">
         <!--h2>Artists starting with {{startsWith}}</h2-->
@@ -48,7 +48,7 @@
             <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
                 <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
                     <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
-                    <th colspan="5">{{artistGroup.items[0]['groupName']}}</th>
+                    <th colspan="5" id="{{artistGroup.items[0]['groupName']}}">{{artistGroup.items[0]['groupName']}}</th>
                 </thead>
                 <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
                     <tr *ngIf="!isFirst">

@@ -17,6 +17,8 @@ import { PlaylistDataService } from '../service/data/playlist-data.service';
 export class LibraryComponent implements OnInit {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
+  artistList: String[] = [];
+  artistListChanged: boolean = true;
   //@Input() filterCrate: number = 0;
   selectedCrateId: number = 0;
   filterCrate: CrateMeta = CRATE_ALL;
@@ -45,27 +47,6 @@ export class LibraryComponent implements OnInit {
   }
   */
   ngOnInit(): void {
-    /*
-    this.route.params.subscribe( (data) => {
-      if (data['ch']) {
-        this.startsWith = data['ch'];
-        this.libraryDataService.retrieveTracksByArtistStartingWith(this.startsWith).subscribe(
-           data => { 
-                    this.tracks = data._embedded.tracks;
-                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                   }
-          );
-      } else {
-        this.libraryDataService.retrieveAllTracks().subscribe(
-          data => { 
-                    this.tracks = data._embedded.tracks;
-                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                    console.log("Results: " + this.tracks.length);
-                  }
-        );
-      }
-    });*/
-
     this.libraryDataService.retrieveAllTracks().subscribe(
       data => { 
                 this.tracks = data._embedded.tracks;
@@ -88,11 +69,13 @@ export class LibraryComponent implements OnInit {
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
+      this.artistListChanged = true;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrateId));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
+      this.artistListChanged = true;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     }
   }
@@ -146,5 +129,39 @@ export class LibraryComponent implements OnInit {
   reqTimeout() {
     this.justRequested = -1;
     clearInterval(this.requestInterval);
-  }  
+  }
+
+  alphaJump(index: number): void {
+    if (this.artistListChanged) {
+      this.artistList = this.getTableHeadings();
+      this.artistListChanged = false;
+    }
+    
+    let matchFound: boolean = false;
+    let destination: string = "";
+
+    for (let i=index; i>=0; i--) {
+      let x=this.alphabet[i].toLowerCase();
+      for (let j=0; j<this.artistList.length; j++) {
+        let a = this.artistList[j].toLowerCase();
+        if (a.startsWith(x) && !a.startsWith("the ")) {
+          window.location.hash = "#" + this.artistList[j];
+          return
+          //matchFound = true;
+          //destination = "#" + this.artistList[j];
+        }
+      }
+    }
+  }
+
+  getTableHeadings(): String[] {
+    let heads = document.getElementsByTagName('th');
+    let headingTexts: String[] = [];
+    for (let i=0; i < heads.length; i++) {
+      let temp;
+      if (heads.item(i))  temp = heads.item(i)?.firstChild?.textContent;
+      if (temp)           headingTexts.push(temp);
+    }
+    return headingTexts;
+  }
 }

@@ -102,7 +102,10 @@ section#libraryBrowse {
         justify-content: space-between;
         font-weight: bold;
         background-color: black;
+        cursor: pointer;
         a {
+            width: 100%;
+            text-align: center;
             text-decoration: none;
             transition-duration: 0.4s;
             color: #777;
