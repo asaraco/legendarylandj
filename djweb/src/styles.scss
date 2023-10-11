@@ -1,4 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+@function hexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+}
+
+/* Dark theme vars */
+$bg0:   #252530;
+$fg0:   #aaffaa;
+$headFgA0:  #141434;
+$headFgB0:  #32ff32;
+$headBgA0:  #323238;
+$headBgB0:  #525278;
+$headBgC0:  #9292f8;
+$inputBg0:  #000000;
+$inputPh0:  #327832;
+$libBg0:    #253025;
+$libFg0:    #999999;
+$libTh0:    #ffffff;
+$libTitle0: #32ff32;
+$queueFg0:  #aaaaff;
+$queueBg0:  #323264;
+
+/* Light theme vars */
+$bg1:   #e0e0f5;
+$fg1:   #003000;
+$headFgA1:  #141434;
+$headFgB1:  #32ff32;
+$headBgA1:  #d5d5f8;
+$headBgB1:  #525278;
+$headBgC1:  #323238;
+$inputBg1:  #ffffff;
+$inputPh1:  #327832;
+$libBg1:    #f0fff0;
+$libFg1:    #000000;
+$libTh1:    #000000;
+$libTitle1: #004f00;
+$queueFg1:  #0000ff;
+$queueBg1:  #000064;
+
+:root {
+    --bg:   #{hexToRGB($bg0)};
+    --fg:   #{hexToRGB($fg0)};
+    --headFgA:  #{hexToRGB($headFgA0)};
+    --headFgB:  #{hexToRGB($headFgB0)};
+    --headBgA:  #{hexToRGB($headBgA0)};
+    --headBgB:  #{hexToRGB($headBgB0)};
+    --headBgC:  #{hexToRGB($headBgC0)};
+    --inputBg:  #{hexToRGB($inputBg0)};
+    --inputPh:  #{hexToRGB($inputPh0)};
+    --libBg:    #{hexToRGB($libBg0)};
+    --libFg:    #{hexToRGB($libFg0)};
+    --libTh:    #{hexToRGB($libTh0)};
+    --libTitle: #{hexToRGB($libTitle0)};
+    --queueFg:  #{hexToRGB($queueFg0)};
+    --queueBg:  #{hexToRGB($queueBg0)};
+    @media screen and (prefers-color-scheme: light) {
+        --bg:   #{hexToRGB($bg1)};
+        --fg:   #{hexToRGB($fg1)};
+        --headFgA:  #{hexToRGB($headFgA1)};
+        --headFgB:  #{hexToRGB($headFgB1)};
+        --headBgA:  #{hexToRGB($headBgA1)};
+        --headBgB:  #{hexToRGB($headBgB1)};
+        --headBgC:  #{hexToRGB($headBgC1)};
+        --inputBg:  #{hexToRGB($inputBg1)};
+        --inputPh:  #{hexToRGB($inputPh1)};
+        --libBg:    #{hexToRGB($libBg1)};
+        --libFg:    #{hexToRGB($libFg1)};
+        --libTh:    #{hexToRGB($libTh1)};
+        --libTitle: #{hexToRGB($libTitle1)};
+        --queueFg:  #{hexToRGB($queueFg1)};
+        --queueBg:  #{hexToRGB($queueBg1)};
+    }
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
