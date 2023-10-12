@@ -4,9 +4,11 @@ section#headerSection {
         font-family: 'Roboto Condensed', 'Roboto', Arial;
         text-transform: uppercase;
         text-shadow: rgba(255,255,255,0.5) 1px 0px 3px;
-        color: rgba(14,14,34,0.75);
+        /*color: rgba(14,14,34,0.75);*/
+        color: rgba(var(--headFgA), 0.75);
         .h1Secondary {
-            color: rgba(32,255,32,0.75);
+            /*color: rgba(32,255,32,0.75);*/
+            color: rgba(var(--headFgB), 0.75);
         }
     }
     div#toolBar {
@@ -35,6 +37,7 @@ section#browseWrapper {
 section#playHistory {
     padding: 1em;
     background-color: #141632;
+    background-color: rgba(var(--queueBg), 1);
     background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));
     min-width: 15%;
 }

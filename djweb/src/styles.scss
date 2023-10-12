@@ -52,6 +52,8 @@ $queueBg1:  #000064;
     --libTh:    #{hexToRGB($libTh0)};
     --libTitle: #{hexToRGB($libTitle0)};
     --queueFg:  #{hexToRGB($queueFg0)};
+    --queueFg-weak:  #{hexToRGB(darken($queueFg0, 5%))};
+    --queueFg-strong:  #{hexToRGB(lighten($queueFg0, 5%))};
     --queueBg:  #{hexToRGB($queueBg0)};
     @media screen and (prefers-color-scheme: light) {
         --bg:   #{hexToRGB($bg1)};
@@ -68,6 +70,8 @@ $queueBg1:  #000064;
         --libTh:    #{hexToRGB($libTh1)};
         --libTitle: #{hexToRGB($libTitle1)};
         --queueFg:  #{hexToRGB($queueFg1)};
+        --queueFg-weak: ${hexToRGB(lighten($queueFg1, 5%))};
+        --queueFg-strong: ${hexToRGB(darken($queueFg1, 5%))};
         --queueBg:  #{hexToRGB($queueBg1)};
     }
 }
@@ -83,21 +87,24 @@ html {
 body {
     font-size: 62.5%;
     font-family: Roboto, 'Open Sans', Arial;
-    background-color: rgba(25,25,30,1);
-    /*background: linear-gradient(0deg, rgba(20,20,20,1.0), rgba(25,25,30,1.0));*/
+    background-color: rgba(var(--bg), 1);
 }
 
 #pAutoDj {
-    color: rgba(188,188,255,0.75);
+    /*color: rgba(188,188,255,0.75);*/
+    color: rgba(var(--queueFg), 0.75);
 }
 
 #pRecent {
-    color: rgba(128,128,255,0.5);
+    /*color: rgba(128,128,255,0.5);*/
+    color: rgba(var(--queueFg-weak), 0.5);
     .playlistDiv {
         div:first-child {
-            color: rgba(158,158,255,1);
+            /*color: rgba(158,158,255,1);*/
+            color: rgba(var(--queueFg-strong), 1);
             font-weight: bold;
-            text-shadow: rgba(155,155,255,0.75) 1px 0 4px;
+            /*text-shadow: rgba(155,155,255,0.75) 1px 0 4px;*/
+            text-shadow: rgba(var(--queueFg-weak), 0.75) 1px 0 4px;
         }
     }
 }
