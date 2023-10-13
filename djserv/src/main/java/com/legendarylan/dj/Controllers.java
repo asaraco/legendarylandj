@@ -24,7 +24,7 @@ public class Controllers {
 	public ResponseEntity<?> handleFileUpload( @RequestParam("song") MultipartFile file ) {
 		String fileName = file.getOriginalFilename();
 		try {
-			file.transferTo(new File("C:\\Users\\Public\\Music\\LANtrax\\" + fileName));
+			file.transferTo(new File(Const.FILES_PATH + fileName));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
