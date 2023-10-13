@@ -1,4 +1,9 @@
-<input type="file" class="nativeFileUploader" (change)="onFileSelected($event)" #fileUpload>
+<input  type="file" 
+        accept=".mp3,.m4a,.aac,.ogg,.xm,.mod,.s3m,.it,.adts,.ass,.aiff,.aif,.caf,.f4a,.ult,.uni,.m15,.mtm,.669,.med,.mpga,.m4v,.f4v,.lrv,.oga,.opus,.spx,.ogv,.okt,.stm,.wv,.wvp"
+        class="nativeFileUploader" (change)="onFileSelected($event)" #fileUpload>
+<!-- FILE TYPES ACCEPTED BY MIXXX BUT EXCLUDED TO AVOID LARGE UPLOADS / BAD METADATA:
+     .flac,.wav,.mp4
+    -->
 <div class="fileUploader">
     <button class="fileUploadBtn" (click)="fileUpload.click()">
         Upload Song
