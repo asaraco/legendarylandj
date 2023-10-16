@@ -1,25 +1,31 @@
 section#headerSection {
-    h1 {
-        margin: 0;
-        font-family: 'Roboto Condensed', 'Roboto', Arial;
-        text-transform: uppercase;
-        text-shadow: rgba(255,255,255,0.5) 1px 0px 3px;
-        /*color: rgba(14,14,34,0.75);*/
-        color: rgba(var(--headFgA), 0.75);
-        .h1Secondary {
-            /*color: rgba(32,255,32,0.75);*/
-            color: rgba(var(--headFgB), 0.75);
-        }
-    }
-    div#toolBar {
-        display: flex;
-        justify-content: space-between;
-    }
-    /*background-color: rgba(0,0,25,0.5);*/
+    display: flex;
+    flex-direction:row-reverse;
+    justify-content:center;
+    align-items:flex-end;
     background-color:#323238;
     background: linear-gradient(0deg, #323238 25%, #525278 90%, #9292f8 110%);
     font-size: 5em;
     text-align: center;
+    div#headerBar {
+        flex: 1;
+        h1 {
+            margin: 0;
+            font-family: 'Roboto Condensed', 'Roboto', Arial;
+            text-transform: uppercase;
+            text-shadow: rgba(255,255,255,0.5) 1px 0px 3px;
+            /*color: rgba(14,14,34,0.75);*/
+            color: rgba(var(--headFgA), 0.75);
+            .h1Secondary {
+                /*color: rgba(32,255,32,0.75);*/
+                color: rgba(var(--headFgB), 0.75);
+            }
+        }
+    }    
+    div#toolBar {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 section#mainSection {
     display: flex;
