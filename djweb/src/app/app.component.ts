@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaylistDataService } from './service/data/playlist-data.service';
+import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
 import { Router } from '@angular/router';
 
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private playlistDataService: PlaylistDataService
+    private playlistDataService: PlaylistDataService,
+    private userDataService: UserDataService
     ){}
 
   ngOnInit(): void {
@@ -36,6 +38,15 @@ export class AppComponent implements OnInit {
       this.autoDjPlaylist.name = data.name;
       this.autoDjPlaylist.playlistTracks = data._embedded.playlistTracks;
     });
+
+    // AMS 2023/10/16 - Retrieve or randomly generate a user ID # for this session.
+    //                  Also store in array to make sure there are no duplicates.
+    if (!localStorage.getItem('userNumber')) {
+      this.userDataService.generateID().subscribe(data => {
+        localStorage.setItem('userNumber', JSON.stringify(data));
+        console.log("Assigned User #: " + localStorage.getItem('userNumber'));
+      });
+    }
   }
 
   togglePlayHistory(): void {

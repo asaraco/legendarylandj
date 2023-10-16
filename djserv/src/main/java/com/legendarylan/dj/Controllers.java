@@ -1,6 +1,8 @@
 package com.legendarylan.dj;
 
 import java.io.File;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class Controllers {
+	private static ArrayList<Integer> allAssignedIDs = new ArrayList<Integer>();
+	static {
+		allAssignedIDs.add(0);
+	}
 
 	@GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -40,6 +46,36 @@ public class Controllers {
 			System.out.println("File uploaded: " + Const.FILES_PATH + fileName);
 			return ResponseEntity.ok("{\"message\": \"File uploaded successfully - " + fileName + "\"}");
 		}			
+	}
+	
+	/**
+	 * Generate a random "User ID" number.
+	 * # of loops is constrained by the maximum # of the RNG.
+	 * NOTE: If by some chance it generates enough numbers that none are left,
+	 * it will simply return whichever random # it lands on.
+	 * Obviously with a high enough number, this should never happen.
+	 * @return
+	 */
+	@CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
+	@GetMapping("/generateRandomID")
+	public static Integer generateRandomID() {
+		//System.out.println("Existing IDs: " + allAssignedIDs);
+		
+		Integer randomNumber = 0;
+		SecureRandom rng = new SecureRandom();
+		Integer limit = 5000;		
+		Integer loopCounter = 0;
+		Integer maxLoops = limit - allAssignedIDs.size();
+		
+		while (allAssignedIDs.contains(randomNumber) && (loopCounter <= maxLoops)) {
+			loopCounter++;
+			randomNumber = (Integer)rng.nextInt(limit);
+		}
+		
+		allAssignedIDs.add(randomNumber);
+		
+		System.out.println("Assigning User ID #: " + randomNumber);
+		return randomNumber;
 	}
 
 }

@@ -54,6 +54,19 @@ export class LibraryComponent implements OnInit {
                 console.log("Results: " + this.tracks.length);
               }
     );
+    const now = new Date();
+    console.log(now.getTime()/1000);
+    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
+    const ls_lastRequest = localStorage.getItem('lastRequest');
+    if (ls_noRequestsUntil) {
+      let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
+      if (remainingTimeout > 0) { 
+        console.log("now < NRU");
+        console.log("lastRequest = " + ls_lastRequest);
+        if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
+        this.requestInterval = setInterval(() => this.reqTimeout(), remainingTimeout);
+      }
+    }    
   }
 
   /**
@@ -116,14 +129,28 @@ export class LibraryComponent implements OnInit {
   }
 
   requestSong(id: number, duration: number) {
-    //console.log("Request song #" + id);
-    var resultMsg: string;
-    this.playlistDataService.requestTrack(id).subscribe(data => {
-      resultMsg = data;
-      //console.log(resultMsg);
-      this.justRequested = id;
-      this.requestInterval = setInterval(() => this.reqTimeout(), duration * 100);
-    });
+    let userId = localStorage.getItem('userNumber');
+    const now = new Date();
+    const nru = localStorage.getItem('noRequestsUntil');
+    if ((nru) && (now.getTime() < JSON.parse(nru))) { 
+      console.log("Sorry, no requests until " + nru);
+    } else {
+      //console.log("Request song #" + id);
+      var resultMsg: string;
+      this.playlistDataService.requestTrack(id).subscribe(data => {
+        resultMsg = data;
+        //console.log(resultMsg);
+        this.justRequested = id;
+        this.requestInterval = setInterval(() => this.reqTimeout(), duration * 100);
+        let delayTime = now.getTime() + (duration * 100);
+        console.log(now.getTime());
+        console.log(duration * 1000);
+        console.log(delayTime);
+        localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
+        localStorage.setItem('lastRequest', id.toString());
+        console.log(localStorage.getItem('noRequestsUntil'));
+      });
+    }    
   }
 
   reqTimeout() {
@@ -131,6 +158,12 @@ export class LibraryComponent implements OnInit {
     clearInterval(this.requestInterval);
   }
 
+  /**
+   * Triggers the page to scroll to the first table heading
+   * that matches the chosen letter of the alphabet (or number).
+   * @param index The index of the selected character in the "alphabet" array.
+   * @returns 
+   */
   alphaJump(index: number): void {
     if (this.artistListChanged) {
       this.artistList = this.getTableHeadings();
@@ -154,6 +187,11 @@ export class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns the text of all table headings as a String array.
+   * Used to get an up-to-date list of all artist groupings.
+   * @returns String[] Inner text of all <TH> elements
+   */
   getTableHeadings(): String[] {
     let heads = document.getElementsByTagName('th');
     let headingTexts: String[] = [];
