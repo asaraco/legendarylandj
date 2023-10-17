@@ -1,3 +1,32 @@
-table {
-    color: white;
+h3 {
+    color: #ffffaa;
+    font-family: 'Roboto Condensed', 'Roboto', Arial;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-align: center;
+}
+div#naContent {
+    div.naTrack:nth-child(odd) {
+        background-color: rgba(100,100,0,0.10);
+    }
+}
+div.naTrack {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    div {
+        display: flex;
+    }
+    div.naTrackMain {
+        flex: 1;
+        color: #ffff55;
+        span.title {
+            flex: 1;
+        }
+    }
+    div.naTrackSub {
+        justify-content: space-between;
+        color: #aaaa55;
+        font-style:italic;
+    }    
 }

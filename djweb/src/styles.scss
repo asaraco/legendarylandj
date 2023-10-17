@@ -4,7 +4,7 @@
 }
 
 /* Dark theme vars */
-$bg0:   #252530;
+$bg0:   #252528;
 $fg0:   #aaffaa;
 $headFgA0:  #141434;
 $headFgB0:  #32ff32;
@@ -17,8 +17,8 @@ $libBg0:    #253025;
 $libFg0:    #999999;
 $libTh0:    #ffffff;
 $libTitle0: #32ff32;
-$queueFg0:  #aaaaff;
-$queueBg0:  #323264;
+$queueFg0:  #ccccff;
+$queueBg0:  #22222f;
 $buttonBg0: #03f300;
 $buttonFg0: #ffffff;
 
@@ -58,7 +58,8 @@ $buttonFg1: #03f300;
     --queueFg:  #{hexToRGB($queueFg0)};
     --queueFg-weak:  #{hexToRGB(darken($queueFg0, 5%))};
     --queueFg-strong:  #{hexToRGB(lighten($queueFg0, 5%))};
-    --queueBg:  #{hexToRGB($queueBg0)};
+    --queueBg-a:  #{hexToRGB($queueBg0)};
+    --queueBg-b:  #{hexToRGB(lighten($queueBg0, 10%))};
     --buttonBg: #{hexToRGB($buttonBg0)};
     --buttonFg: #{hexToRGB($buttonFg0)};
     @media screen and (prefers-color-scheme: light) {
@@ -78,7 +79,8 @@ $buttonFg1: #03f300;
         --queueFg:  #{hexToRGB($queueFg1)};
         --queueFg-weak: ${hexToRGB(lighten($queueFg1, 5%))};
         --queueFg-strong: ${hexToRGB(darken($queueFg1, 5%))};
-        --queueBg:  #{hexToRGB($queueBg1)};
+        --queueBg-a:  #{hexToRGB($queueBg1)};
+        --queueBg-b:  #{hexToRGB(darken($queueBg1, 10%))};
         --buttonBg: #{hexToRGB($buttonBg1)};
         --buttonFg: #{hexToRGB($buttonFg1)};
     }

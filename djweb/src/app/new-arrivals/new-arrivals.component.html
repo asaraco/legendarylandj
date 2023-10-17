@@ -1,12 +1,14 @@
-<table>
-    <col class="title">
-    <col class="album">
-    <col class="duration">
-    <ng-container *ngFor="let t of tracks">
-        <tr>
-            <td class="title">{{t.title}}</td>
-            <td class="artist">{{t.artist}}</td>
-            <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
-        </tr>
-    </ng-container>
-</table>
+<div id="naHeader">
+    <h3>New Arrivals</h3>
+</div>
+<div id="naContent">
+    <div class="naTrack" *ngFor="let t of tracks">
+        <div class="naTrackMain">
+            <span class="title">{{t.title}}</span>
+        </div>
+        <div class="naTrackSub">
+            <span class="artist">{{t.artist}}</span>
+            <span class="duration">{{t.duration * 1000 | date:'mm:ss'}}</span>
+        </div>
+    </div>
+</div>

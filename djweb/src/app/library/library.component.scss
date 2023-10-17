@@ -1,4 +1,4 @@
-section#libraryForm {
+div#libraryForm {
     form {
         display: flex;
         flex-direction: row;
@@ -90,7 +90,7 @@ section#libraryForm {
     }
 }    
 
-section#libraryBrowse {
+div#libraryBrowse {
     display: flex;
     height: 95dvh;
     div#alphaScroll {

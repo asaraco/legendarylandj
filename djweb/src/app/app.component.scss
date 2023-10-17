@@ -32,8 +32,8 @@ section#mainSection {
     /*background-color: #aaa;*/
 }
 
-section#fileUploadWrapper {
-    background-color: rgba(0,0,0,0);
+section#leftWrapper {
+    min-width: 15%;
 }
 
 section#browseWrapper {
@@ -44,7 +44,8 @@ section#playHistory {
     padding: 1em;
     /*background-color: #141632;*/
     background-color: rgba(var(--queueBg), 1);
-    background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));
+    /*background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));*/
+    background: linear-gradient(180deg, rgba(var(--queueBg-a),0.25), rgba(var(--queueBg-b),0.9));
     min-width: 15%;
 }
 

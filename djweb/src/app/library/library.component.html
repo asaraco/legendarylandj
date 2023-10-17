@@ -1,4 +1,4 @@
-<section id="libraryForm">
+<div id="libraryForm">
     <form>
         <div id="searchField">
             <input type="search" placeholder="{{UI_SEARCH_TEXT}}" [formControl]="searchControl">
@@ -29,9 +29,9 @@
             </div>
         </div>
     </form>
-</section>
+</div>
 
-<section id="libraryBrowse">
+<div id="libraryBrowse">
     <div id="alphaScroll">
         <a *ngFor="let x of alphabet index as ind" (click)="alphaJump(ind)">{{x}}</a>
     </div>
@@ -65,4 +65,4 @@
             </ng-container>
         </table>
     <!--/div-->
-</section>
+</div>
