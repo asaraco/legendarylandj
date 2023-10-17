@@ -23,4 +23,7 @@ export class LibraryDataService {
     return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderBySortArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
     //return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
   }
+  retrieveNewTracks(): Observable<any> {
+    return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIsNull`)
+  }
 }

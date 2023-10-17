@@ -47,6 +47,7 @@ export class LibraryComponent implements OnInit {
   }
   */
   ngOnInit(): void {
+    // Get main list of tracks
     this.libraryDataService.retrieveAllTracks().subscribe(
       data => { 
                 this.tracks = data._embedded.tracks;
@@ -54,6 +55,7 @@ export class LibraryComponent implements OnInit {
                 console.log("Results: " + this.tracks.length);
               }
     );
+    // Handle request blocking
     const now = new Date();
     console.log(now.getTime()/1000);
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
@@ -66,7 +68,7 @@ export class LibraryComponent implements OnInit {
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
         this.requestInterval = setInterval(() => this.reqTimeout(), remainingTimeout);
       }
-    }    
+    }
   }
 
   /**
