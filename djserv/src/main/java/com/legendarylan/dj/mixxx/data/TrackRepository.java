@@ -3,6 +3,7 @@ package com.legendarylan.dj.mixxx.data;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -25,5 +26,6 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 	@PostConstruct
 	List<Track> findByCratesIdNotInOrderBySortArtistAscAlbumAsc(@Param("crateids") int[] crateids);
 	//List<Track> findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc(@Param("crateids") int[] crateids);
+	List<Track> findAllByCratesIsNull();
 	
 }
