@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +29,6 @@ public class Controllers {
 	
 	@CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
 	@PostMapping("/upload")
-	@CacheEvict("library")
 	public ResponseEntity<?> handleFileUpload( @RequestParam("song") MultipartFile file ) {
 		String fileContentType = file.getContentType().toLowerCase();
 		String fileName = file.getOriginalFilename();

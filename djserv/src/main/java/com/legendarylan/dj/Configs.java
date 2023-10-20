@@ -12,6 +12,7 @@ public class Configs {
 
 	@Bean
 	public CacheManager cacheManager() {
+		System.out.println("***** CACHE MANAGER INITIALIZING *****");
 		return new ConcurrentMapCacheManager("library");
 	}
 

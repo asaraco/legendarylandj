@@ -2,8 +2,8 @@ package com.legendarylan.dj.mixxx.data;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -15,7 +15,6 @@ import jakarta.annotation.PostConstruct;
 
 @RepositoryRestResource(collectionResourceRel="tracks", path="tracks", excerptProjection = TrackSimple.class)
 @CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
-@Cacheable("library")
 public interface TrackRepository extends CrudRepository<Track, Integer> {
 	Track findById(@Param("id") int id);
 	List<Track> findByArtist(@Param("artist") String artist);
@@ -24,8 +23,10 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 	List<Track> findAllByCratesIdNotIn(@Param("crateids") int[] crateids);
 	List<Track> findByCratesIdNotInOrderByArtistAscAlbumAsc(@Param("crateids") int[] crateids);
 	@PostConstruct
+	@Cacheable("library")
 	List<Track> findByCratesIdNotInOrderBySortArtistAscAlbumAsc(@Param("crateids") int[] crateids);
 	//List<Track> findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc(@Param("crateids") int[] crateids);
+	@CachePut("library")
 	List<Track> findAllByCratesIsNull();
 	
 }
