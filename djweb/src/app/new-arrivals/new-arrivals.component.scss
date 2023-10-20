@@ -9,24 +9,48 @@ div#naContent {
     div.naTrack:nth-child(odd) {
         background-color: rgba(100,100,0,0.10);
     }
-}
-div.naTrack {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5em;
-    div {
+    div.naTrack {
         display: flex;
-    }
-    div.naTrackMain {
-        flex: 1;
-        color: #ffff55;
-        span.title {
-            flex: 1;
+        flex-direction: row;
+        justify-content: space-between;
+        div.naTrackText {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 0.5em;
+            div {
+                display: flex;
+            }
+            div.naTrackMain {
+                flex: 1;
+                color: #ffff55;
+                span.title {
+                    flex: 1;
+                }
+            }
+            div.naTrackSub {
+                justify-content: space-between;
+                color: #aaaa55;
+                font-style:italic;
+            }
+        }
+        div.naRequest {
+            padding: 0.25em;
+            button {
+                color: black;
+                background-color: #ffff55;
+                border-radius: 100%;
+                width: 2em;
+                height: 2em;
+            }
+            button:hover {
+                cursor: pointer;
+            }
+            button:disabled {
+                background-color:rgba(0, 0, 0, 0.5);
+                cursor:auto;
+                box-shadow: none;
+            }
         }
     }
-    div.naTrackSub {
-        justify-content: space-between;
-        color: #aaaa55;
-        font-style:italic;
-    }    
 }

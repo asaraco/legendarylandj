@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL } from '../app.constants';
 import { FormControl } from '@angular/forms';
-import { Observable, debounceTime, map, startWith } from 'rxjs';
+import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 /** Main component code */
@@ -29,6 +29,7 @@ export class LibraryComponent implements OnInit {
   requestInterval: any;
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   showCrateDropDown: boolean = false;
+  requestSubscription: Subscription;
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   UI_CATS_TEXT: string = UI_CATS_TEXT;
@@ -39,7 +40,18 @@ export class LibraryComponent implements OnInit {
     private libraryDataService: LibraryDataService,
     private playlistDataService: PlaylistDataService,
     private route: ActivatedRoute
-  ){}
+  ){
+    this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
+      this.justRequested = 999999999999999;
+      this.setReqDelay(data, new Date());
+      this.libraryDataService.retrieveAllTracks().subscribe(
+        data => { 
+                  this.tracks = data._embedded.tracks;
+                  this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+                }
+      );
+    })
+  }
   /*
   ngOnChanges(changes: SimpleChanges): void {
     console.log(`crate: ${this.filterCrate}`);
@@ -52,21 +64,17 @@ export class LibraryComponent implements OnInit {
       data => { 
                 this.tracks = data._embedded.tracks;
                 this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                console.log("Results: " + this.tracks.length);
               }
     );
     // Handle request blocking
     const now = new Date();
-    console.log(now.getTime()/1000);
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     const ls_lastRequest = localStorage.getItem('lastRequest');
     if (ls_noRequestsUntil) {
       let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
       if (remainingTimeout > 0) { 
-        console.log("now < NRU");
-        console.log("lastRequest = " + ls_lastRequest);
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
-        this.requestInterval = setInterval(() => this.reqTimeout(), remainingTimeout);
+        this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
       }
     }
   }
@@ -95,6 +103,12 @@ export class LibraryComponent implements OnInit {
     }
   }
 
+  /**
+   * Build an easily-searchable string of all the most pertinent metadata
+   * about a track.
+   * @param t Track metadata
+   * @returns 
+   */
   private friendlyTrackString(t: Track): string {
     var friendlyText: string = "";
 
@@ -113,23 +127,31 @@ export class LibraryComponent implements OnInit {
     return friendlyText;
   }
 
-  /*
-  matchCrates(trackCrates: number[]): boolean {
-    let matches = trackCrates.filter(cid => this.filterByCrates.includes(cid));
-    return !(matches.length==0);
-  }
-  */
-
+  /**
+   * Set the active crate.
+   * @param id 
+   */
   selectCrate(id: number) {
     this.selectedCrateId = id;
     this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
     this.toggleCrateDropDown();
   }
 
+  /**
+   * Toggle the flag that determines if the
+   * crate selector drop-down is showing.
+   */
   toggleCrateDropDown() {
     this.showCrateDropDown = !this.showCrateDropDown;
   }
 
+  /**
+   * Add a song to the Auto DJ queue.
+   * Set a delay on future requests 
+   * using a calculation based on the song's duration.
+   * @param id Track id
+   * @param duration Track duration
+   */
   requestSong(id: number, duration: number) {
     let userId = localStorage.getItem('userNumber');
     const now = new Date();
@@ -141,21 +163,32 @@ export class LibraryComponent implements OnInit {
       var resultMsg: string;
       this.playlistDataService.requestTrack(id).subscribe(data => {
         resultMsg = data;
-        //console.log(resultMsg);
         this.justRequested = id;
-        this.requestInterval = setInterval(() => this.reqTimeout(), duration * 100);
-        let delayTime = now.getTime() + (duration * 100);
-        console.log(now.getTime());
-        console.log(duration * 1000);
-        console.log(delayTime);
-        localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
+        this.setReqDelay(duration, now);
         localStorage.setItem('lastRequest', id.toString());
-        console.log(localStorage.getItem('noRequestsUntil'));
-      });
+        this.playlistDataService.notifyOfRequest(duration);
+      });    
     }    
   }
 
-  reqTimeout() {
+  /**
+   * Calculate and set a delay 
+   * @param duration 
+   * @param now 
+   */
+  setReqDelay(duration: number, now: Date) {
+    this.requestInterval = setInterval(() => this.reqTimeoutOver(), duration * 100);
+    let delayTime = now.getTime() + (duration * 100);
+    console.log(now.getTime());
+    console.log(duration * 1000);
+    console.log(delayTime);
+    localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
+  }
+
+  /**
+   * Reset request timeout variables when time's up
+   */
+  reqTimeoutOver() {
     this.justRequested = -1;
     clearInterval(this.requestInterval);
   }

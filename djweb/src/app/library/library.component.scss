@@ -232,7 +232,9 @@ div#libraryBrowse {
             }
         }
         td.request button:disabled {
-            display: none;
+            background-color:rgba(0, 0, 0, 0.5);
+            cursor:auto;
+            box-shadow: none;
         }
     }
 }

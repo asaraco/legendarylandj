@@ -2,7 +2,7 @@ import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
 //export const API_URL = "http://localhost:8080";
-export const API_URL = "http://192.168.0.182:8080";
+export const API_URL = "http://192.168.0.181:8080";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";
@@ -30,6 +30,7 @@ export const CRATE_GAME_OSV         = new CrateMeta(9, "Video Game OSV","btn_vgo
 export const CRATE_RESERVED         = new CrateMeta(10, "RESERVED",     "", "* HIDDEN * | You shouldn't be seeing this!");
 export const CRATE_SAMPLES          = new CrateMeta(11, "SAMPLES",      "",   "* HIDDEN * | Samples, used for the soundboard or other fun things");
 export const CRATE_PSYCHED          = new CrateMeta(12, "GET PSYCHED",  "btn_getpsyched.png", "When there's no time for a training montage, these will get you pumped for a legendary performance.");
+export const CRATE_LAN_LIBRARY      = new CrateMeta(13, "The LAN Library","","Catch-all crate for uploaded songs.");
 export const CRATE_GAME_OTHER       = new CrateMeta(14, "Video Game Covers/Remixes",    "btn_vgremix.png", "Video game music, reinterpreted.")
 export const CRATE_EPIC             = new CrateMeta(15, "Epics",        "", "* HIDDEN * | Epic-length songs that should be requested sparingly");
 export const CRATE_HITS             = new CrateMeta(17, "Greatest Hits","btn_greatesthits.png", "Songs that are objectively popular or have otherwise achieved Legendary status.");

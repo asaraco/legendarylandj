@@ -90,6 +90,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     box-sizing: border-box;
+    color: rgba(var(--fg),1);
     @media screen and (prefers-reduced-motion: reduce) {
         scroll-behavior: auto;
     }
@@ -98,6 +99,10 @@ body {
     font-size: 62.5%;
     font-family: Roboto, 'Open Sans', Arial;
     background-color: rgba(var(--bg), 1);
+}
+
+a {
+    text-decoration: none;
 }
 
 button {

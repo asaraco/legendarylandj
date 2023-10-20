@@ -1,6 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CRATES_HIDDEN } from './app.constants';
-import { Track } from './track/track.component';
 
 /**
  * Custom "group by" pipe transform to emulate Angular 1 behavior
@@ -13,9 +11,6 @@ import { Track } from './track/track.component';
   name: 'groupByArtist'
 })
 export class GroupByArtistPipe implements PipeTransform {
-  //alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-  //alphaIndex: number = 1;
-
   transform(data: any): any {
     // See below: need to check "data" exists so this can be used asynchronously (w/ "subscribe")
     // https://stackoverflow.com/questions/43239105/angular-4-0-0-custom-pipe-always-sending-undefined
@@ -31,7 +26,6 @@ export class GroupByArtistPipe implements PipeTransform {
           currentItem['artist'] = "(no artist)";
         } 
 
-        //existingGroups['_index-'+this.alphabet[this.alphaIndex]] = {"groupName": `<span id='#firstStartingWith${this.alphabet[this.alphaIndex]}'>`};
         // "If the existing groups contain a group label that matches current item's value for the 'sortArtist' field..."
         if (existingGroups[tSortArt]) {
           existingGroups[tSortArt].push(currentItem);
@@ -48,15 +42,7 @@ export class GroupByArtistPipe implements PipeTransform {
           existingGroups[tSortArt] = [groupHeader];
           existingGroups[tSortArt].push(currentItem);
         }
-        /*
-        let currLetter: string = this.alphabet[this.alphaIndex];
-        console.log(this.alphaIndex);
-        console.log(currLetter);
-        console.log("sa " + tSortArt.substring(0,1).toUpperCase());
-        console.log("al " + this.alphabet[this.alphaIndex]);
-        console.log(((tSortArt.substring(0,1).toUpperCase()===currLetter)));
-        if((tSortArt.substring(0,1).toUpperCase()===currLetter)) this.alphaIndex++;
-        */
+        
         return existingGroups;
       }, {});
       //console.log(JSON.stringify(groupedData));

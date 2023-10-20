@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_URL } from 'src/app/app.constants';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Playlist } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
 
@@ -9,6 +9,15 @@ import { Track } from 'src/app/track/track.component';
   providedIn: 'root'
 })
 export class PlaylistDataService {
+  private requestDuration = new Subject<number>();
+
+  notifyOfRequest(duration: number) {
+    this.requestDuration.next(duration);
+  }
+
+  watchForNotification(): Observable<number> {
+    return this.requestDuration.asObservable();
+  }
 
   constructor( 
     private http: HttpClient 
@@ -18,7 +27,6 @@ export class PlaylistDataService {
   the JSON response is not just a Playlist, it also has an "_embedded" wrapper
   for the playlistTracks array, and other generated stuff. So a bit more manual handling is needed. */
   retrievePlaylist(id: number): Observable<any> {
-    //return this.http.get<Playlist>(`${API_URL}/playlists/${id}?projection=playlistSimple`);
     return this.http.get<Playlist>(`${API_URL}/playlists/${id}`);
   }
 
@@ -31,9 +39,12 @@ export class PlaylistDataService {
   }
 
   requestTrack(id: number): Observable<string> {
-    //console.log("I'm doing a POST with id " +id);
     var responseMsg: string;
-    //this.http.post<String>(`${API_URL}/requestSong?id=${id}`, null).subscribe(data => { 
     return this.http.post<string>(`${API_URL}/requestSong?id=${id}`, null);
+  }
+
+  requestTrackCrate(songid: number, crateid: number): Observable<string> {
+    var responseMsg: string;
+    return this.http.post<string>(`${API_URL}/requestSongCrate?songid=${songid}&crateid=${crateid}`, null);
   }
 }

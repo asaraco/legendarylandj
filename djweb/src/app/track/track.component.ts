@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 export class Track {
+  id!: number;
   artist: string = "";
   title: string = "";
   album: string = "";

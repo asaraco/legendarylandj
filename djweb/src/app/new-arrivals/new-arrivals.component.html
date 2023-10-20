@@ -3,12 +3,17 @@
 </div>
 <div id="naContent">
     <div class="naTrack" *ngFor="let t of tracks">
-        <div class="naTrackMain">
-            <span class="title">{{t.title}}</span>
+        <div class="naTrackText">
+            <div class="naTrackMain">
+                <span class="title">{{t.title}}</span>
+            </div>
+            <div class="naTrackSub">
+                <span class="artist">{{t.artist}}</span>
+                <span class="duration">{{t.duration * 1000 | date:'mm:ss'}}</span>
+            </div>
         </div>
-        <div class="naTrackSub">
-            <span class="artist">{{t.artist}}</span>
-            <span class="duration">{{t.duration * 1000 | date:'mm:ss'}}</span>
+        <div class="naRequest">
+            <button type="button" [disabled]="!requestable" (click)="requestSong(t.id, t.duration)">+</button>
         </div>
     </div>
 </div>

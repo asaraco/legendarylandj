@@ -15,14 +15,11 @@ export class LibraryDataService {
 
   /* AMS - I don't like using "any" as the type instead of "Track[]", but due to using JPA/HAL
   the JSON response has an "_embedded" wrapper for the tracks array */
-  retrieveTracksByArtistStartingWith(ch: string): Observable<any> {
-    return this.http.get<Track[]>(`${API_URL}/tracks/search/findByArtistStartingWith?ch=${ch}`)
-  }
+
   retrieveAllTracks(): Observable<any> {
-    //return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByOrderByArtistAsc`)
     return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderBySortArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
-    //return this.http.get<Track[]>(`${API_URL}/tracks/search/findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc?crateids=${CRATES_HIDDEN}`)
   }
+  
   retrieveNewTracks(): Observable<any> {
     return this.http.get<Track[]>(`${API_URL}/tracks/search/findAllByCratesIsNull`)
   }
