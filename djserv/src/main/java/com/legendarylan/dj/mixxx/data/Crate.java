@@ -81,4 +81,9 @@ public class Crate {
 	public void setAutodjSource(int i) {
 		this.autodjSource = i;
 	}
+	
+	@JsonIgnore
+	public List<Track> getTracks() {
+		return this.tracks;
+	}
 }

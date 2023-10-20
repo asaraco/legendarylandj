@@ -26,7 +26,6 @@ public interface TrackRepository extends CrudRepository<Track, Integer> {
 	@Cacheable("library")
 	List<Track> findByCratesIdNotInOrderBySortArtistAscAlbumAsc(@Param("crateids") int[] crateids);
 	//List<Track> findByCratesIdNotInOrderByAlbumArtistAscArtistAscAlbumAsc(@Param("crateids") int[] crateids);
-	@CachePut("library")
 	List<Track> findAllByCratesIsNull();
 	
 }

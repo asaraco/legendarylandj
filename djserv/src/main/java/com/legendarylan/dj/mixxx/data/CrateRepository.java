@@ -13,4 +13,5 @@ import com.legendarylan.dj.Const;
 @CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
 public interface CrateRepository extends CrudRepository<Crate, Long> {
 	List<Crate> findByName(@Param("name") String name);
+	Crate findById(@Param("id") Integer id);
 }
