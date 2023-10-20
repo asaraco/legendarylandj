@@ -49,28 +49,68 @@ section#playHistory {
     min-width: 15%;
 }
 
-#headerQueueButton {
+/*#headerQueueButton, #headerNewButton {
+    display: none;
+}*/
+
+#hamburgerBtn {
+    display: none;
+}
+
+#hamburgerMenu {
     display: none;
 }
 
 @media screen and (max-width: 960px) {
     section#headerSection {
-        h1 {
-            font-family: 'Roboto', 'Roboto', Arial;
-            font-size: 0.5em;
+        div#headerBar {
+            h1 {
+                font-family: 'Roboto', 'Roboto', Arial;
+                font-size: 0.5em;
+            }
         }
+        div#toolBar app-file-upload {
+            display: none;
+        }    
     }
     section#mainSection {
         flex-direction: column;
     }
-    section#playHistory {
+    section#playHistory, section#leftWrapper {
         display: none;
-    }
-    #headerQueueButton {
+    }    
+    /*#headerQueueButton {
         display: inline-block;
+    }*/
+    #hamburgerBtn {
+        display: inline-block;
+        background-color: rgba(0,0,0,0);
+    }
+    #hamburgerMenu {
+        display: flex;
+        position: absolute;
+        top: 1em;
+        z-index: 1000;
+        color: rgba(var(--buttonFg),1);
+        background-color: rgba(var(--buttonBg),1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        button.toggled {
+            background-color: gray;
+        }
     }
     section#playHistory.mobileQueue {
         position: absolute;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        z-index: 500;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    section#leftWrapper.mobileNew {
+        position: absolute;
+        width: 100%;
         display: flex;
         flex-direction: column;
         z-index: 500;

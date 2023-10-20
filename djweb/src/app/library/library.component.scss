@@ -5,7 +5,7 @@ div#libraryForm {
         display: flex;
         flex-direction: row;
         color:#afa;
-        font-size:2em;
+        font-size:2dvh;
         div {
             display: flex;
         }
@@ -19,7 +19,7 @@ div#libraryForm {
             font-style: italic;
         }
         div#searchField {
-            flex: 1;
+            flex: 2;
             display: flex;
             flex-direction: column;
             input {
@@ -38,9 +38,9 @@ div#libraryForm {
             flex-direction: column;
             align-items: flex-end;
             position: relative;
-            .crateBtn {                
+            .crateBtn {           
                 /*border-radius: 0.25em;*/
-                background-color: rgba(0, 0, 0, 1);
+                /*background-color: rgba(0, 0, 0, 1);*/
                 color: #fff;
                 height: 2em;
                 border: none;
@@ -51,6 +51,7 @@ div#libraryForm {
                 span.crateLogo {
                     flex: 1;
                     height: 100%;
+                    padding: 5dvh;
                 }
                 img {                    
                     height: 0;
@@ -58,14 +59,16 @@ div#libraryForm {
                 }
                 span.crateDesc {
                     flex: 3;
+                    padding: 2dvh;
                 }                
             }
             .crateBtn:hover {
-                background-color: rgba(128,64,64,1);
+                background-color: rgba(128,64,64,0.5);
             }
             #crateActive {
                 justify-content: flex-end;
                 margin-bottom: 0;
+                background-color: rgba(0,0,0,1);
                 span.crateDropIcon {
                     z-index: 10;
                 }
@@ -73,15 +76,21 @@ div#libraryForm {
             div#crateDropDown {
                 position: absolute;
                 margin-top: 2em;
-                width: 100%;
+                width: 0;
+                height: 0;
                 z-index: 1;
-                justify-content: space-between;
                 flex-direction: column;
-                justify-content: flex-end;
+                transition-duration: 0.25s;
+                background-color: rgba(0,0,0,0.5);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
-                    height: 2em;
-                    font-size: 0.5em;
-                    padding: 1em 0.25em;
+                    display: none;
+                    /*height: 2em;*/
+                    flex-grow: 1;
+                    flex-direction: row-reverse;
+                    /*font-size: 0.5em;*/
+                    font-size: 1.5dvh;
                     border-bottom: 1px solid #555;
                 }
                 /*
@@ -89,6 +98,13 @@ div#libraryForm {
                     background-color: rgba(16, 16, 32, 1);
                 }
                 */
+            }
+            div#crateDropDown.unrolled {
+                width: 50dvw;
+                height: 75dvh;
+                .crateBtn {
+                    display: flex;
+                }
             }
         }
     }
@@ -166,13 +182,13 @@ div#libraryBrowse {
             background: linear-gradient(0deg, rgba(255,255,255,0.15), rgba(0,0,0,0.0) 25%);
         }
         col.title {
-            width: 30%;
+            width: 35%;
         }
         .title{
             color: rgba(32,255,32,1.0);
         }
         col.album {
-            width: 40%;
+            width: 30%;
         }
         .album {
             font-style: italic;
@@ -181,7 +197,7 @@ div#libraryBrowse {
             width: 20%;
         }
         .artist {
-            color: rgba(255,255,255,0.15);
+            color: rgba(205,205,255,0.5);
         }
         col.duration {
             width: 5%;
@@ -190,10 +206,9 @@ div#libraryBrowse {
             color: rgba(255,255,200,0.25);
         }
         col.request {
-            width: 5%;
+            width: 10%;
         }
-        .request {
-            
+        .request {            
             button {
                 color: black;
                 border-radius: 100%;
@@ -223,10 +238,29 @@ div#libraryBrowse {
 }
 
 @media screen and (max-width: 960px) {
-    section#libraryBrowse {
+    div#libraryForm {
+        form {
+            div#categoryFilter {
+                .crateBtn {
+                    span.crateLogo, span.crateDesc {
+                        padding: 1dvh;
+                    }
+                }
+                div#crateDropDown.unrolled {
+                    right: 2dvw;
+                    width: 75dvw;
+                }
+            }
+        }
+    }
+    div#libraryBrowse {
+        overflow:hidden;
         table.libraryTable {
             col.title {
-                width: 75%;
+                width: 70%;
+            }
+            col.request {
+                width: 10%;
             }
             col.album {
                 width: 20%;

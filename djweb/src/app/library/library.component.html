@@ -12,7 +12,7 @@
                 <img *ngIf="!(filterCrate.id==0) && !(filterCrate.imageFileName=='')" src="assets/images/{{filterCrate.imageFileName}}" alt="{{filterCrate.name}}"/>
                 <span class="crateDropIcon">▼</span>
             </div>
-            <div id="crateDropDown" *ngIf="showCrateDropDown">
+            <div id="crateDropDown" [ngClass]="{unrolled: showCrateDropDown}">
                 <!--button class="crateBtn" (click)="selectCrate(0)" [ngClass]="{'crateSelected': filterCrate===0}">
                     All
                 </button-->
