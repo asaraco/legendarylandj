@@ -17,11 +17,12 @@
 </section>
 
 <section id="welcomeText">
-    <div class="toast">
+    <!--div class="toast">
         <p [innerHTML]="UI_WELCOME_TEXT"></p>
         <p [innerHTML]="UI_HELPTEXT_REQUEST"></p>
         <p [innerHTML]="UI_HELPTEXT_UPLOAD"></p>
-    </div>
+    </div-->
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
 </section>
 
 <section id="mainSection">

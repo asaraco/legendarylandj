@@ -77,26 +77,6 @@ app-new-arrivals {
     top: 0;
 }
 
-div.toast {
-    position: absolute;
-    /*bottom: 2dvh;*/
-    top: 15dvh;
-    left: 0;
-    right: 0;
-    margin: auto;
-    height: auto;
-    width: 60dvw;
-    z-index: 5000;
-    text-align: center;
-    font-size: 1.5dvh;
-    padding: 2em;
-    border-radius: 5dvh;
-    background-color: rgba(255,255,255,0.9);
-    color: black;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
 @media screen and (max-width: 960px) {
     section#headerSection {
         div#headerBar {
@@ -112,7 +92,7 @@ div.toast {
     section#mainSection {
         flex-direction: column;
     }
-    section#playHistory, section#leftWrapper {
+    section#queueWrapper, section#leftWrapper {
         display: none;
     }    
     /*#headerQueueButton {
@@ -135,7 +115,7 @@ div.toast {
             background-color: gray;
         }
     }
-    section#playHistory.mobileQueue {
+    section#queueWrapper.mobileQueue {
         position: absolute;
         top:auto;
         width: 100%;

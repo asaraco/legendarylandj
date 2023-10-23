@@ -22,7 +22,7 @@ export class NewArrivalsComponent implements OnInit {
     private playlistDataService: PlaylistDataService
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
-      this.setReqDelay(data, new Date());
+      this.setReqDelay(data.duration, new Date());
     })
   }
 
@@ -55,7 +55,7 @@ export class NewArrivalsComponent implements OnInit {
           resultMsg = data;
           this.setReqDelay(duration, now);
           localStorage.setItem('lastRequest', id.toString());
-          this.playlistDataService.notifyOfRequest(duration);
+          this.playlistDataService.notifyOfRequest(duration, true);
           this.libraryDataService.retrieveNewTracks().subscribe(
             data2 => {
               this.tracks = data2._embedded.tracks;

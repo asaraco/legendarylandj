@@ -5,18 +5,26 @@ import { Observable, Subject } from 'rxjs';
 import { Playlist } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
 
+export class PlaylistRequest {
+  constructor(public duration: number, public triggerRefresh: boolean) {}
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistDataService {
-  private requestDuration = new Subject<number>();
+  //private requestDuration = new Subject<number>();
+  private currentRequest = new Subject<PlaylistRequest>();
 
-  notifyOfRequest(duration: number) {
-    this.requestDuration.next(duration);
+  notifyOfRequest(duration: number, refreshLibrary: boolean) {
+    let pr = new PlaylistRequest(duration, refreshLibrary);
+    //this.requestDuration.next(duration);
+    this.currentRequest.next(pr);
   }
 
-  watchForNotification(): Observable<number> {
-    return this.requestDuration.asObservable();
+  watchForNotification(): Observable<PlaylistRequest> {
+    //return this.requestDuration.asObservable();
+    return this.currentRequest.asObservable();
   }
 
   constructor( 

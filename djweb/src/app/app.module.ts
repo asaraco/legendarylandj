@@ -14,6 +14,7 @@ import { HideCratesPipe } from './hide-crates.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NewArrivalsComponent } from './new-arrivals/new-arrivals.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NewArrivalsComponent } from './new-arrivals/new-arrivals.component';
     GroupByArtistPipe,
     HideCratesPipe,
     FileUploadComponent,
-    NewArrivalsComponent
+    NewArrivalsComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

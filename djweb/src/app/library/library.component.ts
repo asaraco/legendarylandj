@@ -26,7 +26,9 @@ export class LibraryComponent implements OnInit {
   searchTerm: string = "";
   searchControl: FormControl = new FormControl();
   justRequested: number = -1;
+  showReqToast: boolean = false;
   requestInterval: any;
+  toastInterval: any;
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   showCrateDropDown: boolean = false;
   requestSubscription: Subscription;
@@ -43,13 +45,15 @@ export class LibraryComponent implements OnInit {
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
       this.justRequested = 999999999999999;
-      this.setReqDelay(data, new Date());
-      this.libraryDataService.retrieveAllTracks().subscribe(
-        data => { 
-                  this.tracks = data._embedded.tracks;
-                  this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
-                }
-      );
+      this.setReqDelay(data.duration, new Date());
+      if (data.triggerRefresh) {
+        this.libraryDataService.retrieveAllTracks().subscribe(
+          data => { 
+                    this.tracks = data._embedded.tracks;
+                    this.filteredTracks = this.searchControl.valueChanges.pipe(debounceTime(500), startWith(''), map(value => this._filter(value)));
+                  }
+        );
+      }      
     })
   }
   /*
@@ -165,8 +169,10 @@ export class LibraryComponent implements OnInit {
         resultMsg = data;
         this.justRequested = id;
         this.setReqDelay(duration, now);
+        this.reqToast();
+        //this.showReqToast = true;
         localStorage.setItem('lastRequest', id.toString());
-        this.playlistDataService.notifyOfRequest(duration);
+        this.playlistDataService.notifyOfRequest(duration, false);
       });    
     }    
   }
@@ -190,7 +196,14 @@ export class LibraryComponent implements OnInit {
    */
   reqTimeoutOver() {
     this.justRequested = -1;
+    //this.showReqToast = false
     clearInterval(this.requestInterval);
+  }
+
+  reqToast() {
+    this.showReqToast = true;
+    console.log("before setinterval " + this.showReqToast);
+    this.toastInterval = setInterval(() => {this.showReqToast = false; clearInterval(this.toastInterval)}, 2000);
   }
 
   /**

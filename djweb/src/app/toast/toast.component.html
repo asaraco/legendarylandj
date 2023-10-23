@@ -1,0 +1,4 @@
+<div class="toast" [ngClass]="{disappear: !showToast}">
+    <p *ngFor="let txt of toastText" [innerHTML]="txt"></p>
+    <button (click)="closeThis()">𐌢</button>
+</div>
