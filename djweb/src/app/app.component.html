@@ -16,6 +16,14 @@
     </div>
 </section>
 
+<section id="welcomeText">
+    <div class="toast">
+        <p [innerHTML]="UI_WELCOME_TEXT"></p>
+        <p [innerHTML]="UI_HELPTEXT_REQUEST"></p>
+        <p [innerHTML]="UI_HELPTEXT_UPLOAD"></p>
+    </div>
+</section>
+
 <section id="mainSection">
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
         <app-new-arrivals></app-new-arrivals>
@@ -24,7 +32,8 @@
         <!--router-outlet></router-outlet-->
         <app-library></app-library>
     </section>
-    <section class="subSection" id="playHistory" [ngClass]="{mobileQueue: showQueue}">
+    <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
+        <div id="queueHeader"><h3>Song Queue</h3></div>
         <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
         <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
     </section>

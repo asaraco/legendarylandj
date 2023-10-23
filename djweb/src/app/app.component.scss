@@ -40,8 +40,7 @@ section#browseWrapper {
     /*max-height: 95dvh;*/
 }
 
-section#playHistory {
-    padding: 1em;
+section#queueWrapper {
     /*background-color: #141632;*/
     background-color: rgba(var(--queueBg), 1);
     /*background: linear-gradient(0deg, rgba(0,0,16,0.25), rgba(32,32,64,0.9));*/
@@ -50,6 +49,15 @@ section#playHistory {
     height: fit-content;
     position: sticky;
     top: 0;
+    div#queueHeader {
+        h3 {
+            color: rgba(var(--queueFg),1);
+            font-family: 'Roboto Condensed', 'Roboto', Arial;
+            font-size: 2em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
 }
 
 /*#headerQueueButton, #headerNewButton {
@@ -67,6 +75,26 @@ section#playHistory {
 app-new-arrivals {
     position: sticky;
     top: 0;
+}
+
+div.toast {
+    position: absolute;
+    /*bottom: 2dvh;*/
+    top: 15dvh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: auto;
+    width: 60dvw;
+    z-index: 5000;
+    text-align: center;
+    font-size: 1.5dvh;
+    padding: 2em;
+    border-radius: 5dvh;
+    background-color: rgba(255,255,255,0.9);
+    color: black;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 @media screen and (max-width: 960px) {

@@ -6,6 +6,7 @@ h3 {
     text-align: center;
 }
 div#naContent {
+    padding: 0 0.5dvw;
     div.naTrack:nth-child(odd) {
         background-color: rgba(100,100,0,0.10);
     }
