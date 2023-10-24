@@ -22,7 +22,7 @@
         <p [innerHTML]="UI_HELPTEXT_REQUEST"></p>
         <p [innerHTML]="UI_HELPTEXT_UPLOAD"></p>
     </div-->
-    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
+    <app-toast *ngIf="firstTime" [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
 </section>
 
 <section id="mainSection">

@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   showMenu: boolean = false;
   showQueue: boolean = false;  
   showNew: boolean = false;
+  firstTime: boolean = false;
   requestSubscription: Subscription;
   currentTrackDuration: number = 100;
   /* imported constants */
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
       this.userDataService.generateID().subscribe(data => {
         localStorage.setItem('userNumber', JSON.stringify(data));
         console.log("Assigned User #: " + localStorage.getItem('userNumber'));
+        this.firstTime = true;
       });
     }
   }
