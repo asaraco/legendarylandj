@@ -1,5 +1,5 @@
 h3 {
-    color: #ffffaa;
+    color: rgba(var(--newsHeadFg),1);
     font-family: 'Roboto Condensed', 'Roboto', Arial;
     font-size: 2em;
     text-transform: uppercase;
@@ -8,7 +8,7 @@ h3 {
 div#naContent {
     padding: 0 0.5dvw;
     div.naTrack:nth-child(odd) {
-        background-color: rgba(100,100,0,0.10);
+        background-color: rgba(var(--newsBg),0.25);
     }
     div.naTrack {
         display: flex;
@@ -24,22 +24,22 @@ div#naContent {
             }
             div.naTrackMain {
                 flex: 1;
-                color: #ffff55;
+                color: rgba(var(--newsFg),1);
                 span.title {
                     flex: 1;
                 }
             }
             div.naTrackSub {
                 justify-content: space-between;
-                color: #aaaa55;
+                color: rgba(var(--newsFg),0.5);
                 font-style:italic;
             }
         }
         div.naRequest {
             padding: 0.25em;
             button {
-                color: black;
-                background-color: #ffff55;
+                color: rgba(var(--bg),1);
+                background-color: rgba(var(--newsFg),1);
                 border-radius: 100%;
                 width: 2em;
                 height: 2em;

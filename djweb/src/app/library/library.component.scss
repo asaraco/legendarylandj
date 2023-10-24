@@ -4,18 +4,18 @@ div#libraryForm {
     form {
         display: flex;
         flex-direction: row;
-        color:#afa;
+        /*color:#afa;*/
         font-size:2dvh;
         div {
             display: flex;
         }
         input {
-            color: #0adb00;
-            background-color: rgba(0,0,0,1);
+            color: rgba(var(--inputFg),1);
+            background-color: rgba(var(--inputBg),1);
             border: 0;
         }
         input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
-            color: #327832;
+            color: rgba(var(--inputFg),0.35);
             font-style: italic;
         }
         div#searchField {
@@ -39,9 +39,7 @@ div#libraryForm {
             align-items: flex-end;
             position: relative;
             .crateBtn {           
-                /*border-radius: 0.25em;*/
-                /*background-color: rgba(0, 0, 0, 1);*/
-                color: #fff;
+                color: rgba(var(--libTh));
                 height: 2em;
                 border: none;
                 cursor: pointer;
@@ -63,12 +61,12 @@ div#libraryForm {
                 }                
             }
             .crateBtn:hover {
-                background-color: rgba(128,64,64,0.5);
+                background-color: rgba(var(--crateHover),0.5);
             }
             #crateActive {
                 justify-content: flex-end;
                 margin-bottom: 0;
-                background-color: rgba(0,0,0,1);
+                background-color: rgba(var(--inputBg),1);
                 span.crateDropIcon {
                     z-index: 10;
                 }
@@ -81,7 +79,7 @@ div#libraryForm {
                 z-index: 1;
                 flex-direction: column;
                 transition-duration: 0.25s;
-                background-color: rgba(0,0,0,0.5);
+                background-color: rgba(var(--crateDropBg),0.5);
                 backdrop-filter: blur(8px);
                 -webkit-backdrop-filter: blur(8px);
                 .crateBtn {
@@ -160,14 +158,14 @@ div#libraryBrowse {
         table-layout: fixed;
         /*background:#595959;*/
         background-color: rgba(0,0,0,0);
-        background: linear-gradient(0deg, rgba(20,20,20,1.0), rgba(25,25,30,1.0));
-        color: #999;
+        background: linear-gradient(0deg, rgba(var(--libBg),0.05), rgba(var(--libBg),0.25));
+        color: rgba(var(--libFg0),1);
         border-collapse: collapse;
         tr {
             font-size: 1.25em;
         }
         tr:nth-child(odd) {
-            background-color: rgba(50,100,50,0.15);
+            background-color: rgba(var(--libBg),0.4);
         }
         td {
             padding: 0.5em;
@@ -176,16 +174,16 @@ div#libraryBrowse {
             padding-top: 0.5em;
             text-align: left;
             font-family: 'Roboto Condensed', 'Roboto', Arial;
-            font-size: 3em;
-            color: #fff;
-            border-bottom: 2px solid #fff;
-            background: linear-gradient(0deg, rgba(255,255,255,0.15), rgba(0,0,0,0.0) 25%);
+            font-size: 3dvh;
+            color: rgba(var(--libTh),1);
+            border-bottom: 2px solid rgba(var(--libTh),1);
+            background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
         }
         col.title {
             width: 35%;
         }
         .title{
-            color: rgba(32,255,32,1.0);
+            color: rgba(var(--libTitle),1);
         }
         col.album {
             width: 30%;
@@ -197,20 +195,23 @@ div#libraryBrowse {
             width: 20%;
         }
         .artist {
-            color: rgba(205,205,255,0.5);
+            color: rgba(var(--libFg),0.5);
+        }
+        .album {
+            color: rgba(var(--fg), 0.5);
         }
         col.duration {
             width: 5%;
         }
         .duration {
-            color: rgba(255,255,200,0.25);
+            color: rgba(var(--libDur),0.25);
         }
         col.request {
             width: 10%;
         }
         .request {            
             button {
-                color: black;
+                color: rgba(var(--bg),1);
                 border-radius: 100%;
                 width: 2em;
                 height: 2em;
