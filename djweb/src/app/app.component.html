@@ -9,32 +9,32 @@
         <button id="hamburgerBtn" (click)="toggleHamburgerMenu()">☰</button>
     </div>
     <div id="hamburgerMenu" *ngIf="showMenu">
-        <button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button>
+        <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
         <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
+        <button id="helpButton">Help</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>
 
 <section id="welcomeText">
-    <!--div class="toast">
-        <p [innerHTML]="UI_WELCOME_TEXT"></p>
-        <p [innerHTML]="UI_HELPTEXT_REQUEST"></p>
-        <p [innerHTML]="UI_HELPTEXT_UPLOAD"></p>
-    </div-->
     <app-toast *ngIf="firstTime" [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
 </section>
 
 <section id="mainSection">
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
         <app-new-arrivals></app-new-arrivals>
+        <button id="closeNew" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">
         <!--router-outlet></router-outlet-->
         <app-library></app-library>
     </section>
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
-        <div id="queueHeader"><h3>Song Queue</h3></div>
+        <div id="queueHeader">
+            <h3>Song Queue</h3>
+            <button id="closeQueue" (click)="toggleQueue()" [ngClass]="{mobileQueue: showQueue}">𐌢</button>
+        </div>
         <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
         <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
     </section>

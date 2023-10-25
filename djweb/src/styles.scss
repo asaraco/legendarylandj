@@ -40,7 +40,7 @@ $fg1:   #003000;
 $glow1: #000000;
 $shadow1: #111111;
 $headFgA1:  #141434;
-$headFgB1:  $legendaryGreen;
+$headFgB1:  darken($legendaryGreen, 45%);
 $headBgA1:  #d5d5f8;
 $headBgB1:  #525278;
 $headBgC1:  #323238;
@@ -51,7 +51,7 @@ $libFg1:    #000000;
 $libTh1:    #000000;
 $libTitle1: #004f00;
 $libDur1:   darken($djYellow,75%);
-$queueFg1:  darken($legendaryBlue, 85%);
+$queueFg1:  darken($legendaryBlue, 95%);
 $queueBg1:  lighten($legendaryBlue, 25%);
 $btnBg1:    darken($legendaryGreen, 30%);
 $btnFg1:    lighten($legendaryGreen, 40%);
@@ -109,7 +109,7 @@ $newsBg1:     lighten($djYellow, 25%);
         --libDur:   #{hexToRGB($libDur1)};
         --queueFg:  #{hexToRGB($queueFg1)};
         --queueFg-weak:   #{hexToRGB(lighten($queueFg1, 5%))};
-        --queueFg-strong: #{hexToRGB(darken($queueFg1, 5%))};
+        --queueFg-strong: #{hexToRGB(lighten($queueFg1, 45%))};
         --queueBg-a:#{hexToRGB(darken($queueBg1, 10%))};
         --queueBg-b:#{hexToRGB($queueBg1)};
         --btnBg:    #{hexToRGB($btnBg1)};
@@ -157,12 +157,20 @@ button:hover {
     box-shadow: 0 0 10px rgba(var(--btnBg),0.5), inset 0 0 1px 1px rgba(var(--btnFg),1);
 }
 
+.track {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 2px;
+}
+
 #pAutoDj {
-    color: rgba(var(--queueFg), 0.75);
+    color: rgba(var(--queueFg), 0.95);
 }
 
 #pRecent {
-    color: rgba(var(--queueFg-weak), 0.5);
+    color: rgba(var(--queueFg-weak), 0.75);
     .playlistDiv {
         div:first-child {
             color: rgba(var(--queueFg-strong), 1);
@@ -170,9 +178,4 @@ button:hover {
             text-shadow: rgba(var(--queueFg-weak), 0.75) 1px 0 4px;
         }
     }
-}
-
-.track {
-    display: flex;
-    justify-content: space-between;
 }

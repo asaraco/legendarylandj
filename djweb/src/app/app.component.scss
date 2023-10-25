@@ -37,7 +37,6 @@ section#browseWrapper {
 }
 
 section#queueWrapper {
-    background-color: rgba(var(--queueBg), 1);
     background: linear-gradient(180deg, rgba(var(--queueBg-a),0.25), rgba(var(--queueBg-b),0.9));
     min-width: 15%;
     height: fit-content;
@@ -63,6 +62,10 @@ section#queueWrapper {
 }
 
 #hamburgerMenu {
+    display: none;
+}
+
+button#closeQueue, button#closeNew {
     display: none;
 }
 
@@ -98,10 +101,12 @@ app-new-arrivals {
         box-shadow: none;
     }
     #hamburgerMenu {
-        display: flex;
         position: absolute;
         top: 1em;
+        left: 0;
         z-index: 1000;
+        display: flex;
+        flex-direction: column;
         color: rgba(var(--btnFg),1);
         background-color: rgba(var(--btnBg),1);
         backdrop-filter: blur(8px);
@@ -114,13 +119,22 @@ app-new-arrivals {
         position: absolute;
         top:auto;
         left: 0;
-        padding: 0 2dvw;
+        padding: 0 2dvw 3dvh 2dvw;
         /*width: 100%;*/
         display: flex;
         flex-direction: column;
         z-index: 500;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+        border-radius: 3dvh;
+        button#closeQueue {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0,0,0,0);
+            color: rgba(var(--queueFg),1);
+        }
     }
     section#leftWrapper.mobileNew {
         position: absolute;
@@ -131,5 +145,13 @@ app-new-arrivals {
         z-index: 500;
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+        button#closeNew {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0,0,0,0);
+            color: rgba(var(--newsHeadFg),1);
+        }
     }
 }
