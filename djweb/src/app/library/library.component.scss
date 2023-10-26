@@ -112,38 +112,45 @@ div#libraryBrowse {
     display: flex;
     /*height: 95dvh;*/
     div#alphaScroll {
-        padding: 0.5em;
         /*position: fixed;
         height: -webkit-fill-available;*/
-        height: 85dvh;
+        height: 95dvh;
         position: sticky;
         top: 3.5em;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        /*justify-content: space-between;*/
-        font-weight: bold;
-        background-color: rgba(0, 0, 0, 0.5);
+        width: 5dvw;
         cursor: pointer;
         opacity: 0.1;
         transition-duration: 0.1s;
-        a {
-            flex: 1;
-            width: 100%;
-            text-align: center;
-            text-decoration: none;
-            transition-duration: 0.4s;
-            color: #777;
-            background-color: rgba(0, 0, 0, 0.0);
-        }
-        a:hover {
-            color: #ff7;
-        }
-        button:hover + a {
-            color: #aa7;
-        }
-        a:has(+ a:hover) {
-            color: #aa7;
+        div#alphaLinks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5dvw;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            font-weight: bold;
+            background: linear-gradient(90deg, rgba(var(--inputBg),0.5), rgba(var(--inputBg),0));
+            a {
+                flex: 1;
+                width: 100%;
+                padding: 0.5em;
+                /*text-align: center;*/
+                text-decoration: none;
+                transition-duration: 0.4s;
+                color: rgba(var(--inputFg),0.75);
+                background-color: rgba(0, 0, 0, 0.0);
+            }
+            a:hover {
+                color: rgba(var(--newsFg),1);
+                font-size: 2dvw;
+            }
+            button:hover + a {
+                color: rgba(var(--newsFg),0.75);
+            }
+            a:has(+ a:hover) {
+                color: rgba(var(--newsFg),0.75);
+            }
         }
     }
     div#alphaScroll:hover {
@@ -258,6 +265,13 @@ div#libraryBrowse {
     }
     div#libraryBrowse {
         overflow:hidden;
+        div#alphaScroll {
+            position: fixed;
+            width: 15dvw i;
+            div#alphaLinks {
+                width: 15dvw;
+            }
+        }
         table.libraryTable {
             col.title {
                 width: 70%;
@@ -277,6 +291,7 @@ div#libraryBrowse {
             td.album, td.artist, td.duration {
                 display: flex;
                 font-size: 0.75em;
+                justify-content: flex-end;
             }
         }
     }

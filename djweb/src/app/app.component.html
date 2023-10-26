@@ -21,7 +21,7 @@
     <app-toast *ngIf="firstTime" [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
 </section>
 
-<section id="mainSection">
+<section id="mainSection" ontouchmove>
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
         <app-new-arrivals></app-new-arrivals>
         <button id="closeNew" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
