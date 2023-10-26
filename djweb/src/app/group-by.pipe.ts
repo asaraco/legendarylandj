@@ -22,7 +22,7 @@ export class GroupByPipe implements PipeTransform {
         (result[cur[groupField]] = result[cur[groupField]] || []).push(cur);
         return result;
       }, {});
-      return Object.keys(groupedData).map(group => ({ group, items: groupedData[group]}));
+      return Object.keys(groupedData).sort().map(group => ({ group, items: groupedData[group]}));
     }    
   }
 
