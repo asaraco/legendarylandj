@@ -117,20 +117,22 @@ div#libraryBrowse {
         height: 95dvh;
         position: sticky;
         top: 3.5em;
-        width: 5dvw;
+        width: 10dvw;
         cursor: pointer;
         opacity: 0.1;
-        transition-duration: 0.1s;
+        transition-duration: 0.4s;
         div#alphaLinks {
             position: absolute;
             top: 0;
             left: 0;
+            padding-left: 0.5em;
             width: 5dvw;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             font-weight: bold;
-            background: linear-gradient(90deg, rgba(var(--inputBg),0.5), rgba(var(--inputBg),0));
+            transition-duration: 0.4s;
+            background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));
             a {
                 flex: 1;
                 width: 100%;
@@ -138,7 +140,7 @@ div#libraryBrowse {
                 /*text-align: center;*/
                 text-decoration: none;
                 transition-duration: 0.4s;
-                color: rgba(var(--inputFg),0.75);
+                color: rgba(var(--libFg),0.75);
                 background-color: rgba(0, 0, 0, 0.0);
             }
             a:hover {
@@ -211,7 +213,7 @@ div#libraryBrowse {
             width: 5%;
         }
         .duration {
-            color: rgba(var(--libDur),0.25);
+            color: rgba(var(--libFg),0.4);
         }
         col.request {
             width: 10%;
