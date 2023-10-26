@@ -22,7 +22,7 @@ $inputBg0:  #000000;
 $libBg0:    #253025;
 $libFg0:    #999999;
 $libTh0:    #ffffff;
-$libTitle0: $legendaryGreen;
+$libTitle0: lighten($legendaryGreen,15%);
 $libDur0:   $djYellow;
 $queueFg0:  lighten($legendaryBlue, 15%);
 $queueBg0:  darken($legendaryBlue, 65%);
@@ -146,7 +146,8 @@ button {
     color: rgba(var(--btnFg),1);
     border: none;
     border-radius:3px;
-    padding: 4px;
+    text-align:center;
+    vertical-align:middle;
     text-transform:uppercase;
     font-weight:900;
     cursor:pointer;
