@@ -40,21 +40,20 @@
         </div>
     </div>
     <div id="libraryScroll">
-        <!--h2>Artists starting with {{startsWith}}</h2-->
-        <table class="libraryTable">
+        <table class="libraryTable" *ngIf="!CRATES_ALBUMVIEW.includes(filterCrate.id) && !CRATES_SIMPLEVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
-            <col class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+            <col class="album">
             <col class="artist">
             <col class="duration">
-            <!--ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
+            <!--ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
             <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="5">Loading...</th></thead>
-            <ng-container *ngFor="let artistGroup of (filteredTracks | async)! | groupByArtist">
+            <ng-container *ngFor="let group of (filteredTracks | async)! | groupByArtist">
                 <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
-                    <!--td class="tdHeading" colspan="5">{{artistGroup.group}}</td-->
-                    <th colspan="5" id="{{artistGroup.items[0]['groupName']}}">{{artistGroup.items[0]['groupName']}}</th>
+                    <!--td class="tdHeading" colspan="5">{{group.group}}</td-->
+                    <th colspan="5" id="{{group.items[0]['groupName']}}">{{group.items[0]['groupName']}}</th>
                 </thead>
-                <ng-container *ngFor="let t of artistGroup.items; first as isFirst">
+                <ng-container *ngFor="let t of group.items; first as isFirst">
                     <tr *ngIf="!isFirst">
                         <td class="title">{{t.title}}</td>
                         <td class="request" [ngClass]="{'requested': justRequested === t.id}">
@@ -62,6 +61,48 @@
                             <span>added</span>
                         </td>
                         <td class="album" *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">{{t.album}}</td>
+                        <td class="artist">{{t.artist}}</td>
+                        <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+        </table>
+        <table class="libraryTable" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+            <col class="title">
+            <col class="request">
+            <col class="artist">
+            <col class="duration">
+            <!--ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'sortArtist' "-->
+            <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="4">Loading...</th></thead>
+            <ng-container *ngFor="let t of (filteredTracks | async)!">
+                    <tr>
+                        <td class="title">{{t.title}}</td>
+                        <td class="request" [ngClass]="{'requested': justRequested === t.id}">
+                            <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)">+</button>
+                            <span>added</span>
+                        </td>
+                        <td class="artist">{{t.artist}}</td>
+                        <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
+                    </tr>
+            </ng-container>
+        </table>
+        <table class="libraryTable" *ngIf="CRATES_ALBUMVIEW.includes(filterCrate.id)">
+            <col class="title">
+            <col class="request">
+            <col class="artist">
+            <col class="duration">
+            <thead id="loading" *ngIf="!(filteredTracks | async)"><th colspan="4">Loading...</th></thead>
+            <ng-container *ngFor="let group of (filteredTracks | async)! | groupBy: 'album' ">
+                <thead *ngIf="!CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+                    <th colspan="4" id="{{group.group}}">{{group.group}}</th>
+                </thead>
+                <ng-container *ngFor="let t of group.items; first as isFirst">
+                    <tr>
+                        <td class="title">{{t.title}}</td>
+                        <td class="request" [ngClass]="{'requested': justRequested === t.id}">
+                            <button type="button" (click)="requestSong(t.id, t.duration)" [disabled]="(justRequested > -1) && (justRequested != t.id)">+</button>
+                            <span>added</span>
+                        </td>
                         <td class="artist">{{t.artist}}</td>
                         <td class="duration">{{t.duration * 1000 | date:'mm:ss'}}</td>
                     </tr>

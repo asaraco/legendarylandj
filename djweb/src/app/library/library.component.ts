@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL } from '../app.constants';
+import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
@@ -37,6 +37,7 @@ export class LibraryComponent implements OnInit {
   UI_CATS_TEXT: string = UI_CATS_TEXT;
   CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
   CRATES_SIMPLEVIEW: number[] = CRATES_SIMPLEVIEW;
+  CRATES_ALBUMVIEW: number[] = CRATES_ALBUMVIEW;
 
   constructor(
     private libraryDataService: LibraryDataService,

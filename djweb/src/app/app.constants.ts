@@ -52,6 +52,9 @@ export const CRATES_HIDDEN = [  CRATE_SAMPLES.id,
 export const CRATES_SIMPLEVIEW = [  CRATE_MEMES.id,
                                     CRATE_MASHUP.id     ]
 
+export const CRATES_ALBUMVIEW   = [ CRATE_SOUNDTRACKS.id,
+                                    CRATE_GAME_OSV.id   ]
+
 export const CRATES_SELECTABLE = [  CRATE_ALL,
                                     CRATE_HITS,
                                     CRATE_PSYCHED,
