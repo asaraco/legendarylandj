@@ -37,6 +37,9 @@ div#naContent {
         }
         div.naRequest {
             padding: 0.25dvw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             button {
                 color: rgba(var(--bg),1);
                 background-color: rgba(var(--newsFg),1);
