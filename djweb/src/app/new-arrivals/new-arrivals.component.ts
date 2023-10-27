@@ -15,6 +15,7 @@ export class NewArrivalsComponent implements OnInit {
   requestInterval: any;
   requestable: boolean = true;
   requestSubscription: Subscription;
+  uploadSubscription: Subscription;
   CRATE_LL: CrateMeta = CRATE_LAN_LIBRARY;
   
   constructor(
@@ -23,7 +24,39 @@ export class NewArrivalsComponent implements OnInit {
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
       this.setReqDelay(data.duration, new Date());
-    })
+    });
+    this.uploadSubscription = this.libraryDataService.watchForUpload().subscribe((data) => {
+      //console.log("Detected upload");
+      //Copy tracks to temp array
+      let newTracks: Track[] = [];
+      this.tracks.forEach(t => newTracks.push(Object.assign({}, t)));
+      //Retrieve "new tracks" from service until something actually new is detected.
+      //Since comparing the actual arrays would take a while, let's just compare length.
+      //Unless someone else uploads something at the exact same time, this should usually be enough...
+      let upInterval = setInterval(() => {
+        if (newTracks.length==this.tracks.length) {
+          //console.log(newTracks.length + " = " + this.tracks.length);
+          this.libraryDataService.retrieveNewTracks().subscribe(
+            data => {
+              newTracks = data._embedded.tracks;
+            }
+          )
+        } else {
+          //console.log("Found new!");
+          clearInterval(upInterval);
+          this.ngOnInit();
+        }
+      }, 2500);
+      /*
+      while (newTracks.length==this.tracks.length) {
+        console.log(newTracks.length + " = " + this.tracks.length);
+        this.libraryDataService.retrieveNewTracks().subscribe(
+          data => {
+            newTracks = data._embedded.tracks;
+          }
+        )
+      }*/
+    });
   }
 
   ngOnInit(): void {
@@ -43,7 +76,7 @@ export class NewArrivalsComponent implements OnInit {
    * @param id Track id
    * @param duration Track duration
    */
-    requestSong(id: number, duration: number) {
+    requestAndAddSong(id: number, duration: number) {
       const now = new Date();
       const nru = localStorage.getItem('noRequestsUntil');
       if ((nru) && (now.getTime() < JSON.parse(nru))) { 

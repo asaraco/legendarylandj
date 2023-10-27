@@ -2,7 +2,7 @@ import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
 //export const API_URL = "http://localhost:8080";
-export const API_URL = "http://192.168.0.182:8080";
+export const API_URL = "http://192.168.0.181:8080";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { API_URL, CRATES_HIDDEN } from 'src/app/app.constants';
 import { Track } from 'src/app/track/track.component';
 
@@ -8,6 +8,15 @@ import { Track } from 'src/app/track/track.component';
   providedIn: 'root'
 })
 export class LibraryDataService {
+  private currentUpload = new Subject<boolean>();
+
+  notifyOfUpload() {
+    this.currentUpload.next(true);
+  }
+
+  watchForUpload(): Observable<boolean> {
+    return this.currentUpload.asObservable();
+  }
 
   constructor(
     private http: HttpClient

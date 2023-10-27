@@ -13,17 +13,14 @@ export class PlaylistRequest {
   providedIn: 'root'
 })
 export class PlaylistDataService {
-  //private requestDuration = new Subject<number>();
   private currentRequest = new Subject<PlaylistRequest>();
 
   notifyOfRequest(duration: number, refreshLibrary: boolean) {
     let pr = new PlaylistRequest(duration, refreshLibrary);
-    //this.requestDuration.next(duration);
     this.currentRequest.next(pr);
   }
 
   watchForNotification(): Observable<PlaylistRequest> {
-    //return this.requestDuration.asObservable();
     return this.currentRequest.asObservable();
   }
 

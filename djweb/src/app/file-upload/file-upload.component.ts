@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { API_URL } from '../app.constants';
+import { LibraryDataService } from '../service/data/library-data.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -11,7 +12,10 @@ export class FileUploadComponent {
   fileName: string = "";
   fileMessage: any;
   
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private libraryDataService: LibraryDataService
+  ) {}
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -20,7 +24,10 @@ export class FileUploadComponent {
       const formData = new FormData();
       formData.append("song", file);
       const upload$: any = this.http.post(`${API_URL}/upload`, formData);
-      upload$.subscribe((data: any) => this.fileMessage = data.message);
+      upload$.subscribe((data: any) => {
+        this.fileMessage = data.message;
+        this.libraryDataService.notifyOfUpload();
+      });
     }
   }
 }
