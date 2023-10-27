@@ -17,8 +17,8 @@ import { PlaylistDataService } from '../service/data/playlist-data.service';
 export class LibraryComponent implements OnInit {
   tracks!: Track[];
   filteredTracks!: Observable<Track[]>;
-  artistList: String[] = [];
-  artistListChanged: boolean = true;
+  headingList: String[] = [];
+  headingListChanged: boolean = true;
   //@Input() filterCrate: number = 0;
   selectedCrateId: number = 0;
   filterCrate: CrateMeta = CRATE_ALL;
@@ -97,13 +97,13 @@ export class LibraryComponent implements OnInit {
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
-      this.artistListChanged = true;
+      this.headingListChanged = true;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue) && track.crateIds.includes(this.selectedCrateId));
     } else {                      // "All tracks"
       // In order to avoid changing category view TOO fast, defer directive-modifying variable change to here
       //this.filterCrate = this.selectedCrateId;
       CRATES_SELECTABLE.forEach(c => {        if (c.id===this.selectedCrateId) this.filterCrate = c;      });
-      this.artistListChanged = true;
+      this.headingListChanged = true;
       return this.tracks.filter(track => this.friendlyTrackString(track).toLowerCase().includes(filterValue));
     }
   }
@@ -214,26 +214,36 @@ export class LibraryComponent implements OnInit {
    * @returns 
    */
   alphaJump(index: number): void {
-    if (this.artistListChanged) {
-      this.artistList = this.getTableHeadings();
-      this.artistListChanged = false;
+    if (this.headingListChanged) {
+      this.headingList = this.getTableHeadings();
+      this.headingListChanged = false;
     }
-    
-    let matchFound: boolean = false;
-    let destination: string = "";
-
+    //Iterate through alphabet array backwards starting at selected character
     for (let i=index; i>=0; i--) {
       let x=this.alphabet[i].toLowerCase();
-      for (let j=0; j<this.artistList.length; j++) {
-        let a = this.artistList[j].toLowerCase();
+      //Iterate through headings array until finding one that starts with current character
+      for (let j=0; j<this.headingList.length; j++) {
+        let a = this.headingList[j].toLowerCase();
         if (a.startsWith(x) && !a.startsWith("the ")) {
-          window.location.hash = "#" + this.artistList[j];
+          window.location.hash = "#" + this.headingList[j];
           return
-          //matchFound = true;
-          //destination = "#" + this.artistList[j];
         }
       }
     }
+    //If none found above...
+    //Iterate through alphabet array forwards starting at selected character
+    for (let i=index; i<=this.alphabet.length; i++) {
+      let x=this.alphabet[i].toLowerCase();
+      //Iterate through headings array until finding one that starts with current character
+      for (let j=0; j<this.headingList.length; j++) {
+        let a = this.headingList[j].toLowerCase();
+        if (a.startsWith(x) && !a.startsWith("the ")) {
+          window.location.hash = "#" + this.headingList[j];
+          return
+        }
+      }
+    }
+    return;
   }
 
   /**
