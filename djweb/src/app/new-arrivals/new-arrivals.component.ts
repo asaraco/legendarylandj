@@ -14,6 +14,7 @@ export class NewArrivalsComponent implements OnInit {
   tracks!: Track[];
   requestInterval: any;
   requestable: boolean = true;
+  justRequested!: number;
   requestSubscription: Subscription;
   uploadSubscription: Subscription;
   CRATE_LL: CrateMeta = CRATE_LAN_LIBRARY;
@@ -89,11 +90,11 @@ export class NewArrivalsComponent implements OnInit {
           this.setReqDelay(duration, now);
           localStorage.setItem('lastRequest', id.toString());
           this.playlistDataService.notifyOfRequest(duration, true);
-          this.libraryDataService.retrieveNewTracks().subscribe(
-            data2 => {
-              this.tracks = data2._embedded.tracks;
-            }
-          )
+          this.justRequested = id;
+          let animationInterval = setInterval(() => {
+            this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
+            clearInterval(animationInterval);
+          }, 1000);          
         });
       }
     }

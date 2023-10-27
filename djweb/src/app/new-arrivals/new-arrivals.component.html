@@ -2,7 +2,7 @@
     <h3>New Arrivals</h3>
 </div>
 <div id="naContent">
-    <div class="naTrack" *ngFor="let t of tracks">
+    <div class="naTrack" id="naId{{t.id}}" [ngClass]="{requested: justRequested==t.id}" *ngFor="let t of tracks">
         <div class="naTrackText">
             <div class="naTrackMain">
                 <span class="title">{{t.title}}</span>

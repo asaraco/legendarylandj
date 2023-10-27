@@ -14,6 +14,9 @@ div#naContent {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        position: relative;
+        left: 0;
+        transition: 0.5s ease-in;
         div.naTrackText {
             display: flex;
             flex-direction: column;
@@ -54,5 +57,9 @@ div#naContent {
                 box-shadow: none;
             }
         }
+    }
+    div.naTrack.requested {
+        left: 100%;
+        opacity: 0;
     }
 }
