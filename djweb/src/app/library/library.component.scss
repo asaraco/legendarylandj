@@ -1,6 +1,6 @@
 div#libraryForm {
     position: sticky;
-    top: 0;
+    top: 3dvh;
     form {
         display: flex;
         flex-direction: row;
@@ -159,8 +159,7 @@ div#libraryBrowse {
         opacity: 1.0;
     }
     div#libraryScroll {
-        /*height: 90dvh;
-        overflow: scroll;*/
+        padding: 0 2em;
     }
     table.libraryTable {
         width: 100%;
@@ -249,6 +248,7 @@ div#libraryBrowse {
 
 @media screen and (max-width: 960px) {
     div#libraryForm {
+        top: 4dvh;
         form {
             div#categoryFilter {
                 .crateBtn {
@@ -266,8 +266,9 @@ div#libraryBrowse {
     div#libraryBrowse {
         overflow:hidden;
         div#alphaScroll {
-            position: fixed;
-            width: 15dvw i;
+            position: sticky;
+            top: 5dvh;
+            width: 15dvw;
             div#alphaLinks {
                 width: 15dvw;
             }

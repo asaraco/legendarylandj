@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { PlaylistDataService } from './service/data/playlist-data.service';
 import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   showQueue: boolean = false;  
   showNew: boolean = false;
   firstTime: boolean = false;
+  scrolledDown: boolean = false;
   requestSubscription: Subscription;
   currentTrackDuration: number = 100;
   /* imported constants */
@@ -63,6 +64,16 @@ export class AppComponent implements OnInit {
         console.log("Assigned User #: " + localStorage.getItem('userNumber'));
         this.firstTime = true;
       });
+    }
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    const number = document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (number > 0) {
+      this.scrolledDown = true;
+    } else {
+      this.scrolledDown = false;
     }
   }
 
