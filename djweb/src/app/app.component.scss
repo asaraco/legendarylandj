@@ -33,15 +33,12 @@ section#headerSection {
         justify-content: space-between;
     }
 }
-section#headerSection.headShrink {
+section#headerSection.shrink {
     height: 3dvh;
     font-size: 2em;
     top: 0;
     div#headerBar {
         height: 3dvh;
-        h1 {
-            
-        }
     }
     div#toolBar {
         height: 100%;
@@ -97,10 +94,12 @@ button#closeQueue, button#closeNew {
 
 @media screen and (max-width: 960px) {
     section#headerSection {
-        height: auto;
+        top: 0;
+        margin-top: 0;
+        height: 4dvh;
         align-items: center;
         div#headerBar {
-            height: auto;
+            height: 4dvh;
             h1 {
                 /*font-family: 'Roboto', 'Roboto', Arial;*/
                 font-size: 3dvh;
@@ -111,10 +110,10 @@ button#closeQueue, button#closeNew {
             display: none;
         }    
     }
-    section#headerSection.headShrink {
-        height: auto;        
+    section#headerSection.shrink {
+        height: 4dvh;
         div#headerBar {
-            height: auto;
+            height: 4dvh;
             h1 {
                 font-size: 3dvh;
             }

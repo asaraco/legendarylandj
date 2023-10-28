@@ -11,7 +11,7 @@ div#libraryForm {
         }
         input {
             color: rgba(var(--inputFg),1);
-            background-color: rgba(var(--inputBg),1);
+            background-color: rgba(0,0,0,0);
             border: 0;
         }
         input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
@@ -22,15 +22,20 @@ div#libraryForm {
             flex: 2;
             display: flex;
             flex-direction: column;
+            background-color: rgba(var(--inputBg),1);
             input {
                 /*font-size: 2em;*/
                 width: 100%;
                 height: 100%;
                 padding: 0.5em;
+                background-color: rgba(0,0,0,0);
             }
             input::-webkit-search-cancel-button {
                 color: green;
             }
+        }
+        div#searchField:hover {
+            background-color: rgba(var(--crateHover),0.5);
         }
         div#categoryFilter {
             flex: 1;
@@ -38,6 +43,7 @@ div#libraryForm {
             flex-direction: column;
             align-items: flex-end;
             position: relative;
+            background-color: rgba(var(--inputBg),1);
             .crateBtn {           
                 color: rgba(var(--libTh));
                 height: 2em;
@@ -49,7 +55,6 @@ div#libraryForm {
                 span.crateLogo {
                     flex: 1;
                     height: 100%;
-                    padding: 5dvh;
                 }
                 img {                    
                     height: 0;
@@ -59,18 +64,7 @@ div#libraryForm {
                     flex: 3;
                     padding: 2dvh;
                 }                
-            }
-            .crateBtn:hover {
-                background-color: rgba(var(--crateHover),0.5);
-            }
-            #crateActive {
-                justify-content: flex-end;
-                margin-bottom: 0;
-                background-color: rgba(var(--inputBg),1);
-                span.crateDropIcon {
-                    z-index: 10;
-                }
-            }
+            }            
             div#crateDropDown {
                 position: absolute;
                 margin-top: 2em;
@@ -91,11 +85,6 @@ div#libraryForm {
                     font-size: 1.5dvh;
                     border-bottom: 1px solid #555;
                 }
-                /*
-                button.crateSelected {
-                    background-color: rgba(16, 16, 32, 1);
-                }
-                */
             }
             div#crateDropDown.unrolled {
                 width: 50dvw;
@@ -104,34 +93,43 @@ div#libraryForm {
                     display: flex;
                 }
             }
+            #crateActive {
+                justify-content: flex-end;
+                margin-bottom: 0;
+                /*background-color: rgba(var(--inputBg),1);*/
+                background-color: rgba(0,0,0,0);
+                span.crateDropIcon {
+                    z-index: 10;
+                }
+            }
+            .crateBtn:hover, #crateActive:hover {
+                background-color: rgba(var(--crateHover),0.5);
+            }
         }
     }
 }    
 
 div#libraryBrowse {
     display: flex;
-    /*height: 95dvh;*/
     div#alphaScroll {
-        /*position: fixed;
-        height: -webkit-fill-available;*/
-        height: 95dvh;
         position: sticky;
-        top: 3.5em;
+        top: 7dvh;
         width: 10dvw;
+        height: 100%;
         cursor: pointer;
         opacity: 0.1;
-        transition-duration: 0.4s;
+        transition-duration: opacity 0.4s;
         div#alphaLinks {
             position: absolute;
             top: 0;
             left: 0;
-            padding-left: 0.5em;
             width: 5dvw;
+            height: 90dvh;
+            padding-left: 0.5em;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             font-weight: bold;
-            transition-duration: 0.4s;
             background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));
             a {
                 flex: 1;
@@ -153,6 +151,11 @@ div#libraryBrowse {
             a:has(+ a:hover) {
                 color: rgba(var(--newsFg),0.75);
             }
+        }
+    }
+    div#alphaScroll.shrink {
+        div#alphaLinks {
+            height: 93dvh;
         }
     }
     div#alphaScroll:hover {
@@ -264,13 +267,20 @@ div#libraryBrowse {
         }
     }
     div#libraryBrowse {
-        overflow:hidden;
+        /*overflow:hidden;*/
         div#alphaScroll {
-            position: sticky;
-            top: 5dvh;
-            width: 15dvw;
+            top: 5lvh;
+            width: 5dvw;
+            opacity: 0.5;
             div#alphaLinks {
-                width: 15dvw;
+                width: 5dvw;
+                height: 92lvh;
+            }
+        }
+        div#alphaScroll.shrink {
+            top: 8dvh;
+            div#alphaLinks {
+                height: 92lvh;
             }
         }
         table.libraryTable {

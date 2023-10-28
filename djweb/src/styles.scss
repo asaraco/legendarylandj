@@ -180,3 +180,9 @@ button:hover {
         }
     }
 }
+
+@media screen and (max-width: 960px) {
+    body {
+        margin: 0;
+    }
+}

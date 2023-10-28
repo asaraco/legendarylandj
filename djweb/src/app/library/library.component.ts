@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
@@ -31,6 +31,7 @@ export class LibraryComponent implements OnInit {
   toastInterval: any;
   alphabet: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   showCrateDropDown: boolean = false;
+  scrolledDown: boolean = false;
   requestSubscription: Subscription;
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
@@ -81,6 +82,16 @@ export class LibraryComponent implements OnInit {
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
         this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
       }
+    }
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    const number = document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (number > 0) {
+      this.scrolledDown = true;
+    } else {
+      this.scrolledDown = false;
     }
   }
 
