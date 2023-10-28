@@ -25,6 +25,7 @@ export class FileUploadComponent {
       formData.append("song", file);
       const upload$: any = this.http.post(`${API_URL}/upload`, formData);
       upload$.subscribe((data: any) => {
+        console.log("uploader is doing something");
         this.fileMessage = data.message;
         this.libraryDataService.notifyOfUpload();
       });

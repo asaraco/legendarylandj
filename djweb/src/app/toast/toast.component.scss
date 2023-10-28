@@ -13,8 +13,8 @@ div.toast {
     font-size: 1.5dvh;
     padding: 2em;
     border-radius: 5dvh;
-    background-color: rgba(255,255,255,0.9);
-    color: black;
+    background-color: rgba(var(--toastBg),0.8);
+    color: rgba(var(--toastFg),1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     transition: 1s;
@@ -29,7 +29,7 @@ button {
     right: 1dvw;
     text-shadow: none;
     border: none;
-    color: black;
+    color: rgba(var(--toastFg),1);
     background-color: rgba(0,0,0,0);
 }
 button:hover {

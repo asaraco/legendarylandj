@@ -1,6 +1,6 @@
 div#libraryForm {
     position: sticky;
-    top: 3dvh;
+    top: 4dvh;
     form {
         display: flex;
         flex-direction: row;
@@ -113,7 +113,7 @@ div#libraryBrowse {
     display: flex;
     div#alphaScroll {
         position: sticky;
-        top: 7dvh;
+        top: 8dvh;
         width: 10dvw;
         height: 100%;
         cursor: pointer;
@@ -155,7 +155,7 @@ div#libraryBrowse {
     }
     div#alphaScroll.shrink {
         div#alphaLinks {
-            height: 93dvh;
+            height: 92dvh;
         }
     }
     div#alphaScroll:hover {
@@ -222,7 +222,8 @@ div#libraryBrowse {
         }
         .request {            
             button {
-                color: rgba(var(--bg),1);
+                color: rgba(var(--reqBtnFg),1);
+                background-color: rgba(var(--reqBtnBg),1);
                 border-radius: 100%;
             }
             button:hover {
@@ -251,7 +252,7 @@ div#libraryBrowse {
 
 @media screen and (max-width: 960px) {
     div#libraryForm {
-        top: 4dvh;
+        top: 5dvh;
         form {
             div#categoryFilter {
                 .crateBtn {
@@ -278,7 +279,7 @@ div#libraryBrowse {
             }
         }
         div#alphaScroll.shrink {
-            top: 8dvh;
+            top: 9dvh;
             div#alphaLinks {
                 height: 92lvh;
             }

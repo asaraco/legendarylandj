@@ -8,5 +8,5 @@
     <button class="fileUploadBtn" (click)="fileUpload.click()">
         Upload Song
     </button>
-    <span id="fileUploadMessage">{{ fileMessage || ""}}</span>  
+    <app-toast id="fileUploadMessage" [toastText]="[fileMessage] || []" [showToast]=fileMessage></app-toast>  
 </div>

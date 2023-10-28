@@ -44,8 +44,8 @@ div#naContent {
             flex-direction: column;
             justify-content: center;
             button {
-                color: rgba(var(--bg),1);
-                background-color: rgba(var(--newsFg),1);
+                color: rgba(var(--newsBtnFg),1);
+                background-color: rgba(var(--newsBtnBg),1);
                 border-radius: 100%;
             }
             button:hover {

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   showQueue: boolean = false;  
   showNew: boolean = false;
   firstTime: boolean = false;
+  showHelp: boolean = false;
   scrolledDown: boolean = false;
   requestSubscription: Subscription;
   currentTrackDuration: number = 100;
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit {
         localStorage.setItem('userNumber', JSON.stringify(data));
         console.log("Assigned User #: " + localStorage.getItem('userNumber'));
         this.firstTime = true;
+        this.showHelp = true;
       });
     }
   }

@@ -28,11 +28,17 @@ $queueFg0:  lighten($legendaryBlue, 15%);
 $queueBg0:  darken($legendaryBlue, 65%);
 $btnBg0: $legendaryGreen;
 $btnFg0: #ffffff;
+$reqBtnBg0: $legendaryGreen;
+$reqBtnFg0: #000000;
 $crateDropBg0:darken($legendaryBlue, 70%);
 $crateHover0: $legendaryRed;
 $newsHeadFg0: lighten($djYellow, 15%);
 $newsFg0:     lighten($djYellow, 5%);
 $newsBg0:     darken($djYellow, 65%);
+$newsBtnFg0: #000000;
+$newsBtnBg0: $djYellow;
+$toastBg0:  lighten($legendaryBlue, 15%);
+$toastFg0:  $inputBg0;
 
 /* Light theme vars */
 $bg1:   #e5e5f5;
@@ -53,13 +59,19 @@ $libTitle1: #004f00;
 $libDur1:   darken($djYellow,75%);
 $queueFg1:  darken($legendaryBlue, 95%);
 $queueBg1:  lighten($legendaryBlue, 25%);
-$btnBg1:    darken($legendaryGreen, 30%);
-$btnFg1:    lighten($legendaryGreen, 40%);
+$btnBg1:    lighten($legendaryGreen, 35%);
+$btnFg1:    darken($legendaryGreen, 50%);
+$reqBtnBg1: darken($legendaryGreen, 25%);
+$reqBtnFg1: #ffffff;
 $crateDropBg1:lighten($legendaryBlue, 15%);
 $crateHover1: $legendaryRed;
 $newsHeadFg1: darken($djYellow, 55%);
 $newsFg1:     darken($djYellow, 45%);
 $newsBg1:     lighten($djYellow, 25%);
+$newsBtnFg1: #ffffff;
+$newsBtnBg1: darken($djYellow, 25%);
+$toastBg1:  darken($legendaryGreen,25%);
+$toastFg1:  $inputBg1;
 
 :root {
     --bg:   #{hexToRGB($bg0)};
@@ -85,11 +97,17 @@ $newsBg1:     lighten($djYellow, 25%);
     --queueBg-b:  #{hexToRGB(lighten($queueBg0, 10%))};
     --btnBg:      #{hexToRGB($btnBg0)};
     --btnFg:      #{hexToRGB($btnFg0)};
+    --reqBtnBg:   #{hexToRGB($reqBtnBg0)};
+    --reqBtnFg:   #{hexToRGB($reqBtnFg0)};
     --crateDropBg:#{hexToRGB($crateDropBg0)};
     --crateHover: #{hexToRGB($crateHover0)};
     --newsHeadFg: #{hexToRGB($newsHeadFg0)};
     --newsFg:     #{hexToRGB($newsFg0)};
     --newsBg:     #{hexToRGB($newsBg0)};
+    --newsBtnFg:  #{hexToRGB($newsBtnFg0)};
+    --newsBtnBg:  #{hexToRGB($newsBtnBg0)};
+    --toastBg:    #{hexToRGB($toastBg0)};
+    --toastFg:    #{hexToRGB($toastFg0)};
     @media screen and (prefers-color-scheme: light) {
         --bg:       #{hexToRGB($bg1)};
         --fg:       #{hexToRGB($fg1)};
@@ -114,11 +132,17 @@ $newsBg1:     lighten($djYellow, 25%);
         --queueBg-b:#{hexToRGB($queueBg1)};
         --btnBg:    #{hexToRGB($btnBg1)};
         --btnFg:    #{hexToRGB($btnFg1)};
+        --reqBtnBg:   #{hexToRGB($reqBtnBg1)};
+        --reqBtnFg:   #{hexToRGB($reqBtnFg1)};
         --crateDropBg:#{hexToRGB($crateDropBg1)};
         --crateHover: #{hexToRGB($crateHover1)};
         --newsHeadFg: #{hexToRGB($newsHeadFg1)};
         --newsFg:     #{hexToRGB($newsFg1)};
         --newsBg:     #{hexToRGB($newsBg1)};
+        --newsBtnFg:  #{hexToRGB($newsBtnFg1)};
+        --newsBtnBg:  #{hexToRGB($newsBtnBg1)};
+        --toastBg:    #{hexToRGB($toastBg1)};
+        --toastFg:    #{hexToRGB($toastFg1)};
     }
 }
 

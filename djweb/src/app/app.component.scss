@@ -1,17 +1,17 @@
 section#headerSection {
-    height: 7dvh;
+    height: 8dvh;
     top: 0;
     position: sticky;
     display: flex;
-    flex-direction:row-reverse;
+    flex-direction:row;
     justify-content:center;
     align-items:flex-end;
     background: linear-gradient(0deg, rgba(var(--headBgA),1) 25%, rgba(var(--headBgB),1) 90%, rgba(var(--headBgC),1) 110%);
-    font-size: 5em;
+    font-size: 5dvh;
     text-align: center;
     transition: 0.1s;
     div#headerBar {
-        height: 7dvh;
+        height: 8dvh;
         flex: 1;
         transition: 0.1s;
         top: 0;
@@ -28,17 +28,17 @@ section#headerSection {
             }
         }
     }    
-    div#toolBar {
+    div.headerButton {
         display: flex;
         justify-content: space-between;
     }
 }
 section#headerSection.shrink {
-    height: 3dvh;
-    font-size: 2em;
+    height: 4dvh;
+    font-size: 2dvh;
     top: 0;
     div#headerBar {
-        height: 3dvh;
+        height: 4dvh;
     }
     div#toolBar {
         height: 100%;
@@ -76,14 +76,15 @@ section#queueWrapper {
 }
 
 app-new-arrivals {
+    display: inline-block;
     position: sticky;
-    top: 3dvh;
+    top: 4dvh;
 }
 
 #hamburgerBtn {
     display: none;
 }
-
+/*
 #hamburgerMenu {
     display: none;
 }
@@ -91,29 +92,41 @@ app-new-arrivals {
 button#closeQueue, button#closeNew {
     display: none;
 }
+*/
+@media screen and (min-width: 960px) {
+    .mobileOnly {
+        display: none;
+    }
+}
 
 @media screen and (max-width: 960px) {
+    .desktopOnly {
+        display: none;
+    }
+
     section#headerSection {
         top: 0;
         margin-top: 0;
-        height: 4dvh;
+        height: 5dvh;
         align-items: center;
         div#headerBar {
-            height: 4dvh;
+            height: 5dvh;
             h1 {
                 /*font-family: 'Roboto', 'Roboto', Arial;*/
                 font-size: 3dvh;
                 padding: 0.5dvh;
             }
         }
+        /*
         div#toolBar app-file-upload {
             display: none;
-        }    
+        } 
+        */   
     }
     section#headerSection.shrink {
-        height: 4dvh;
+        height: 5dvh;
         div#headerBar {
-            height: 4dvh;
+            height: 5dvh;
             h1 {
                 font-size: 3dvh;
             }
@@ -140,7 +153,7 @@ button#closeQueue, button#closeNew {
     }
     #hamburgerMenu {
         position: absolute;
-        top: 9dvh;
+        top: 10dvh;
         left: 0;
         z-index: 5000;
         display: flex;

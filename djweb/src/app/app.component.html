@@ -1,30 +1,34 @@
 <section id="headerSection" [ngClass]="{shrink: scrolledDown}">
+    <div class="headerButton hbLeft">
+        <app-file-upload class="desktopOnly"></app-file-upload>
+        <button id="hamburgerBtn" class="mobileOnly" (click)="toggleHamburgerMenu()">☰</button>
+    </div>
     <div id="headerBar">
         <a href="/">
             <h1>Legendary<span class="h1Secondary">Radio</span></h1>
         </a>
     </div>
-    <div id="toolBar">
-        <app-file-upload></app-file-upload>
-        <button id="hamburgerBtn" (click)="toggleHamburgerMenu()">☰</button>
-    </div>
+    <div class="headerButton hbRight desktopOnly">
+        <button (click)="showHelp=true">Help</button>
+    </div>    
     <div id="hamburgerMenu" *ngIf="showMenu">
         <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
         <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
-        <button id="helpButton">Help</button>
+        <button (click)="showHelp=true">Help</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>
 
 <section id="welcomeText">
     <app-toast *ngIf="firstTime" [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp></app-toast>
 </section>
 
 <section id="mainSection" ontouchmove>
     <section class="subSection" id="leftWrapper" [ngClass]="{mobileNew: showNew}">
         <app-new-arrivals></app-new-arrivals>
-        <button id="closeNew" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
+        <button id="closeNew" class="mobileOnly" (click)="toggleNewArrivals()" [ngClass]="{mobileQueue: showNew}">𐌢</button>
     </section>
     <section class="subSection" id="browseWrapper">
         <!--router-outlet></router-outlet-->
@@ -33,7 +37,7 @@
     <section class="subSection" id="queueWrapper" [ngClass]="{mobileQueue: showQueue}">
         <div id="queueHeader">
             <h3>Song Queue</h3>
-            <button id="closeQueue" (click)="toggleQueue()" [ngClass]="{mobileQueue: showQueue}">𐌢</button>
+            <button id="closeQueue" class="mobileOnly" (click)="toggleQueue()" [ngClass]="{mobileQueue: showQueue}">𐌢</button>
         </div>
         <app-playlist id="pAutoDj" [playlist]="autoDjPlaylist"></app-playlist>
         <app-playlist id="pRecent" [playlist]="mostRecentPlaylist"></app-playlist>
