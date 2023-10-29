@@ -137,7 +137,7 @@ div#libraryBrowse {
                 padding: 0.5em;
                 /*text-align: center;*/
                 text-decoration: none;
-                transition-duration: 0.4s;
+                transition-duration: 0.1s;
                 color: rgba(var(--libFg),0.75);
                 background-color: rgba(0, 0, 0, 0.0);
             }
@@ -191,19 +191,19 @@ div#libraryBrowse {
             background: linear-gradient(0deg, rgba(var(--libTh),0.15), rgba(0,0,0,0.0) 25%);
         }
         col.title {
-            width: 35%;
+            width: 30%;
         }
         .title{
             color: rgba(var(--libTitle),1);
         }
         col.album {
-            width: 30%;
+            width: 40%;
         }
         .album {
             font-style: italic;
         }
         col.artist {
-            width: 20%;
+            width: 23%;
         }
         .artist {
             color: rgba(var(--libFg),0.5);
@@ -218,7 +218,7 @@ div#libraryBrowse {
             color: rgba(var(--libFg),0.4);
         }
         col.request {
-            width: 10%;
+            width: 2%;
         }
         .request {            
             button {
@@ -231,6 +231,7 @@ div#libraryBrowse {
             }
             span {
                 display: none;
+                text-align: center;
                 color: red;
             }
         }
@@ -286,13 +287,13 @@ div#libraryBrowse {
         }
         table.libraryTable {
             col.title {
-                width: 70%;
+                width: 50%;
             }
             col.request {
-                width: 10%;
+                width: 2%;
             }
             col.album {
-                width: 20%;
+                width: 48%;
             }
             col.duration, col.artist {
                 width: auto;
