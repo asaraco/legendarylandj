@@ -3,7 +3,7 @@ import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 import { Subscription } from 'rxjs';
-import { CRATE_LAN_LIBRARY, CrateMeta } from '../app.constants';
+import { CRATE_LAN_LIBRARY, CrateMeta, UI_REQUEST_TEXT } from '../app.constants';
 
 @Component({
   selector: 'app-new-arrivals',
@@ -15,15 +15,18 @@ export class NewArrivalsComponent implements OnInit {
   requestInterval: any;
   requestable: boolean = true;
   justRequested!: number;
+  showReqToast: boolean = false;
   requestSubscription: Subscription;
   uploadSubscription: Subscription;
   CRATE_LL: CrateMeta = CRATE_LAN_LIBRARY;
+  UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
   
   constructor(
     private libraryDataService: LibraryDataService,
     private playlistDataService: PlaylistDataService
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
+      this.justRequested = 999999999999999;
       this.setReqDelay(data.duration, new Date());
     });
     this.uploadSubscription = this.libraryDataService.watchForUpload().subscribe((data) => {
@@ -48,15 +51,7 @@ export class NewArrivalsComponent implements OnInit {
           this.ngOnInit();
         }
       }, 2500);
-      /*
-      while (newTracks.length==this.tracks.length) {
-        console.log(newTracks.length + " = " + this.tracks.length);
-        this.libraryDataService.retrieveNewTracks().subscribe(
-          data => {
-            newTracks = data._embedded.tracks;
-          }
-        )
-      }*/
+      
     });
   }
 
@@ -66,10 +61,22 @@ export class NewArrivalsComponent implements OnInit {
       data => {
         this.tracks = data._embedded.tracks;
       }
-    )
+    );
+    // Handle request blocking
+    const now = new Date();
+    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
+    const ls_lastRequest = localStorage.getItem('lastRequest');
+    if (ls_noRequestsUntil) {
+      let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
+      if (remainingTimeout > 0) { 
+        if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
+        console.log("Setting interval in ngOnInit");
+        this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in ngOnInit");}, remainingTimeout);
+      }
+    }
   }
 
-    /**
+    /** 
    * Add a song to the Auto DJ queue AND
    * add it to the default crate.
    * Set a delay on future requests 
@@ -87,8 +94,9 @@ export class NewArrivalsComponent implements OnInit {
         var resultMsg: string;
         this.playlistDataService.requestTrackCrate(id, CRATE_LAN_LIBRARY.id).subscribe(data => {
           resultMsg = data;
-          this.setReqDelay(duration, now);
+          this.showReqToast = true;
           localStorage.setItem('lastRequest', id.toString());
+          //this.setReqDelay(duration, now);
           this.playlistDataService.notifyOfRequest(duration, true);
           this.justRequested = id;
           let animationInterval = setInterval(() => {
@@ -105,12 +113,14 @@ export class NewArrivalsComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, now: Date) {
-    this.requestInterval = setInterval(() => this.reqTimeoutOver(), duration * 100);
+    console.log("Setting interval in setReqDelay");
+    this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in setReqDelay");}, duration * 100);
     let delayTime = now.getTime() + (duration * 100);
     this.requestable = false;
     console.log(now.getTime());
     console.log(duration * 1000);
-    console.log(delayTime);
+    console.log("delayTime = " + delayTime);
+    console.log("Setting NRU to " + JSON.stringify(delayTime));
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
   }
 
@@ -118,6 +128,7 @@ export class NewArrivalsComponent implements OnInit {
    * Reset request timeout variables when time's up
    */
   reqTimeoutOver() {
+    console.log("reqTimeoutOver");
     this.requestable = true;
     clearInterval(this.requestInterval);
   }

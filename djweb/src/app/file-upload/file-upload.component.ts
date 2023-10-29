@@ -11,6 +11,7 @@ import { LibraryDataService } from '../service/data/library-data.service';
 export class FileUploadComponent {
   fileName: string = "";
   fileMessage: any;
+  showToast: boolean = false;
   
   constructor(
     private http: HttpClient,
@@ -27,6 +28,7 @@ export class FileUploadComponent {
       upload$.subscribe((data: any) => {
         console.log("uploader is doing something");
         this.fileMessage = data.message;
+        this.showToast = true;
         this.libraryDataService.notifyOfUpload();
       });
     }

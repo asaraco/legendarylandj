@@ -8,5 +8,5 @@
     <button class="fileUploadBtn" (click)="fileUpload.click()">
         Upload Song
     </button>
-    <app-toast id="fileUploadMessage" [toastText]="[fileMessage] || []" [showToast]=fileMessage></app-toast>  
+    <app-toast id="fileUploadMessage" [toastText]="[fileMessage] || []" [(showToast)]=showToast></app-toast>  
 </div>

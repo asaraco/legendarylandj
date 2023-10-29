@@ -31,7 +31,7 @@
     </form>
 </div>
 
-<app-toast id="requestToast" [toastText]="['Song added to queue']" [showToast]="showReqToast"></app-toast>
+<app-toast id="requestToast" [toastText]="[UI_REQUEST_TEXT]" [(showToast)]="showReqToast"></app-toast>
 
 <div id="libraryBrowse">
     <div id="alphaScroll" [ngClass]="{shrink: scrolledDown}">

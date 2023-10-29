@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
       this.userDataService.generateID().subscribe(data => {
         localStorage.setItem('userNumber', JSON.stringify(data));
         console.log("Assigned User #: " + localStorage.getItem('userNumber'));
-        this.firstTime = true;
+        //this.firstTime = true;
         this.showHelp = true;
       });
     }
@@ -99,6 +99,10 @@ export class AppComponent implements OnInit {
     this.showNew = false;
     this.showQueue = false;
     this.showMenu = false;
+  }
+
+  toggleHelpText(): void {
+    this.showHelp = !this.showHelp;
   }
 
 }

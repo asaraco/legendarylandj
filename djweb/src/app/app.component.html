@@ -9,20 +9,20 @@
         </a>
     </div>
     <div class="headerButton hbRight desktopOnly">
-        <button (click)="showHelp=true">Help</button>
+        <button (click)="toggleHelpText()">Help</button>
     </div>    
     <div id="hamburgerMenu" *ngIf="showMenu">
         <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
         <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
-        <button (click)="showHelp=true">Help</button>
+        <button (click)="toggleHelpText()">Help</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>
 
 <section id="welcomeText">
-    <app-toast *ngIf="firstTime" [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [showToast]=true></app-toast>
-    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp></app-toast>
+    <app-toast [toastText]="[UI_WELCOME_TEXT, UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD]" [(showToast)]=showHelp [persistent]=true></app-toast>
+    
 </section>
 
 <section id="mainSection" ontouchmove>

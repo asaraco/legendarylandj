@@ -2,11 +2,12 @@ import { Crate } from "./crate/crate.component";
 
 /* App Configuration */
 //export const API_URL = "http://localhost:8080";
-export const API_URL = "http://192.168.0.182:8080";
+export const API_URL = "http://192.168.0.181:8080";
 
 /* UI Text */
 export const UI_SEARCH_TEXT = "Filter by any search term...";
 export const UI_CATS_TEXT   = "Filter by category...";
+export const UI_REQUEST_TEXT = "Song added to queue.";
 export const UI_WELCOME_TEXT     = "<strong>Welcome to Legendary Radio!</strong><br> " 
                                  + "Below you'll find an index of (nearly) all of the music that's been uploaded and played at these LAN parties for the past 15+ years. There's a good mix of old stuff, new stuff, popular music, indie music, outdated memes, movie sountracks, video game classics, and more.<br>"
                                  + "Scroll through the list at your leisure, or type any search term to filter (by artist, album, song title, etc.) You can also use the drop-down menu to view one of the curated music categories if you're trying to find something that fits a certain mood.<br>";

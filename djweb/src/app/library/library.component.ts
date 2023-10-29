@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, HostListener, Input, OnChanges, OnI
 import { Track } from '../track/track.component';
 import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW } from '../app.constants';
+import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT } from '../app.constants';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
+import { Observable, Subscription, debounceTime, delay, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 /** Main component code */
@@ -36,6 +36,7 @@ export class LibraryComponent implements OnInit {
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   UI_CATS_TEXT: string = UI_CATS_TEXT;
+  UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
   CRATES_SELECTABLE: CrateMeta[] = CRATES_SELECTABLE;
   CRATES_SIMPLEVIEW: number[] = CRATES_SIMPLEVIEW;
   CRATES_ALBUMVIEW: number[] = CRATES_ALBUMVIEW;
@@ -58,12 +59,7 @@ export class LibraryComponent implements OnInit {
       }      
     })
   }
-  /*
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(`crate: ${this.filterCrate}`);
-    this.searchControl.updateValueAndValidity({onlySelf: false, emitEvent: true});
-  }
-  */
+
   ngOnInit(): void {
     // Get main list of tracks
     this.libraryDataService.retrieveAllTracks().subscribe(
@@ -76,11 +72,13 @@ export class LibraryComponent implements OnInit {
     const now = new Date();
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     const ls_lastRequest = localStorage.getItem('lastRequest');
+    console.log("Local Storage 'lastRequest' = " + ls_lastRequest);
     if (ls_noRequestsUntil) {
       let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
       if (remainingTimeout > 0) { 
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
-        this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
+        console.log("Setting interval in ngOnInit");
+        this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in ngOnInit");}, remainingTimeout);
       }
     }
   }
@@ -179,12 +177,11 @@ export class LibraryComponent implements OnInit {
       var resultMsg: string;
       this.playlistDataService.requestTrack(id).subscribe(data => {
         resultMsg = data;
-        this.justRequested = id;
-        this.setReqDelay(duration, now);
-        this.reqToast();
-        //this.showReqToast = true;
+        this.showReqToast = true;
         localStorage.setItem('lastRequest', id.toString());
+        //this.setReqDelay(duration, now);
         this.playlistDataService.notifyOfRequest(duration, false);
+        this.justRequested = id;
       });    
     }    
   }
@@ -195,11 +192,13 @@ export class LibraryComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, now: Date) {
-    this.requestInterval = setInterval(() => this.reqTimeoutOver(), duration * 100);
+    console.log("Setting interval in setReqDelay");
+    this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in setReqDelay");}, duration * 100);
     let delayTime = now.getTime() + (duration * 100);
     console.log(now.getTime());
     console.log(duration * 1000);
-    console.log(delayTime);
+    console.log("delayTime = " + delayTime);
+    console.log("Setting NRU to " + JSON.stringify(delayTime));
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
   }
 
@@ -207,6 +206,7 @@ export class LibraryComponent implements OnInit {
    * Reset request timeout variables when time's up
    */
   reqTimeoutOver() {
+    console.log("reqTimeoutOver");
     this.justRequested = -1;
     //this.showReqToast = false
     clearInterval(this.requestInterval);

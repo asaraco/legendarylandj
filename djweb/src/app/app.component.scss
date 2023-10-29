@@ -63,7 +63,7 @@ section#queueWrapper {
     min-width: 15%;
     height: fit-content;
     position: sticky;
-    top: 3dvh;
+    top: 4dvh;
     div#queueHeader {
         h3 {
             color: rgba(var(--queueFg),1);
@@ -79,6 +79,7 @@ app-new-arrivals {
     display: inline-block;
     position: sticky;
     top: 4dvh;
+    width: 100%;
 }
 
 #hamburgerBtn {
