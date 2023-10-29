@@ -27,7 +27,7 @@ export class NewArrivalsComponent implements OnInit {
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
       this.justRequested = 999999999999999;
-      this.setReqDelay(data.duration, new Date());
+      this.setReqDelay(data.duration, data.reqTotal, new Date());
     });
     this.uploadSubscription = this.libraryDataService.watchForUpload().subscribe((data) => {
       //console.log("Detected upload");
@@ -70,8 +70,7 @@ export class NewArrivalsComponent implements OnInit {
       let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
       if (remainingTimeout > 0) { 
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
-        console.log("Setting interval in ngOnInit");
-        this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in ngOnInit");}, remainingTimeout);
+        this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
       }
     }
   }
@@ -90,6 +89,15 @@ export class NewArrivalsComponent implements OnInit {
       if ((nru) && (now.getTime() < JSON.parse(nru))) { 
         console.log("Sorry, no requests until " + nru);
       } else {
+        //Get total # of requests by this user from local storage
+        //let userId = localStorage.getItem('userNumber');
+        let ls_requestTotal = localStorage.getItem('requestTotal');
+        let requestTotal: number = 0;
+        if (ls_requestTotal) {
+          requestTotal = JSON.parse(ls_requestTotal);
+        }
+        console.log("requestTotal = " + requestTotal);
+        //Make the request
         //console.log("Request song #" + id);
         var resultMsg: string;
         this.playlistDataService.requestTrackCrate(id, CRATE_LAN_LIBRARY.id).subscribe(data => {
@@ -97,7 +105,7 @@ export class NewArrivalsComponent implements OnInit {
           this.showReqToast = true;
           localStorage.setItem('lastRequest', id.toString());
           //this.setReqDelay(duration, now);
-          this.playlistDataService.notifyOfRequest(duration, true);
+          this.playlistDataService.notifyOfRequest(duration, requestTotal, true);
           this.justRequested = id;
           let animationInterval = setInterval(() => {
             this.libraryDataService.retrieveNewTracks().subscribe(data2 => this.tracks = data2._embedded.tracks);
@@ -112,23 +120,21 @@ export class NewArrivalsComponent implements OnInit {
    * @param duration 
    * @param now 
    */
-  setReqDelay(duration: number, now: Date) {
-    console.log("Setting interval in setReqDelay");
-    this.requestInterval = setInterval(() => {this.reqTimeoutOver(); console.log("Clearing interval in setReqDelay");}, duration * 100);
-    let delayTime = now.getTime() + (duration * 100);
+  setReqDelay(duration: number, reqTotal: number, now: Date) {
+    //Calculate delay
+    let newDelay = duration * ((1 + reqTotal)*100);
+    this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
+    let delayTime = now.getTime() + newDelay;
     this.requestable = false;
-    console.log(now.getTime());
-    console.log(duration * 1000);
-    console.log("delayTime = " + delayTime);
-    console.log("Setting NRU to " + JSON.stringify(delayTime));
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
+    reqTotal++;
+    localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
   }
 
   /**
    * Reset request timeout variables when time's up
    */
   reqTimeoutOver() {
-    console.log("reqTimeoutOver");
     this.requestable = true;
     clearInterval(this.requestInterval);
   }

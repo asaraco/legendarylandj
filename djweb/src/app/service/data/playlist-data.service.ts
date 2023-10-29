@@ -6,7 +6,7 @@ import { Playlist } from 'src/app/playlist/playlist.component';
 import { Track } from 'src/app/track/track.component';
 
 export class PlaylistRequest {
-  constructor(public duration: number, public triggerRefresh: boolean) {}
+  constructor(public duration: number, public reqTotal: number, public triggerRefresh: boolean) {}
 }
 
 @Injectable({
@@ -15,8 +15,8 @@ export class PlaylistRequest {
 export class PlaylistDataService {
   private currentRequest = new Subject<PlaylistRequest>();
 
-  notifyOfRequest(duration: number, refreshLibrary: boolean) {
-    let pr = new PlaylistRequest(duration, refreshLibrary);
+  notifyOfRequest(duration: number, reqTotal: number, refreshLibrary: boolean) {
+    let pr = new PlaylistRequest(duration, reqTotal, refreshLibrary);
     this.currentRequest.next(pr);
   }
 

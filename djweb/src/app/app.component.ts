@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
         console.log("Assigned User #: " + localStorage.getItem('userNumber'));
         //this.firstTime = true;
         this.showHelp = true;
+        localStorage.setItem('requestTotal', '0');
       });
     }
   }
