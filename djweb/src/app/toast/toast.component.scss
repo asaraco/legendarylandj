@@ -1,3 +1,6 @@
+:host.toastError div {
+    background-color: rgba(var(--toastBgError));
+}
 div.toast {
     position: fixed;
     /*bottom: 2dvh;*/

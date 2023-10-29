@@ -19,7 +19,7 @@ export class ToastComponent implements OnInit {
     if (changes['showToast']) {
       if (this.showToast==true) { 
         if (this.persistent==false) {
-          let toastInterval = setInterval(() => {this.closeThis(); clearInterval(toastInterval)}, 2000);
+          let toastInterval = setInterval(() => {this.closeThis(); clearInterval(toastInterval)}, (2000*this.toastText.length));
         }        
       }
     }

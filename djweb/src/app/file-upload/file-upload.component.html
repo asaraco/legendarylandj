@@ -8,5 +8,6 @@
     <button class="fileUploadBtn" (click)="fileUpload.click()">
         Upload Song
     </button>
-    <app-toast id="fileUploadMessage" [toastText]="[fileMessage,'Your file should appear in the New Arrivals section in a few moments.'] || []" [(showToast)]=showToast></app-toast>  
+    <app-toast class="toastInfo"  [toastText]="fileMessage || []" [(showToast)]=infoToast></app-toast>  
+    <app-toast class="toastError" [toastText]="fileMessage || []" [(showToast)]=errorToast></app-toast>  
 </div>

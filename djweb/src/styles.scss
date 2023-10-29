@@ -38,6 +38,7 @@ $newsBg0:     darken($djYellow, 65%);
 $newsBtnFg0: #000000;
 $newsBtnBg0: $djYellow;
 $toastBg0:  lighten($legendaryBlue, 15%);
+$toastBgError0: lighten($legendaryRed, 25%);
 $toastFg0:  $inputBg0;
 
 /* Light theme vars */
@@ -64,13 +65,14 @@ $btnFg1:    darken($legendaryGreen, 50%);
 $reqBtnBg1: darken($legendaryGreen, 25%);
 $reqBtnFg1: #ffffff;
 $crateDropBg1:lighten($legendaryBlue, 15%);
-$crateHover1: $legendaryRed;
+$crateHover1: lighten($legendaryBlue, 15%);
 $newsHeadFg1: darken($djYellow, 55%);
 $newsFg1:     darken($djYellow, 45%);
 $newsBg1:     lighten($djYellow, 25%);
 $newsBtnFg1: #ffffff;
 $newsBtnBg1: darken($djYellow, 25%);
 $toastBg1:  darken($legendaryGreen,25%);
+$toastBgError1: $legendaryRed;
 $toastFg1:  $inputBg1;
 
 :root {
@@ -107,6 +109,7 @@ $toastFg1:  $inputBg1;
     --newsBtnFg:  #{hexToRGB($newsBtnFg0)};
     --newsBtnBg:  #{hexToRGB($newsBtnBg0)};
     --toastBg:    #{hexToRGB($toastBg0)};
+    --toastBgError:    #{hexToRGB($toastBgError0)};
     --toastFg:    #{hexToRGB($toastFg0)};
     @media screen and (prefers-color-scheme: light) {
         --bg:       #{hexToRGB($bg1)};
@@ -142,6 +145,7 @@ $toastFg1:  $inputBg1;
         --newsBtnFg:  #{hexToRGB($newsBtnFg1)};
         --newsBtnBg:  #{hexToRGB($newsBtnBg1)};
         --toastBg:    #{hexToRGB($toastBg1)};
+        --toastBgError:    #{hexToRGB($toastBgError1)};
         --toastFg:    #{hexToRGB($toastFg1)};
     }
 }
