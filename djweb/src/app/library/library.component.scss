@@ -341,6 +341,9 @@ div#libraryBrowse {
             }
         }
         table.libraryTable {
+            th {
+                font-size: 3dvh;
+            }
             col.title {
                 width: 50%;
             }

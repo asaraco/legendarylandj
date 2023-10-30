@@ -10,7 +10,7 @@ div.toast {
     margin: auto;
     height: auto;
     width: auto;
-    max-width: 60dvw;
+    max-width: 50dvw;
     z-index: 5000;
     text-align: center;
     font-size: 1.5dvh;
@@ -42,6 +42,18 @@ button:hover {
 
 @media screen and (orientation: portrait) {
     div.toast {
+        max-width: 80dvw;
         font-size: 1.5dvw;
-    }    
+        button {
+            top: 2dvw;
+            right: 2dvh;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    div.toast {
+        top: auto;
+        font-size: 1.5dvh;
+    }
 }

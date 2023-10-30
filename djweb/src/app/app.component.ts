@@ -102,6 +102,7 @@ export class AppComponent implements OnInit {
 
   toggleHelpText(): void {
     this.showHelp = !this.showHelp;
+    this.showMenu = false;
   }
 
 }
