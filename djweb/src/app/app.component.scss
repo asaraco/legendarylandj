@@ -31,6 +31,7 @@ section#headerSection {
     div.headerButton {
         display: flex;
         justify-content: space-between;
+        padding: 1dvh;
     }
 }
 section#headerSection.shrink {
@@ -51,16 +52,19 @@ section#mainSection {
 }
 
 section#leftWrapper {
-    min-width: 15%;
+    /*min-width: 15%;*/
+    flex: 1;
 }
 
 section#browseWrapper {
-    /*max-height: 95dvh;*/
+    flex: 3;
+    flex-grow: 4;
 }
 
 section#queueWrapper {
     background: linear-gradient(180deg, rgba(var(--queueBg-a),0.25), rgba(var(--queueBg-b),0.9));
-    min-width: 15%;
+    /*min-width: 15%;*/
+    flex: 1;
     height: fit-content;
     position: sticky;
     top: 4dvh;
@@ -94,6 +98,34 @@ button#closeQueue, button#closeNew {
     display: none;
 }
 */
+
+@media screen and (orientation: portrait) {
+    section#headerSection {
+        height: 6dvw;
+        font-size: 4dvw;
+        div#headerBar {
+            height: 6dvw;
+            h1 {
+                
+            }
+        }
+        div.headerButton {
+            padding: 0.75dvw;
+        }
+    }
+    section#headerSection.shrink {
+        height: 3dvw;
+        font-size: 1.5dvw;
+        div#headerBar {
+            height: 3dvw;
+        }
+    }
+
+    section#queueWrapper, app-new-arrivals {
+        top: 3dvw;
+    }
+}
+
 @media screen and (min-width: 960px) {
     .mobileOnly {
         display: none;
@@ -101,10 +133,6 @@ button#closeQueue, button#closeNew {
 }
 
 @media screen and (max-width: 960px) {
-    .desktopOnly {
-        display: none;
-    }
-
     section#headerSection {
         top: 0;
         margin-top: 0;
@@ -155,7 +183,7 @@ button#closeQueue, button#closeNew {
     #hamburgerMenu {
         position: absolute;
         top: 10dvh;
-        left: 0;
+        left: 5dvw;
         z-index: 5000;
         display: flex;
         flex-direction: column;
@@ -165,6 +193,16 @@ button#closeQueue, button#closeNew {
         -webkit-backdrop-filter: blur(8px);
         button.toggled {
             background-color: gray;
+        }
+        button {
+            padding: 1em;
+            border-bottom: 1px solid rgba(var(--btnFg),0.5);
+            flex: 1;
+            flex-grow: 1;
+        }
+        button:hover {
+            background-color: rgba(var(--btnFg),1);
+            color: rgba(var(--btnBg),1);
         }
     }
     section#queueWrapper.mobileQueue {
@@ -205,5 +243,9 @@ button#closeQueue, button#closeNew {
             background-color: rgba(0,0,0,0);
             color: rgba(var(--newsHeadFg),1);
         }
+    }
+
+    .desktopOnly, section#headerSection div.headerButton.desktopOnly {
+        display: none;
     }
 }

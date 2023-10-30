@@ -117,7 +117,7 @@ div#libraryBrowse {
         width: 10dvw;
         height: 100%;
         cursor: pointer;
-        opacity: 0.1;
+        opacity: 0.5;
         transition-duration: opacity 0.4s;
         div#alphaLinks {
             position: absolute;
@@ -130,7 +130,7 @@ div#libraryBrowse {
             flex-direction: column;
             align-items: stretch;
             font-weight: bold;
-            background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));
+            /*background: linear-gradient(90deg, rgba(var(--inputBg),1),65%, rgba(var(--inputBg),0));*/
             a {
                 flex: 1;
                 width: 100%;
@@ -140,10 +140,12 @@ div#libraryBrowse {
                 transition-duration: 0.1s;
                 color: rgba(var(--libFg),0.75);
                 background-color: rgba(0, 0, 0, 0.0);
+                text-shadow: 5px 5px 5px rgba(var(--inputBg),1);
             }
             a:hover {
                 color: rgba(var(--newsFg),1);
                 font-size: 2dvw;
+                transform: translateX(-1dvw);
             }
             button:hover + a {
                 color: rgba(var(--newsFg),0.75);
@@ -202,6 +204,9 @@ div#libraryBrowse {
         .album {
             font-style: italic;
         }
+        col.request {
+            width: 2%;
+        }
         col.artist {
             width: 23%;
         }
@@ -216,9 +221,6 @@ div#libraryBrowse {
         }
         .duration {
             color: rgba(var(--libFg),0.4);
-        }
-        col.request {
-            width: 2%;
         }
         .request {            
             button {
@@ -251,6 +253,56 @@ div#libraryBrowse {
     }
 }
 
+@media screen and (orientation: portrait) {
+    div#libraryForm {
+        top: 3dvw;
+        form {
+            font-size: 2dvw;
+            div#categoryFilter {
+                div#crateDropDown {
+                    .crateBtn {
+                        font-size: 1dvw;
+                    }
+                }
+            }            
+        }
+    }
+
+    div#libraryBrowse {
+        div#alphaScroll {
+            top: 7dvw;
+            div#alphaLinks {
+                height: 93dvh;
+            }
+        }
+        div#alphaScroll.shrink {
+            div#alphaLinks {
+                height: 96dvh;
+            }
+        }
+        table.libraryTable {
+            th {
+                font-size: 3dvw;
+            }
+            col.title {
+                width: 35%;
+            }
+            col.request {
+                width: 5%;
+            }
+            col.album {
+                width: 35%;
+            }
+            col.artist {
+                width: 20%;
+            }
+            col.duration {
+                width: 5%;
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 960px) {
     div#libraryForm {
         top: 5dvh;
@@ -277,6 +329,9 @@ div#libraryBrowse {
             div#alphaLinks {
                 width: 5dvw;
                 height: 92lvh;
+                a:hover {
+                    transform: none;
+                }
             }
         }
         div#alphaScroll.shrink {

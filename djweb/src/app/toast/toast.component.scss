@@ -39,3 +39,9 @@ button:hover {
     border: none;
     box-shadow: none;
 }
+
+@media screen and (orientation: portrait) {
+    div.toast {
+        font-size: 1.5dvw;
+    }    
+}
