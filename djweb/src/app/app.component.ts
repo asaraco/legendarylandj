@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { PlaylistDataService } from './service/data/playlist-data.service';
 import { UserDataService } from './service/data/user-data.service';
 import { Playlist } from './playlist/playlist.component';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UI_HELPTEXT_REQUEST, UI_HELPTEXT_UPLOAD, UI_WELCOME_TEXT } from './app.constants';
 
@@ -29,7 +28,6 @@ export class AppComponent implements OnInit {
   UI_HELPTEXT_UPLOAD: string = UI_HELPTEXT_UPLOAD;
 
   constructor(
-    private router: Router,
     private playlistDataService: PlaylistDataService,
     private userDataService: UserDataService
     ){

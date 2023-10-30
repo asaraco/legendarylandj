@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
-import { ActivatedRoute } from '@angular/router';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT } from '../app.constants';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, debounceTime, delay, map, startWith } from 'rxjs';
+import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 
 /** Main component code */
@@ -43,8 +42,7 @@ export class LibraryComponent implements OnInit {
 
   constructor(
     private libraryDataService: LibraryDataService,
-    private playlistDataService: PlaylistDataService,
-    private route: ActivatedRoute
+    private playlistDataService: PlaylistDataService
   ){
     this.requestSubscription = this.playlistDataService.watchForNotification().subscribe((data)=>{
       this.justRequested = 999999999999999;
