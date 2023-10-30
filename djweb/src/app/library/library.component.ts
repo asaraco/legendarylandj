@@ -199,14 +199,20 @@ export class LibraryComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, reqTotal: number, now: Date) {
+    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
+    if (ls_noRequestsUntil) {
+      let nru: number = JSON.parse(ls_noRequestsUntil);
+      let timeSince: number = now.getTime() - nru;
+      console.log("It's been " + timeSince + " since a request was made and delayed");
+    }
     //Calculate delay
-    let newDelay = duration * ((1 + reqTotal)*100);
+    let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
     reqTotal++;
     localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
-  }
+      }
 
   /**
    * Reset request timeout variables when time's up

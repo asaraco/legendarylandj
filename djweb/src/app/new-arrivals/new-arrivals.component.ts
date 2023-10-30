@@ -69,6 +69,7 @@ export class NewArrivalsComponent implements OnInit {
     if (ls_noRequestsUntil) {
       let remainingTimeout = JSON.parse(ls_noRequestsUntil) - now.getTime();
       if (remainingTimeout > 0) { 
+        this.requestable = false;
         if (ls_lastRequest) this.justRequested = JSON.parse(ls_lastRequest);
         this.requestInterval = setInterval(() => this.reqTimeoutOver(), remainingTimeout);
       }
@@ -121,8 +122,14 @@ export class NewArrivalsComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, reqTotal: number, now: Date) {
+    const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
+    if (ls_noRequestsUntil) {
+      let nru: number = JSON.parse(ls_noRequestsUntil);
+      let timeSince: number = now.getTime() - nru;
+      console.log("It's been " + timeSince + " since a request was made and delayed");
+    }
     //Calculate delay
-    let newDelay = duration * ((1 + reqTotal)*100);
+    let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
     this.requestable = false;
@@ -135,6 +142,7 @@ export class NewArrivalsComponent implements OnInit {
    * Reset request timeout variables when time's up
    */
   reqTimeoutOver() {
+    this.justRequested = -1;
     this.requestable = true;
     clearInterval(this.requestInterval);
   }
