@@ -3,10 +3,7 @@ package com.legendarylan.dj.mixxx.data;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.legendarylan.dj.Const;
 
 @BasePathAwareController
-@CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
+@CrossOrigin({"http://${app.legendarydj.localhost-ip}:8080", "http://${app.legendarydj.localhost-ip}:4200", "http://localhost:4200"})
 class PlaylistTrackController {
 	@Autowired
 	TrackRepository library;

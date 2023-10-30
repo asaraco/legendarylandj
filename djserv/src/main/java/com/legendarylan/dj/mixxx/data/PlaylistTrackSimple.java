@@ -1,6 +1,5 @@
 package com.legendarylan.dj.mixxx.data;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(

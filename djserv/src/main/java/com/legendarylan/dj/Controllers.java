@@ -4,6 +4,9 @@ import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@CrossOrigin({"http://${app.legendarydj.localhost-ip}:8080", "http://${app.legendarydj.localhost-ip}:4200", "http://localhost:4200"})
 public class Controllers {
+	private static Logger logger = LogManager.getLogger(Controllers.class);
+	
+	/* Get application properties */
+	@Value("${app.legendarydj.file-path}")
+	private String filePath;
+	
 	private static ArrayList<Integer> allAssignedIDs = new ArrayList<Integer>();
 	static {
 		allAssignedIDs.add(0);
@@ -25,7 +35,6 @@ public class Controllers {
       return String.format("Hello %s!", name);
     }
 	
-	@CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
 	@PostMapping("/upload")
 	public ResponseEntity<?> handleFileUpload( @RequestParam("song") MultipartFile file ) {
 		String fileContentType = file.getContentType().toLowerCase();
@@ -33,15 +42,15 @@ public class Controllers {
 		if (file.isEmpty() || file.getSize()==0) {
 			return ResponseEntity.ok("{\"message\": \"ERROR - File appears to be empty - " + fileName + "\"}");
 		} else if (!Const.FILE_TYPES_VALID.contains(fileContentType)) {
-			System.out.println("File rejected: Unexpected content type " + fileContentType);
+			logger.error("File rejected: Unexpected content type {}", fileContentType);
 			return ResponseEntity.ok("{\"message\": \"ERROR - File did not match an accepted extension - " + fileName + "\"}");
 		} else {
 			try {
-				file.transferTo(new File(Const.FILES_PATH + fileName));
+				file.transferTo(new File(filePath + fileName));
 			} catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			}
-			System.out.println("File uploaded: " + Const.FILES_PATH + fileName);
+			logger.info("File uploaded: {}{}", filePath, fileName);
 			return ResponseEntity.ok("{\"message\": \"File uploaded successfully - " + fileName + "\"}");
 		}			
 	}
@@ -54,7 +63,6 @@ public class Controllers {
 	 * Obviously with a high enough number, this should never happen.
 	 * @return
 	 */
-	@CrossOrigin({"http://localhost:4200", "http://"+Const.LOCALHOST_IP+":4200"})
 	@GetMapping("/generateRandomID")
 	public static Integer generateRandomID() {
 		//System.out.println("Existing IDs: " + allAssignedIDs);
@@ -72,7 +80,7 @@ public class Controllers {
 		
 		allAssignedIDs.add(randomNumber);
 		
-		System.out.println("Assigning User ID #: " + randomNumber);
+		logger.info("Assigning User ID #: {}", randomNumber);
 		return randomNumber;
 	}
 
