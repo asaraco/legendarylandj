@@ -67,7 +67,7 @@
                 </ng-container>
             </ng-container>
         </table>
-        <table class="libraryTable" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
+        <table class="libraryTable noAlbumCol" *ngIf="CRATES_SIMPLEVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
             <col class="artist">
@@ -86,7 +86,7 @@
                     </tr>
             </ng-container>
         </table>
-        <table class="libraryTable" *ngIf="CRATES_ALBUMVIEW.includes(filterCrate.id)">
+        <table class="libraryTable noAlbumCol" *ngIf="CRATES_ALBUMVIEW.includes(filterCrate.id)">
             <col class="title">
             <col class="request">
             <col class="artist">

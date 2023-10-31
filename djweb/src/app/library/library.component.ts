@@ -134,6 +134,14 @@ export class LibraryComponent implements OnInit {
       friendlyText += "[" + t.album + "]"
     }
 
+    if (t.year) {
+      friendlyText += " (" + t.year + ")"
+    }
+
+    if (t.genre) {
+      friendlyText += " - " + t.genre
+    }
+
     return friendlyText;
   }
 

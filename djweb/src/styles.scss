@@ -34,7 +34,7 @@ button {
     text-transform:uppercase;
     font-weight:900;
     cursor:pointer;
-    text-shadow: 0px 1px 3px rgba(var(--shadow),0.5);
+    text-shadow: 0px 1px 3px rgba(var(--shadow),0.75);
     transition: all .35s ease-in-out;
 }
 button:hover {

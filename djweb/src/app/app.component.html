@@ -10,12 +10,14 @@
     </div>
     <div class="headerButton hbRight desktopOnly">
         <button (click)="toggleHelpText()">Help</button>
+        <button (click)="toggleTheme()">{{themeButton}}</button>
     </div>    
     <div id="hamburgerMenu" *ngIf="showMenu">
         <!--button id="libraryButton" (click)="resetView()" [ngClass]="{toggled: (!showQueue && !showNew)}">Library</button-->
         <button id="headerQueueButton" (click)="toggleQueue()" [ngClass]="{toggled: showQueue}">Queue</button>
         <button id="headerNewButton" (click)="toggleNewArrivals()" [ngClass]="{toggled: showNew}">New Arrivals</button>
         <button (click)="toggleHelpText()">Help</button>
+        <button (click)="toggleTheme()">{{themeButton}}</button>
         <app-file-upload></app-file-upload>
     </div>
 </section>

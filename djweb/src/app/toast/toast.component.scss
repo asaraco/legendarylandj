@@ -1,4 +1,4 @@
-:host.toastError div {
+:host.toastError div {    
     background-color: rgba(var(--toastBgError));
 }
 div.toast {
@@ -52,6 +52,13 @@ button:hover {
 }
 
 @media screen and (max-width: 960px) {
+    :host.toastError div, :host.toastInfo div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80dvw;
+    }
+    
     div.toast {
         top: auto;
         font-size: 1.5dvh;

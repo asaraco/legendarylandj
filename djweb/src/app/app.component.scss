@@ -32,6 +32,9 @@
         display: flex;
         justify-content: space-between;
         padding: 1dvh;
+        button {
+            margin-left: 1dvh;
+        }
     }
 }
 #headerSection.shrink {

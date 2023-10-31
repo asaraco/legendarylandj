@@ -8,6 +8,8 @@ export class Track {
   albumArtist: string = "";
   sortArtist: string = "";
   duration: number = 0;
+  year: number = 0;
+  genre: string = "";
   crateIds!: number[];
   constructor() {}
 }

@@ -15,7 +15,7 @@ div#libraryForm {
             border: 0;
         }
         input::placeholder, span.crateDropPlaceholder, span.crateDropIcon {
-            color: rgba(var(--inputFg),0.35);
+            color: rgba(var(--inputFg),0.5);
             font-style: italic;
         }
         div#searchField {
@@ -307,10 +307,12 @@ div#libraryBrowse {
     div#libraryForm {
         top: 5dvh;
         form {
+            font-size: 3dvw;
             div#categoryFilter {
                 .crateBtn {
                     span.crateLogo, span.crateDesc {
                         padding: 1dvh;
+                        font-size: 1dvh;
                     }
                 }
                 div#crateDropDown.unrolled {
@@ -342,19 +344,19 @@ div#libraryBrowse {
         }
         table.libraryTable {
             th {
-                font-size: 3dvh;
+                font-size: 2.5dvh;
             }
             col.title {
-                width: 50%;
+                width: 45%;
             }
             col.request {
-                width: 2%;
+                width: 10%;
             }
             col.album {
-                width: 48%;
+                width: 45%;
             }
             col.duration, col.artist {
-                width: auto;
+                display: none;
             }
             /*td.artist, col.artist {
                 display: none;
@@ -363,6 +365,11 @@ div#libraryBrowse {
                 display: flex;
                 font-size: 0.75em;
                 justify-content: flex-end;
+            }
+        }
+        table.libraryTable.noAlbumCol {
+            col.duration, col.artist {
+                display: table-column;
             }
         }
     }
