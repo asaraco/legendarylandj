@@ -12,6 +12,7 @@ public interface TrackSimple {
 	String getTitle();
 	String getAlbum();
 	String getYear();
+	String getGenre();
 	float getDuration();
 	String getAlbumArtist();
 	String getSortArtist();
