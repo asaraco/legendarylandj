@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       this.mostRecentPlaylist.name = data.name;
       this.mostRecentPlaylist.playlistTracks = data._embedded.playlistTracks;
       let currentTrackDuration = data._embedded.playlistTracks[0].track.duration;
-      console.log("current track duration: " + currentTrackDuration);
+      //console.log("current track duration: " + currentTrackDuration);
     });
     
     this.playlistDataService.retrievePlaylist(1).subscribe(data => {
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     if (!localStorage.getItem('userNumber')) {
       this.userDataService.generateID().subscribe(data => {
         localStorage.setItem('userNumber', JSON.stringify(data));
-        console.log("Assigned User #: " + localStorage.getItem('userNumber'));
+        //console.log("Assigned User #: " + localStorage.getItem('userNumber'));
         //this.firstTime = true;
         this.showHelp = true;
         localStorage.setItem('requestTotal', '0');

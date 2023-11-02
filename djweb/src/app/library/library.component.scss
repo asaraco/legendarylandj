@@ -250,6 +250,9 @@ div#libraryBrowse {
             cursor:auto;
             box-shadow: none;
         }
+        td.request button:disabled[title] {
+            content: 'Please wait before requesting again.';
+        }
     }
 }
 

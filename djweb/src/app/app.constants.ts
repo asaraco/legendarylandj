@@ -10,6 +10,7 @@ export const UI_CATS_TEXT   = "Filter by category...";
 export const UI_REQUEST_TEXT = "Song added to queue.";
 export const UI_UPLOAD_SUCCESS_TEXT = "Your file should appear in the New Arrivals section in a few moments.";
 export const UI_UPLOAD_ERROR_TEXT = "Please try again. If the issue persists, try refreshing the browser. Otherwise, contact an admin.";
+export const UI_BTN_TOOLTIP_DISABLED = "Please wait before requesting another song."
 export const UI_WELCOME_TEXT     = "<strong>Welcome to Legendary Radio!</strong><br> " 
                                  + "Below you'll find an index of (nearly) every song ever uploaded & played at LAN. Old stuff, new stuff, pop, indie, outdated memes, movie sountracks, video game classics, and more. "
                                  + "Type any search term to filter by artist, album, song title, etc. Use the drop-down menu to filter by a curated music category. Or just scroll and see what you find.<br>";

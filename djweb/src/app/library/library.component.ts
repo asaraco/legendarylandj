@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
-import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT } from '../app.constants';
+import { UI_SEARCH_TEXT, UI_CATS_TEXT, CrateMeta, CRATES_SELECTABLE, CRATES_SIMPLEVIEW, CRATE_ALL, CRATES_ALBUMVIEW, UI_REQUEST_TEXT, UI_BTN_TOOLTIP_DISABLED } from '../app.constants';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, debounceTime, map, startWith } from 'rxjs';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
+import { PlaylistTrack } from '../playlist-track/playlist-track.component';
 
 /** Main component code */
 
@@ -32,6 +33,7 @@ export class LibraryComponent implements OnInit {
   showCrateDropDown: boolean = false;
   scrolledDown: boolean = false;
   requestSubscription: Subscription;
+  buttonTooltip: string = "";
   /* imported constants */
   UI_SEARCH_TEXT: string = UI_SEARCH_TEXT;
   UI_CATS_TEXT: string = UI_CATS_TEXT;
@@ -175,7 +177,7 @@ export class LibraryComponent implements OnInit {
     const now = new Date();
     const nru = localStorage.getItem('noRequestsUntil');
     if ((nru) && (now.getTime() < JSON.parse(nru))) { 
-      console.log("Sorry, no requests until " + nru);
+      //console.log("Sorry, no requests until " + nru);
     } else {
       //Get total # of requests by this user from local storage
       //let userId = localStorage.getItem('userNumber');
@@ -184,7 +186,7 @@ export class LibraryComponent implements OnInit {
       if (ls_requestTotal) {
         requestTotal = JSON.parse(ls_requestTotal);
       }
-      console.log("requestTotal = " + requestTotal);
+      //console.log("requestTotal = " + requestTotal);
       //Make the request
       //console.log("Request song #" + id);
       var resultMsg: string;
@@ -205,20 +207,28 @@ export class LibraryComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, reqTotal: number, now: Date) {
+    //Determine time since last request; if it's been a while, cut the "request total" down
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     if (ls_noRequestsUntil) {
       let nru: number = JSON.parse(ls_noRequestsUntil);
       let timeSince: number = now.getTime() - nru;
-      console.log("It's been " + timeSince + " since a request was made and delayed");
+      //console.log("LIBRARY: It's been " + timeSince + " since a request was made and delayed");
+      if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
+        let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
+        reqTotal = Math.round(reqTotal/discountFactor);
+      }
     }
     //Calculate delay
     let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
+    //console.log("Setting noRequestsUntil to " + delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
     reqTotal++;
     localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
-      }
+    //Set button tooltips
+    this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
+    }
 
   /**
    * Reset request timeout variables when time's up
@@ -227,6 +237,7 @@ export class LibraryComponent implements OnInit {
     this.justRequested = -1;
     //this.showReqToast = false
     clearInterval(this.requestInterval);
+    this.buttonTooltip = "";
   }
 
   reqToast() {

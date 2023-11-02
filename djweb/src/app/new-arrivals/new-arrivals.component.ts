@@ -3,7 +3,7 @@ import { Track } from '../track/track.component';
 import { LibraryDataService } from '../service/data/library-data.service';
 import { PlaylistDataService } from '../service/data/playlist-data.service';
 import { Subscription } from 'rxjs';
-import { CRATE_LAN_LIBRARY, CrateMeta, UI_REQUEST_TEXT } from '../app.constants';
+import { CRATE_LAN_LIBRARY, CrateMeta, UI_BTN_TOOLTIP_DISABLED, UI_REQUEST_TEXT } from '../app.constants';
 
 @Component({
   selector: 'app-new-arrivals',
@@ -18,6 +18,7 @@ export class NewArrivalsComponent implements OnInit {
   showReqToast: boolean = false;
   requestSubscription: Subscription;
   uploadSubscription: Subscription;
+  buttonTooltip: string = "";
   CRATE_LL: CrateMeta = CRATE_LAN_LIBRARY;
   UI_REQUEST_TEXT: string = UI_REQUEST_TEXT;
   
@@ -88,7 +89,7 @@ export class NewArrivalsComponent implements OnInit {
       const now = new Date();
       const nru = localStorage.getItem('noRequestsUntil');
       if ((nru) && (now.getTime() < JSON.parse(nru))) { 
-        console.log("Sorry, no requests until " + nru);
+        //console.log("Sorry, no requests until " + nru);
       } else {
         //Get total # of requests by this user from local storage
         //let userId = localStorage.getItem('userNumber');
@@ -97,7 +98,7 @@ export class NewArrivalsComponent implements OnInit {
         if (ls_requestTotal) {
           requestTotal = JSON.parse(ls_requestTotal);
         }
-        console.log("requestTotal = " + requestTotal);
+        //console.log("requestTotal = " + requestTotal);
         //Make the request
         //console.log("Request song #" + id);
         var resultMsg: string;
@@ -122,20 +123,28 @@ export class NewArrivalsComponent implements OnInit {
    * @param now 
    */
   setReqDelay(duration: number, reqTotal: number, now: Date) {
+    //Determine time since last request **NOT USED YET**
     const ls_noRequestsUntil = localStorage.getItem('noRequestsUntil');
     if (ls_noRequestsUntil) {
       let nru: number = JSON.parse(ls_noRequestsUntil);
       let timeSince: number = now.getTime() - nru;
-      console.log("It's been " + timeSince + " since a request was made and delayed");
+      //console.log("NEW: It's been " + timeSince + " since a request was made and delayed");
+      if (timeSince > 1800000) {  // 1,800,000 milliseconds = 30 minutes
+        let discountFactor = 1 + (timeSince / 1800000); // At least 1; for every half hour, add another
+        reqTotal = Math.round(reqTotal/discountFactor);
+      }
     }
     //Calculate delay
     let newDelay = Math.round(duration) * ((1 + Math.round(reqTotal/3))*100);
     this.requestInterval = setInterval(() => this.reqTimeoutOver(), newDelay);
     let delayTime = now.getTime() + newDelay;
     this.requestable = false;
+    //console.log("Setting noRequestsUntil to "+ delayTime);
     localStorage.setItem('noRequestsUntil', JSON.stringify(delayTime));
     reqTotal++;
     localStorage.setItem('requestTotal',JSON.stringify(reqTotal));
+    //Set button tooltips
+    this.buttonTooltip = UI_BTN_TOOLTIP_DISABLED;
   }
 
   /**
@@ -145,5 +154,6 @@ export class NewArrivalsComponent implements OnInit {
     this.justRequested = -1;
     this.requestable = true;
     clearInterval(this.requestInterval);
+    this.buttonTooltip = "";
   }
 }
